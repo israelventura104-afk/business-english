@@ -1,0 +1,49 @@
+﻿name: Apply Lesson 1 audio chunks
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/apply-lesson1-audio-chunks.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply-audio:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Replace Lesson 1 audio from chunks
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const htmlPath = 'index.html';
+          const parts = Array.from({ length: 13 }, (_, i) => `lesson1-audio/part-${String(i).padStart(2, '0')}.txt`);
+          const audioBase64 = parts.map(path => fs.readFileSync(path, 'utf8').trim()).join('');
+          if (audioBase64.length !== 1000368) throw new Error(`Unexpected Lesson 1 audio base64 length: ${audioBase64.length}`);
+          if (!/^[A-Za-z0-9+/=]+$/.test(audioBase64)) throw new Error('Lesson 1 audio base64 has invalid characters');
+          const bytes = Buffer.from(audioBase64, 'base64');
+          if (bytes.length !== 750276) throw new Error(`Unexpected decoded audio length: ${bytes.length}`);
+          if (bytes.subarray(0, 3).toString('latin1') !== 'ID3') throw new Error('Decoded audio does not start with ID3');
+          let html = fs.readFileSync(htmlPath, 'utf8');
+          const re = /(<audio id="listeningAudio" controls preload="metadata">\s*<source src="data:audio\/mpeg;base64,)([^"]+)(" type="audio\/mpeg">)/s;
+          const match = html.match(re);
+          if (!match) throw new Error('Lesson 1 audio source not found in index.html');
+          console.log('Previous Lesson 1 audio base64 length:', match[2].length);
+          html = html.replace(re, '$1' + audioBase64 + '$3');
+          fs.writeFileSync(htmlPath, html, 'utf8');
+          console.log('Lesson 1 audio replaced with correct MP3. Bytes:', bytes.length);
+          NODE
+      - name: Commit repaired index
+        run: |
+          if git diff --quiet -- index.html; then
+            echo "No index.html changes needed."
+            exit 0
+          fi
+          git config user.name "Israel Ventura"
+          git config user.email "296987185+israelventura104-afk@users.noreply.github.com"
+          git add index.html
+          git commit -m "Replace Lesson 1 audio with correct MP3"
+          git push
