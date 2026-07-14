@@ -1,0 +1,51 @@
+name: Fix Lesson 1 audio embed
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/fix-lesson1-audio.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix-audio:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Repair Lesson 1 audio base64
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const path = 'index.html';
+          let html = fs.readFileSync(path, 'utf8');
+          const re = /(<audio id="listeningAudio" controls preload="metadata">\s*<source src="data:audio\/mpeg;base64,)([^"]+)(" type="audio\/mpeg">)/s;
+          const match = html.match(re);
+          if (!match) throw new Error('Lesson 1 audio source not found');
+          const before = match[2];
+          const invalidBefore = (before.match(/[^A-Za-z0-9+/=]/g) || []);
+          console.log('Invalid chars before:', invalidBefore.join(''));
+          const fixed = before.replace(String.fromCharCode(96), '=');
+          const invalidAfter = (fixed.match(/[^A-Za-z0-9+/=]/g) || []);
+          if (invalidAfter.length) throw new Error('Audio base64 still has invalid characters: ' + invalidAfter.join(''));
+          if (fixed.length % 4 !== 0) throw new Error('Audio base64 length is not divisible by 4 after repair');
+          const bytes = Buffer.from(fixed, 'base64');
+          if (bytes.length < 100000) throw new Error('Decoded audio is unexpectedly small');
+          if (bytes.subarray(0, 3).toString('latin1') !== 'ID3') throw new Error('Decoded audio does not start with ID3');
+          html = html.replace(re, '$1' + fixed + '$3');
+          fs.writeFileSync(path, html, 'utf8');
+          console.log('Lesson 1 audio repaired. Decoded bytes:', bytes.length);
+          NODE
+      - name: Commit repair
+        run: |
+          if git diff --quiet -- index.html; then
+            echo "No index.html changes needed."
+            exit 0
+          fi
+          git config user.name "Israel Ventura"
+          git config user.email "296987185+israelventura104-afk@users.noreply.github.com"
+          git add index.html
+          git commit -m "Fix Lesson 1 audio embed"
+          git push
