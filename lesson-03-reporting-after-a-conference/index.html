@@ -1340,6 +1340,65 @@
       .home-btn { padding: 8px 12px; }
     }
 
+
+    /* Reading section (Lesson 03) */
+    .reading-memo {
+      margin-top: 16px;
+      padding: 20px 20px 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(91, 184, 176, 0.35);
+      background: linear-gradient(180deg, #f3fbfa 0%, #ffffff 48%);
+      box-shadow: 0 10px 28px rgba(30, 45, 90, 0.06);
+    }
+    .reading-memo .memo-kicker {
+      margin: 0 0 10px;
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal-dark);
+    }
+    .reading-memo .memo-meta {
+      margin: 0 0 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed rgba(30, 45, 90, 0.14);
+      color: var(--ink);
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+    .reading-memo .memo-meta strong {
+      color: var(--navy);
+      font-weight: 800;
+    }
+    .reading-memo p {
+      margin: 0 0 12px;
+      color: var(--ink);
+      line-height: 1.65;
+      font-size: 0.98rem;
+    }
+    .reading-memo p:last-child { margin-bottom: 0; }
+    .reading-title-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+    .reading-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(212, 168, 67, 0.16);
+      color: #8a6a12;
+      border: 1px solid rgba(212, 168, 67, 0.35);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
     /* Single-lesson page layout */
     .layout { grid-template-columns: 1fr; }
     .sidebar { display: none; }
@@ -1427,11 +1486,11 @@
           <div class="tag-row"><span class="tag teal">Conference report</span><span class="tag">Feedback</span><span class="tag gold">-ed / -ing adjectives</span><span class="tag">Recommendations</span></div>
         </div>
         <div class="lesson-body"><div class="tabs" role="tablist">
-          <button class="tab active" type="button" data-tab="lesson3-overview">Overview</button><button class="tab" type="button" data-tab="lesson3-vocabulary">Vocabulary</button><button class="tab" type="button" data-tab="lesson3-grammar">Grammar Reference</button><button class="tab" type="button" data-tab="lesson3-practice">Practice</button><button class="tab" type="button" data-tab="lesson3-listening">Listening</button>
+          <button class="tab active" type="button" data-tab="lesson3-overview">Overview</button><button class="tab" type="button" data-tab="lesson3-vocabulary">Vocabulary</button><button class="tab" type="button" data-tab="lesson3-grammar">Grammar Reference</button><button class="tab" type="button" data-tab="lesson3-practice">Practice</button><button class="tab" type="button" data-tab="lesson3-reading">Reading</button><button class="tab" type="button" data-tab="lesson3-listening">Listening</button>
         </div><div class="content">
           <section id="lesson3-overview" class="panel active" role="tabpanel">
             <div class="grid-2"><div class="box tint"><h4>Scenario</h4><p><strong>Role:</strong> Logistics team member returning from an international conference.</p><p><strong>Challenge:</strong> Report results clearly, describe people's reactions, and make a professional recommendation.</p><p><strong>Goal:</strong> Use -ed and -ing adjectives naturally in a business debrief.</p></div><div class="box dark"><h4>Manager opening line</h4><p>"Welcome back. Was the conference useful enough for us to attend again next year?"</p></div></div>
-            <div class="grid-3" style="margin-top:16px;"><div class="phrase"><strong>10 min</strong><span>Warm-up: event experience and business value.</span></div><div class="phrase"><strong>15 min</strong><span>Vocabulary cards for conference reporting.</span></div><div class="phrase"><strong>15 min</strong><span>-ed / -ing adjective contrast in real debriefs.</span></div><div class="phrase"><strong>20 min</strong><span>Practice: accuracy, correction, and recommendation language.</span></div><div class="phrase"><strong>10 min</strong><span>Listening: manager debrief and inference questions.</span></div><div class="phrase"><strong>Homework</strong><span>Prepare a three-minute business event review.</span></div></div>
+            <div class="grid-3" style="margin-top:16px;"><div class="phrase"><strong>10 min</strong><span>Warm-up: event experience and business value.</span></div><div class="phrase"><strong>15 min</strong><span>Vocabulary cards for conference reporting.</span></div><div class="phrase"><strong>15 min</strong><span>-ed / -ing adjective contrast in real debriefs.</span></div><div class="phrase"><strong>20 min</strong><span>Practice: accuracy, correction, and recommendation language.</span></div><div class="phrase"><strong>15 min</strong><span>Reading: post-expo memo + -ed/-ing completion.</span></div><div class="phrase"><strong>10 min</strong><span>Listening: manager debrief and inference questions.</span></div><div class="phrase"><strong>Homework</strong><span>Prepare a three-minute business event review.</span></div></div>
           </section>
           <section id="lesson3-vocabulary" class="panel" role="tabpanel">
             <div class="vocab-card-grid">
@@ -1457,6 +1516,126 @@
             <div class="exercise" id="lesson3-card-2"><button type="button" class="exercise-header" onclick="togglePracticeCard('lesson3-card-2')"><div class="exercise-header-left"><span class="exercise-number">2</span><div><h5>Fix the Debrief</h5><p>Choose the sentence that sounds correct in a business report.</p></div></div><span class="chevron-icon">v</span></button><div class="exercise-body"><div id="lesson3CorrectionQuiz"><div class="q-block" data-answer="1"><strong>1. The speaker caused a positive reaction.</strong><label class="option-btn"><input type="radio" name="l3c1" value="0"> The speaker was motivated, so the session felt motivating.</label><label class="option-btn"><input type="radio" name="l3c1" value="1"> The speaker was motivating, so the team felt motivated.</label><label class="option-btn"><input type="radio" name="l3c1" value="2"> The speaker was motivate, so the team felt motivating.</label></div><div class="q-block" data-answer="2"><strong>2. The schedule caused a negative reaction.</strong><label class="option-btn"><input type="radio" name="l3c2" value="0"> The schedule was confused, and visitors were confusing.</label><label class="option-btn"><input type="radio" name="l3c2" value="1"> The schedule confused, and visitors were confusing.</label><label class="option-btn"><input type="radio" name="l3c2" value="2"> The schedule was confusing, and visitors were confused.</label></div><div class="q-block" data-answer="0"><strong>3. The result was not as good as expected.</strong><label class="option-btn"><input type="radio" name="l3c3" value="0"> The booth location was disappointing, but we were not disappointed with the leads.</label><label class="option-btn"><input type="radio" name="l3c3" value="1"> The booth location was disappointed, but we were not disappointing with the leads.</label><label class="option-btn"><input type="radio" name="l3c3" value="2"> The booth location disappointed, but the leads were disappointing us.</label></div><div class="q-block" data-answer="1"><strong>4. The data changed the team's expectations.</strong><label class="option-btn"><input type="radio" name="l3c4" value="0"> The data was surprised, so we were surprising.</label><label class="option-btn"><input type="radio" name="l3c4" value="1"> The data was surprising, so we were surprised.</label><label class="option-btn"><input type="radio" name="l3c4" value="2"> The data surprised, so we were surprise.</label></div></div><div class="actions"><button class="btn primary" type="button" onclick="checkStaticQuiz('lesson3CorrectionQuiz','lesson3CorrectionFeedback')">Check answers</button><button class="btn" type="button" onclick="resetStaticQuiz('lesson3CorrectionQuiz','lesson3CorrectionFeedback')">Reset</button></div><div id="lesson3CorrectionFeedback" class="feedback"></div></div></div>
             <div class="exercise" id="lesson3-card-3"><button type="button" class="exercise-header" onclick="togglePracticeCard('lesson3-card-3')"><div class="exercise-header-left"><span class="exercise-number">3</span><div><h5>Write a Stronger Report</h5><p>Read the situation and write a complete professional answer.</p></div></div><span class="chevron-icon">v</span></button><div class="exercise-body"><p class="ref-intro">Do not write a short answer like "It was nice." Give your manager a useful business update. Use at least one <strong>-ing</strong> adjective for the situation and one <strong>-ed</strong> adjective for people's reaction.</p><div class="q-block"><strong>1. Your boss asks if the panel discussion was useful. You want to say it gave the team two supplier contacts and clearer information about customs delays.</strong><textarea rows="4" placeholder="Write your full answer here."></textarea></div><div class="q-block"><strong>2. Your boss asks about the booth location. You want to explain that the location caused less foot traffic, but the team still collected strong leads.</strong><textarea rows="4" placeholder="Write your full answer here."></textarea></div><div class="q-block"><strong>3. Your boss asks if clients reacted positively to the tracking platform. You want to explain that the demo caused interest, especially from companies with cross-border shipments.</strong><textarea rows="4" placeholder="Write your full answer here."></textarea></div><div class="box tint"><h4>Self-check</h4><p>Before you speak, check: Did you describe the situation with an -ing adjective? Did you describe people's reaction with an -ed adjective? Did you include a clear business result?</p></div></div></div>            <div class="exercise" id="lesson3-card-4"><button type="button" class="exercise-header" onclick="togglePracticeCard('lesson3-card-4')"><div class="exercise-header-left"><span class="exercise-number">4</span><div><h5>Mini Report</h5><p>Prepare a 60-second debrief using specific results.</p></div></div><span class="chevron-icon">v</span></button><div class="exercise-body"><p>Include one positive result, one problem, one client reaction, and one recommendation.</p><div class="box tint"><h4>Useful Frame</h4><p>The conference was useful because... Some parts were challenging, especially... Clients seemed interested in... I recommend that we...</p></div><textarea class="text-input" rows="5" placeholder="Write your notes here before speaking."></textarea></div></div>
           </section>
+          
+          <section id="lesson3-reading" class="panel" role="tabpanel">
+            <div class="box tint">
+              <div class="reading-title-row">
+                <h4 style="margin:0;">Post-Expo Stakeholder Feedback</h4>
+                <span class="reading-badge">Reading · -ed / -ing</span>
+              </div>
+              <p style="margin:10px 0 0;">Read the internal memo carefully. Then complete the comprehension questions and the -ed / -ing text completion task.</p>
+            </div>
+
+            <div class="reading-memo" aria-label="Reading passage">
+              <p class="memo-kicker">Reading passage · Internal memo</p>
+              <div class="memo-meta">
+                <div><strong>To:</strong> Mr. Henderson, CEO</div>
+                <div><strong>From:</strong> Logistics Department</div>
+                <div><strong>Subject:</strong> Post-Expo Stakeholder Feedback Report</div>
+              </div>
+              <p>The International Expo concluded last Friday, and we have collected feedback from all parties involved. Overall, the results are satisfying, though some areas require immediate attention.</p>
+              <p>The German supplier was pleased with the outcome. Their sales director said the event was more interesting than last year's conference in Berlin. However, the shipping team was exhausted after the first day. The delayed shipment on Thursday made the setup process extremely tiring, and several crew members felt completely drained by Friday morning.</p>
+              <p>The venue staff were mostly satisfied with our coordination. The head of security was particularly impressed by our organized approach to crowd control. That said, a few exhibitors were confused by the last-minute schedule changes. The new layout was somewhat confusing, especially for first-time participants who arrived on Saturday.</p>
+              <p>Our own team remains excited about next year's edition. The marketing lead found the networking sessions surprisingly productive, and the finance manager was relieved that we stayed within budget. Nevertheless, she was worried about the overtime costs accumulated during the final week.</p>
+              <p>One worrying trend emerged from the catering surveys: 30% of attendees found the lunch options boring and repetitive. The catering manager was surprised by this reaction, as he had been convinced the menu was exciting and diverse.</p>
+              <p>In summary, while the Expo was a successful and exciting milestone for the company, we must address the confusing signage and the tiring workload distribution before the next event. I am confident that with a few adjustments, the 2027 edition will be even more satisfying for everyone involved.</p>
+            </div>
+
+            <div class="exercise static-quiz open" style="margin-top:18px;">
+              <h5><span class="ex-badge">Comprehension</span> Reading Questions</h5>
+              <p>Choose the best answer based on the memo.</p>
+              <div id="lesson3ReadingQuiz">
+                <div class="q-block" data-answer="1">
+                  <strong>1. What is the main purpose of this memo?</strong>
+                  <label class="option-btn"><input type="radio" name="l3r1" value="0"> To complain about the catering service</label>
+                  <label class="option-btn"><input type="radio" name="l3r1" value="1"> To summarize feedback and identify areas for improvement</label>
+                  <label class="option-btn"><input type="radio" name="l3r1" value="2"> To announce the cancellation of the 2027 Expo</label>
+                  <label class="option-btn"><input type="radio" name="l3r1" value="3"> To request a budget increase for next year</label>
+                </div>
+                <div class="q-block" data-answer="1">
+                  <strong>2. According to the memo, how did the German supplier feel about the Expo?</strong>
+                  <label class="option-btn"><input type="radio" name="l3r2" value="0"> Worried about the shipping delays</label>
+                  <label class="option-btn"><input type="radio" name="l3r2" value="1"> Pleased with the overall outcome</label>
+                  <label class="option-btn"><input type="radio" name="l3r2" value="2"> Confused by the schedule changes</label>
+                  <label class="option-btn"><input type="radio" name="l3r2" value="3"> Bored by the networking sessions</label>
+                </div>
+                <div class="q-block" data-answer="2">
+                  <strong>3. Why were some exhibitors confused?</strong>
+                  <label class="option-btn"><input type="radio" name="l3r3" value="0"> The venue was too large</label>
+                  <label class="option-btn"><input type="radio" name="l3r3" value="1"> The signage was unclear</label>
+                  <label class="option-btn"><input type="radio" name="l3r3" value="2"> There were last-minute schedule changes</label>
+                  <label class="option-btn"><input type="radio" name="l3r3" value="3"> The catering ran out of food</label>
+                </div>
+                <div class="q-block" data-answer="1">
+                  <strong>4. What does the writer imply about the 2027 Expo?</strong>
+                  <label class="option-btn"><input type="radio" name="l3r4" value="0"> It will be organized by a different team</label>
+                  <label class="option-btn"><input type="radio" name="l3r4" value="1"> It has the potential to be more successful with changes</label>
+                  <label class="option-btn"><input type="radio" name="l3r4" value="2"> It will take place in Berlin</label>
+                  <label class="option-btn"><input type="radio" name="l3r4" value="3"> It will have a smaller budget</label>
+                </div>
+                <div class="q-block" data-answer="3">
+                  <strong>5. Which of the following was NOT mentioned as a problem?</strong>
+                  <label class="option-btn"><input type="radio" name="l3r5" value="0"> Overtime costs</label>
+                  <label class="option-btn"><input type="radio" name="l3r5" value="1"> Tiring workload</label>
+                  <label class="option-btn"><input type="radio" name="l3r5" value="2"> Confusing signage</label>
+                  <label class="option-btn"><input type="radio" name="l3r5" value="3"> Unprofessional security staff</label>
+                </div>
+              </div>
+              <div class="actions">
+                <button class="btn primary" type="button" onclick="checkStaticQuiz('lesson3ReadingQuiz', 'lesson3ReadingFeedback')">Check reading</button>
+                <button class="btn ghost" type="button" onclick="resetStaticQuiz('lesson3ReadingQuiz', 'lesson3ReadingFeedback')">Reset</button>
+              </div>
+              <p class="score-line" id="lesson3ReadingFeedback" style="display:none;"></p>
+            </div>
+
+            <div class="exercise static-quiz" style="margin-top:16px;">
+              <h5><span class="ex-badge">Grammar in context</span> Text Completion · -ed / -ing</h5>
+              <p>Choose the correct adjective form. Remember: <strong>-ing</strong> describes the situation or thing; <strong>-ed</strong> describes how a person feels.</p>
+              <div id="lesson3ReadingGrammarQuiz">
+                <div class="q-block" data-answer="1">
+                  <strong>6. The finance manager was ______ about the overtime costs accumulated during the final week.</strong>
+                  <label class="option-btn"><input type="radio" name="l3rg6" value="0"> worrying</label>
+                  <label class="option-btn"><input type="radio" name="l3rg6" value="1"> worried</label>
+                  <label class="option-btn"><input type="radio" name="l3rg6" value="2"> worry</label>
+                  <label class="option-btn"><input type="radio" name="l3rg6" value="3"> worries</label>
+                </div>
+                <div class="q-block" data-answer="1">
+                  <strong>7. Several crew members found the setup process extremely ______ and felt drained.</strong>
+                  <label class="option-btn"><input type="radio" name="l3rg7" value="0"> tired</label>
+                  <label class="option-btn"><input type="radio" name="l3rg7" value="1"> tiring</label>
+                  <label class="option-btn"><input type="radio" name="l3rg7" value="2"> tire</label>
+                  <label class="option-btn"><input type="radio" name="l3rg7" value="3"> tires</label>
+                </div>
+                <div class="q-block" data-answer="2">
+                  <strong>8. The marketing lead found the networking sessions ______ productive.</strong>
+                  <label class="option-btn"><input type="radio" name="l3rg8" value="0"> surprised</label>
+                  <label class="option-btn"><input type="radio" name="l3rg8" value="1"> surprising</label>
+                  <label class="option-btn"><input type="radio" name="l3rg8" value="2"> surprisingly</label>
+                  <label class="option-btn"><input type="radio" name="l3rg8" value="3"> surprise</label>
+                </div>
+                <div class="q-block" data-answer="1">
+                  <strong>9. The catering manager was ______ by the negative feedback on the lunch menu.</strong>
+                  <label class="option-btn"><input type="radio" name="l3rg9" value="0"> surprising</label>
+                  <label class="option-btn"><input type="radio" name="l3rg9" value="1"> surprised</label>
+                  <label class="option-btn"><input type="radio" name="l3rg9" value="2"> surprise</label>
+                  <label class="option-btn"><input type="radio" name="l3rg9" value="3"> surprises</label>
+                </div>
+                <div class="q-block" data-answer="1">
+                  <strong>10. First-time participants found the new layout somewhat ______.</strong>
+                  <label class="option-btn"><input type="radio" name="l3rg10" value="0"> confused</label>
+                  <label class="option-btn"><input type="radio" name="l3rg10" value="1"> confusing</label>
+                  <label class="option-btn"><input type="radio" name="l3rg10" value="2"> confuse</label>
+                  <label class="option-btn"><input type="radio" name="l3rg10" value="3"> confuses</label>
+                </div>
+              </div>
+              <div class="actions">
+                <button class="btn primary" type="button" onclick="checkStaticQuiz('lesson3ReadingGrammarQuiz', 'lesson3ReadingGrammarFeedback')">Check adjectives</button>
+                <button class="btn ghost" type="button" onclick="resetStaticQuiz('lesson3ReadingGrammarQuiz', 'lesson3ReadingGrammarFeedback')">Reset</button>
+              </div>
+              <p class="score-line" id="lesson3ReadingGrammarFeedback" style="display:none;"></p>
+            </div>
+          </section>
+
           <section id="lesson3-listening" class="panel" role="tabpanel">
             <div class="box tint"><h4>Listening Task</h4><p>Listen to the debrief. The employee reports the conference results, explains people's reactions, and recommends whether to attend again.</p><audio id="lesson3ListeningAudio" controls preload="metadata"><source src="audio/listening.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio><div class="actions"><button class="btn primary" type="button" onclick="toggleScript('lesson3Script', this)">Show script</button></div><div id="lesson3Script" class="box listening-script"><p><strong>Manager:</strong> Welcome back. Was the conference useful enough for us to attend again next year?</p><p><strong>Employee:</strong> Overall, yes, but with some changes. The keynote was interesting, and many attendees were interested in our tracking platform, especially companies that manage cross-border shipments.</p><p><strong>Manager:</strong> That sounds promising. Were there any problems?</p><p><strong>Employee:</strong> Yes. The schedule was confusing, so some visitors were confused about our presentation time. Also, the booth location was disappointing because we had less foot traffic than expected.</p><p><strong>Manager:</strong> Did we get any strong leads?</p><p><strong>Employee:</strong> We collected eight strong leads and two possible supplier contacts. The most valuable insight was that clients want faster customs updates and clearer delivery notifications.</p><p><strong>Manager:</strong> What about the sessions you attended?</p><p><strong>Employee:</strong> The panel discussion was motivating because it showed that several companies have the same problem. I was also surprised by how much interest there was in automated tracking.</p><p><strong>Manager:</strong> So what is your recommendation?</p><p><strong>Employee:</strong> I recommend attending again, but only if we book a better booth, request a clearer presentation time, and prepare stronger follow-up material for leads.</p></div></div>
             <div class="exercise static-quiz"><h5><span class="ex-badge">Comprehension</span> Listening Questions</h5><p>Choose the best answer. Some questions ask you to connect the problem, result, and recommendation.</p><div id="lesson3ListeningQuiz"><div class="q-block" data-answer="1"><strong>1. What is the employee's overall position about attending next year?</strong><label class="option-btn"><input type="radio" name="l3l1" value="0"> The company should not attend again because the conference was disappointing.</label><label class="option-btn"><input type="radio" name="l3l1" value="1"> The company should attend again, but only with changes to the booth, schedule, and follow-up.</label><label class="option-btn"><input type="radio" name="l3l1" value="2"> The company should attend again only if the keynote speaker changes.</label></div><div class="q-block" data-answer="2"><strong>2. Why was the booth location a problem?</strong><label class="option-btn"><input type="radio" name="l3l2" value="0"> It was next to a competitor's booth.</label><label class="option-btn"><input type="radio" name="l3l2" value="1"> It made the presentation schedule confusing.</label><label class="option-btn"><input type="radio" name="l3l2" value="2"> It caused less foot traffic than expected.</label></div><div class="q-block" data-answer="0"><strong>3. Which client need does the employee identify as a useful insight?</strong><label class="option-btn"><input type="radio" name="l3l3" value="0"> Faster customs updates and clearer delivery notifications.</label><label class="option-btn"><input type="radio" name="l3l3" value="1"> Cheaper conference tickets and a larger venue.</label><label class="option-btn"><input type="radio" name="l3l3" value="2"> A new supplier presentation in Hall C.</label></div><div class="q-block" data-answer="1"><strong>4. What can you infer from the number of leads and supplier contacts?</strong><label class="option-btn"><input type="radio" name="l3l4" value="0"> The conference produced no useful business opportunities.</label><label class="option-btn"><input type="radio" name="l3l4" value="1"> The event had value, but the company needs a better strategy next time.</label><label class="option-btn"><input type="radio" name="l3l4" value="2"> The company should focus only on suppliers and ignore potential clients.</label></div><div class="q-block" data-answer="2"><strong>5. Which pair correctly matches the cause and the feeling?</strong><label class="option-btn"><input type="radio" name="l3l5" value="0"> The attendees were confusing, so the schedule was confused.</label><label class="option-btn"><input type="radio" name="l3l5" value="1"> The employee was surprising because automated tracking was surprised.</label><label class="option-btn"><input type="radio" name="l3l5" value="2"> The schedule was confusing, so some visitors were confused.</label></div></div><div class="actions"><button class="btn primary" type="button" onclick="checkStaticQuiz('lesson3ListeningQuiz','lesson3ListeningFeedback')">Check listening</button><button class="btn" type="button" onclick="resetStaticQuiz('lesson3ListeningQuiz','lesson3ListeningFeedback')">Reset</button></div><div id="lesson3ListeningFeedback" class="feedback"></div></div>
