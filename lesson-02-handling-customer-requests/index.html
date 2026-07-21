@@ -1,0 +1,2345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <link rel="apple-touch-icon" href="../favicon.png">
+  <title>Lesson 02: Handling Customer Requests | Business English</title>
+  <style>
+
+    :root {
+      --brand-logo: url('../assets/logo.png');
+      --navy: #1e2d5a;
+      --teal: #5bb8b0;
+      --teal-dark: #238d85;
+      --gold: #d4a843;
+      --ink: #172033;
+      --muted: #6b7fa3;
+      --line: #e8ecf4;
+      --paper: #ffffff;
+      --wash: #f0faf9;
+      --soft: #f8fafc;
+      --warn: #fff7e6;
+      --good: #e9f8ef;
+      --bad: #fff0f0;
+      --shadow: 0 18px 45px rgba(30, 45, 90, 0.10);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top right, rgba(91, 184, 176, 0.16), transparent 34rem),
+        linear-gradient(180deg, #f7fafc 0%, #eef4f7 100%);
+      min-height: 100vh;
+    }
+
+    button, input, textarea, select { font: inherit; }
+    button { cursor: pointer; }
+
+    .shell {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    /* Header */
+    .topbar {
+      position: sticky;
+      top: 16px;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 18px;
+      padding: 12px 16px;
+      background: var(--navy);
+      color: white;
+      border-radius: 18px;
+      box-shadow: 0 16px 34px rgba(30, 45, 90, 0.22);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 52px;
+      height: 52px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+      overflow: hidden;
+      padding: 3px;
+      flex: 0 0 auto;
+    }
+
+    .brand-mark img {
+      width: 100%;
+      height: 100%;
+      border-radius: 999px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .brand h1 {
+      margin: 0;
+      color: white;
+      font-size: clamp(1.05rem, 2vw, 1.35rem);
+      line-height: 1.05;
+    }
+
+    .brand p {
+      margin: 3px 0 0;
+      color: #d7ecea;
+      font-size: 0.84rem;
+    }
+
+    .mode-pill {
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: white;
+      background: rgba(255, 255, 255, 0.10);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      background: #f4fbfa;
+      color: var(--navy);
+      border: 1px solid rgba(30, 45, 90, 0.08);
+      box-shadow: var(--shadow);
+      margin-bottom: 22px;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: clamp(0.75rem, 3vw, 1.75rem);
+      top: 50%;
+      transform: translateY(-50%);
+      width: clamp(160px, 22vw, 280px);
+      max-width: 32%;
+      aspect-ratio: 1 / 1;
+      border-radius: 999px;
+      background-image: var(--brand-logo);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      padding: clamp(24px, 5vw, 42px);
+      /* leave room on the right for the watermark, without overlap */
+      max-width: min(620px, calc(100% - clamp(150px, 26vw, 300px)));
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      color: var(--teal-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.75rem;
+      font-weight: 900;
+    }
+
+    .hero h2 {
+      margin: 0;
+      max-width: 780px;
+      font-size: clamp(2rem, 5vw, 4.25rem);
+      line-height: 0.98;
+      letter-spacing: 0;
+    }
+
+    .hero h2 span { color: var(--teal); }
+
+    .hero-copy {
+      color: var(--muted);
+      margin: 18px 0 0;
+      max-width: 670px;
+      line-height: 1.65;
+      font-size: 1.02rem;
+    }
+
+    .hero-panel {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(30, 45, 90, 0.08);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 12px 28px rgba(30, 45, 90, 0.08);
+    }
+
+    .hero-panel h3 {
+      margin: 0 0 8px;
+      color: var(--navy);
+      font-size: 0.94rem;
+    }
+
+    .progress-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-weight: 800;
+      font-size: 0.82rem;
+      margin-bottom: 9px;
+    }
+
+    .progress-track {
+      height: 8px;
+      background: #eef2f6;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: var(--teal);
+      transition: width 0.35s ease;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .stat {
+      border: 1px solid rgba(30, 45, 90, 0.08);
+      border-radius: 12px;
+      padding: 10px;
+      text-align: center;
+      background: #fbfdfe;
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--navy);
+      font-size: 1rem;
+    }
+
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.72rem;
+      margin-top: 2px;
+    }
+
+    /* Layout */
+    .layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .lessons-stack {
+      grid-column: 2;
+      display: grid;
+      gap: 18px;
+    }
+    .layout > .lesson-card {
+      grid-column: 2;
+    }
+
+    .sidebar, .main-card {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(30, 45, 90, 0.08);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 100px;
+      padding: 14px;
+    }
+
+    .side-title {
+      margin: 6px 8px 12px;
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .lesson-button {
+      width: 100%;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      text-align: left;
+      border: 1px solid transparent;
+      border-radius: 14px;
+      background: transparent;
+      padding: 12px;
+      color: var(--ink);
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .lesson-button.active {
+      background: var(--wash);
+      border-color: rgba(91, 184, 176, 0.45);
+    }
+
+    .lesson-button.locked {
+      color: #9aa9bf;
+      cursor: default;
+    }
+
+    .lesson-num {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      background: var(--navy);
+      color: white;
+      font-size: 0.78rem;
+      font-weight: 900;
+    }
+
+    .lesson-button.active .lesson-num { background: var(--teal); }
+    .lesson-button.locked .lesson-num { background: #c9d3df; }
+    .lesson-button.lesson-teal .lesson-num { background: var(--teal); }
+    .lesson-button.lesson-gold .lesson-num { background: var(--gold); color: var(--navy); }
+    .lesson-button.lesson-navy .lesson-num { background: var(--navy); }
+    .lesson-button:not(.locked) { cursor: pointer; }
+    .lesson-button:not(.locked):hover { background: #f7fbfc; border-color: rgba(91, 184, 176, 0.32); }
+    .lesson-button.locked.lesson-teal .lesson-num,
+    .lesson-button.locked.lesson-gold .lesson-num,
+    .lesson-button.locked.lesson-navy .lesson-num { background: #d8e1ea; color: #718096; }
+    .lesson-card { margin-bottom: 18px; }
+    .lesson-card .lesson-body { display: none; }
+    .lesson-card.lesson-open .lesson-body { display: block; }
+    .static-quiz .q-block { margin-bottom: 14px; }
+    .listening-script { display: none; margin-top: 12px; }
+    .listening-script.open { display: block; }
+
+
+    .lesson-meta strong {
+      display: block;
+      font-size: 0.92rem;
+      line-height: 1.2;
+    }
+
+    .lesson-meta span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.76rem;
+      line-height: 1.35;
+    }
+
+
+    .lesson-header {
+      cursor: pointer;
+      position: relative;
+    }
+
+    .lesson-toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .lesson-toggle-button {
+      border: 1px solid rgba(91, 184, 176, 0.4);
+      border-radius: 999px;
+      background: #f0faf9;
+      color: var(--teal-dark);
+      font-weight: 900;
+      padding: 8px 12px;
+      white-space: nowrap;
+    }
+
+    .lesson-body {
+      display: none;
+    }
+
+    .main-card.lesson-open .lesson-body {
+      display: block;
+    }
+
+    .main-card.lesson-open .lesson-header {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .lesson-header {
+      border-bottom: 0;
+    }
+
+    @media (max-width: 640px) {
+      .lesson-toggle-row {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+    .main-card { overflow: hidden; }
+
+    .lesson-header {
+      padding: 24px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .lesson-header h3 {
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(1.35rem, 3vw, 2rem);
+      line-height: 1.05;
+    }
+
+    .lesson-header p {
+      color: var(--muted);
+      margin: 8px 0 0;
+      line-height: 1.5;
+      max-width: 680px;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .tag {
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.75rem;
+      font-weight: 900;
+      background: #edf4f7;
+      color: var(--navy);
+      border: 1px solid rgba(30, 45, 90, 0.08);
+    }
+
+    .tag.teal {
+      background: var(--wash);
+      color: var(--teal-dark);
+      border-color: rgba(91, 184, 176, 0.35);
+    }
+
+    .tag.gold {
+      background: var(--warn);
+      color: #8a6400;
+      border-color: rgba(212, 168, 67, 0.32);
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 6px;
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfdfe;
+      overflow-x: auto;
+    }
+
+    .tab {
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--muted);
+      padding: 8px 14px;
+      font-weight: 900;
+      white-space: nowrap;
+      font-size: 0.84rem;
+    }
+
+    .tab.active {
+      color: white;
+      background: var(--navy);
+    }
+
+    .content { padding: 24px; }
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .box {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      background: var(--paper);
+    }
+
+    .box.tint {
+      background: var(--wash);
+      border-color: rgba(91, 184, 176, 0.35);
+    }
+
+    .box.dark {
+      background: var(--navy);
+      color: white;
+      border-color: var(--navy);
+    }
+
+    .box h4 {
+      margin: 0 0 10px;
+      color: var(--navy);
+      font-size: 1rem;
+    }
+
+    .box.dark h4 { color: var(--gold); }
+
+    .box p, .box li {
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .box.dark p, .box.dark li { color: #d7ecea; }
+
+    .box ul { margin: 0; padding-left: 1.15rem; }
+
+    .phrase {
+      display: grid;
+      gap: 6px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px;
+      background: #fff;
+    }
+
+    .phrase strong { color: var(--navy); }
+    .phrase span {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .vocabulary-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .vocabulary-list .phrase strong {
+      font-size: 1.04rem;
+      line-height: 1.25;
+    }
+
+
+    .vocab-card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .vocab-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+      background: #fff;
+      text-align: left;
+      cursor: pointer;
+      font: inherit;
+      color: var(--navy);
+      min-height: 142px;
+      display: grid;
+      gap: 10px;
+      align-content: start;
+      transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+    }
+
+    .vocab-card:hover {
+      transform: translateY(-1px);
+      border-color: rgba(91, 184, 176, 0.5);
+    }
+
+    .vocab-card.revealed {
+      background: #f0faf9;
+      border-color: rgba(28, 128, 124, 0.62);
+    }
+
+    .vocab-card-top {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .vocab-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: var(--wash);
+      color: var(--teal-dark);
+      font-weight: 900;
+      flex: 0 0 auto;
+    }
+
+    .vocab-term {
+      display: inline;
+      color: var(--gold-dark);
+      background: rgba(212, 168, 67, 0.16);
+      border-radius: 6px;
+      padding: 1px 5px;
+      font-weight: 900;
+    }
+
+    .vocab-sentence {
+      margin: 0;
+      line-height: 1.55;
+      font-size: 0.95rem;
+    }
+
+    .vocab-meaning {
+      display: none;
+      margin: 0;
+      color: var(--teal-dark);
+      line-height: 1.5;
+      font-size: 0.94rem;
+      font-weight: 700;
+    }
+
+    .vocab-card.revealed .vocab-meaning {
+      display: block;
+    }
+
+    .vocab-action {
+      margin: 0;
+      color: var(--teal-dark);
+      font-size: 0.84rem;
+      font-weight: 900;
+    }
+
+    @media (max-width: 720px) {
+      .vocab-card-grid { grid-template-columns: 1fr; }
+    }
+    .exercise-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      width: 100%;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      text-align: left;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .exercise-header-left {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .exercise-number {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      background: var(--teal);
+      color: #fff;
+      font-weight: 900;
+      font-size: 0.88rem;
+    }
+
+    .exercise-header h5 {
+      margin: 0;
+      color: var(--navy);
+      font-size: 1.02rem;
+    }
+
+    .exercise-header p {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .chevron-icon {
+      color: var(--muted);
+      transition: transform 0.2s ease;
+      font-size: 0.9rem;
+      margin-top: 7px;
+    }
+
+    .exercise.open .chevron-icon { transform: rotate(180deg); }
+    .exercise-body {
+      display: none;
+      margin-top: 16px;
+    }
+
+    .exercise.open .exercise-body {
+      display: block;
+    }
+
+    .card-body {
+      display: none;
+      margin-top: 16px;
+    }
+
+    .card-body.open { display: block; }
+
+    .ref-intro {
+      color: var(--muted);
+      margin: 0 0 14px;
+      line-height: 1.55;
+    }
+
+    .ref-formula {
+      border-radius: 14px;
+      padding: 16px;
+      text-align: center;
+      background: var(--navy);
+      margin-bottom: 14px;
+    }
+
+    .ref-formula p {
+      margin: 0;
+      color: #fff;
+      font-weight: 800;
+      font-size: 1.03rem;
+    }
+
+    .if-word { color: var(--gold); }
+    .modal-word { color: var(--teal); }
+
+    .ref-example {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      border-radius: 12px;
+      padding: 12px;
+      background: var(--soft);
+      margin-bottom: 8px;
+    }
+
+    .ref-example .num {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      background: var(--teal);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 900;
+    }
+
+    .ref-example p {
+      margin: 0;
+      color: var(--navy);
+      font-size: 0.92rem;
+      font-style: italic;
+    }
+
+    .q-block {
+      border-radius: 12px;
+      padding: 16px;
+      background: var(--soft);
+      margin-bottom: 14px;
+    }
+
+    .q-block:last-child { margin-bottom: 0; }
+
+    .q-prompt, .sentence-line {
+      margin: 0 0 12px;
+      color: var(--navy);
+      font-size: 0.94rem;
+      font-weight: 750;
+      line-height: 1.45;
+    }
+
+    .option-btn {
+      display: block;
+      width: 100%;
+      text-align: left;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--navy);
+      padding: 12px 14px;
+      font-size: 0.92rem;
+      margin-bottom: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .option-btn:last-child { margin-bottom: 0; }
+
+    .vocab-practice-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .vocab-choice {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .vocab-choice input {
+      width: auto;
+      min-height: 0;
+      margin-top: 3px;
+      accent-color: var(--teal);
+      flex: 0 0 auto;
+    }
+
+    .vocab-choice.correct {
+      border-color: var(--teal);
+      background: #f0faf9;
+    }
+
+    .vocab-choice.wrong {
+      border-color: #d97706;
+      background: #fff7ed;
+    }
+
+    .vocab-choice:has(input:checked) {
+      border-color: var(--navy);
+      background: #eef4f7;
+    }
+    .option-btn.selected { border-color: var(--navy); background: #eef4f7; }
+    .option-btn.correct { border-color: var(--teal); background: #f0faf9; }
+    .option-btn.wrong { border-color: #d97706; background: #fff7ed; }
+
+    .score-line {
+      margin: 12px 0 0;
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--teal);
+    }
+
+    .model-answer, .gap-answer, .model-line, .feedback-note {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.45;
+    }
+
+    .gap-block {
+      border-radius: 12px;
+      padding: 16px;
+      background: var(--soft);
+      font-size: 0.94rem;
+      line-height: 2.15;
+      color: var(--navy);
+      margin-bottom: 14px;
+    }
+
+    .gap-input {
+      width: 155px;
+      display: inline-block;
+      margin: 0 4px;
+      padding: 5px 8px;
+    }
+
+    .builder-answer-zone {
+      min-height: 54px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .builder-answer-zone.correct { border-color: var(--teal); }
+    .builder-answer-zone.wrong { border-color: #d97706; }
+
+    .chunk-pool {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chunk-chosen, .chunk-available {
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .chunk-chosen {
+      color: #fff;
+      background: var(--navy);
+      border: 0;
+    }
+
+    .chunk-available {
+      color: var(--navy);
+      background: #fff;
+      border: 1px solid rgba(28, 128, 124, 0.35);
+    }
+
+    .situation-box {
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      background: #f0faf9;
+      border: 1px solid rgba(28, 128, 124, 0.22);
+    }
+
+    .situation-box p {
+      margin: 0;
+      color: var(--navy);
+      line-height: 1.5;
+    }
+
+    .grammar-summary {
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--navy);
+      margin-top: 18px;
+    }
+
+    .grammar-summary-inner { padding: 22px; }
+
+    .summary-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .summary-label {
+      margin: 0;
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+    }
+
+    .summary-value {
+      margin: 2px 0 0;
+      color: #fff;
+      font-size: 1.45rem;
+    }
+
+    .summary-icon { color: #fff; font-weight: 900; }
+
+    .summary-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 12px;
+      padding: 9px 12px;
+      font-size: 0.9rem;
+      background: rgba(255,255,255,0.08);
+      margin-bottom: 8px;
+    }
+
+    .summary-row span { color: #dce8f5; }
+    .summary-row strong { color: #fff; }
+    .summary-empty { color: #cce4e1; font-size: 0.9rem; }
+
+    /* Exercises */
+    .exercise {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      background: #fff;
+      margin-bottom: 16px;
+    }
+
+    .exercise h5 {
+      margin: 0 0 8px;
+      color: var(--navy);
+      font-size: 1rem;
+    }
+
+    .exercise > p {
+      color: var(--muted);
+      margin: 0 0 12px;
+      line-height: 1.5;
+    }
+
+    .ex-badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 3px 9px;
+      font-size: 0.72rem;
+      font-weight: 900;
+      background: var(--wash);
+      color: var(--teal-dark);
+      border: 1px solid rgba(91, 184, 176, 0.35);
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+
+    .question {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .question label {
+      color: var(--navy);
+      font-weight: 800;
+      font-size: 0.92rem;
+      line-height: 1.4;
+    }
+
+    select, input[type="text"], textarea {
+      width: 100%;
+      border: 1.5px solid #dbe3ec;
+      border-radius: 12px;
+      padding: 10px 12px;
+      color: var(--ink);
+      background: #fff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    select:focus, input[type="text"]:focus, textarea:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(91, 184, 176, 0.16);
+    }
+
+    input[type="text"] { min-height: 44px; }
+
+    textarea {
+      resize: vertical;
+      min-height: 110px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .btn {
+      border: 1.5px solid rgba(30, 45, 90, 0.12);
+      border-radius: 12px;
+      padding: 10px 14px;
+      background: #fff;
+      color: var(--navy);
+      font-weight: 900;
+      box-shadow: 0 8px 18px rgba(30, 45, 90, 0.07);
+    }
+
+    .btn.primary {
+      color: white;
+      background: var(--navy);
+      border-color: var(--navy);
+    }
+
+    .btn.gold {
+      border-color: rgba(212, 168, 67, 0.6);
+      background: #fff;
+    }
+
+    .btn:hover { filter: brightness(1.03); }
+
+    .feedback {
+      display: none;
+      margin-top: 12px;
+      border-radius: 14px;
+      padding: 12px;
+      font-weight: 800;
+      line-height: 1.45;
+    }
+
+    .feedback.good {
+      display: block;
+      background: var(--good);
+      color: #207444;
+      border: 1px solid rgba(32, 116, 68, 0.18);
+    }
+
+    .feedback.warn {
+      display: block;
+      background: var(--warn);
+      color: #875f00;
+      border: 1px solid rgba(212, 168, 67, 0.22);
+    }
+
+
+    .audio-panel {
+      display: grid;
+      gap: 12px;
+      border: 1px solid rgba(91, 184, 176, 0.28);
+      border-radius: 16px;
+      padding: 16px;
+      background: #f7fcfb;
+      margin-bottom: 16px;
+    }
+
+    .audio-panel audio {
+      width: 100%;
+    }
+
+    .pending-audio-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    .transcript-box {
+      display: none;
+      white-space: pre-line;
+      margin-top: 12px;
+    }
+
+    .transcript-box.show {
+      display: block;
+    }
+
+    .scenario-cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 14px 0;
+    }
+
+    .scenario-card {
+      border-radius: 12px;
+      padding: 14px;
+      background: #e9edf5;
+      color: var(--navy);
+      text-align: center;
+      font-weight: 900;
+      min-height: 76px;
+      display: grid;
+      place-items: center;
+    }
+
+    @media (max-width: 720px) {
+      .scenario-cards { grid-template-columns: 1fr; }
+    }
+    .word-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0;
+    }
+
+    .chip {
+      border: 1px solid rgba(91, 184, 176, 0.35);
+      border-radius: 999px;
+      padding: 8px 11px;
+      background: var(--wash);
+      color: var(--teal-dark);
+      font-size: 0.86rem;
+      font-weight: 900;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .chip:hover {
+      border-color: var(--teal);
+      background: #e4f6f4;
+    }
+
+    .chip.used {
+      opacity: 0.45;
+      text-decoration: line-through;
+    }
+
+    .formula {
+      font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin: 10px 0;
+      color: #e8f7f5;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .example-row {
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .example-row .phrase { background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.12); }
+    .example-row .phrase strong { color: #fff; }
+    .example-row .phrase span { color: #b8d4d1; }
+
+    .build-slots {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin: 10px 0 4px;
+      min-height: 48px;
+      padding: 10px;
+      border: 1.5px dashed #dbe3ec;
+      border-radius: 12px;
+      background: var(--soft);
+    }
+
+    .build-slots .slot-chip {
+      border-radius: 999px;
+      padding: 8px 11px;
+      background: var(--navy);
+      color: white;
+      font-size: 0.86rem;
+      font-weight: 800;
+    }
+
+    .build-slots .placeholder-text {
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .email-preview {
+      white-space: pre-wrap;
+      border: 1px solid var(--line);
+      background: var(--soft);
+      border-radius: 14px;
+      padding: 14px;
+      color: var(--ink);
+      line-height: 1.55;
+      min-height: 80px;
+    }
+
+    .footer-note {
+      color: var(--muted);
+      text-align: center;
+      margin: 24px 0 0;
+      font-size: 0.86rem;
+    }
+
+    .practice-head {
+      margin-bottom: 16px;
+    }
+
+    .practice-head h4 {
+      margin: 0 0 6px;
+      color: var(--navy);
+      font-size: 1.15rem;
+    }
+
+    .practice-head p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .lessons-stack {
+      grid-column: 1;
+      display: grid;
+      gap: 18px;
+    }
+    .layout > .lesson-card { grid-column: 1; }
+      .sidebar { position: static; }
+    }
+
+    @media (max-width: 640px) {
+      .shell { padding: 16px; }
+      .topbar { align-items: flex-start; }
+      .mode-pill { display: none; }
+      .lesson-header { padding: 18px; }
+      .content { padding: 18px; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: 1fr; }
+      .hero::after {
+        right: 0.75rem;
+        width: 120px;
+        max-width: 28%;
+        opacity: 0.12;
+      }
+
+      .hero-inner {
+        max-width: calc(100% - 100px);
+        padding-right: 0.5rem;
+      }
+    }
+  
+
+    /* Single-lesson page layout */
+    .layout { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .lesson-card { display: block; }
+    .lesson-card .lesson-body,
+    .main-card.lesson-open .lesson-body,
+    .lesson-card.lesson-open .lesson-body {
+      display: block !important;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin: 0 0 14px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    .back-link:hover { color: var(--teal-dark); }
+    .lesson-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0 0 16px;
+    }
+    .lesson-nav a {
+      text-decoration: none;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      color: var(--navy);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+    .lesson-nav a.active {
+      background: var(--navy);
+      color: #fff;
+      border-color: var(--navy);
+    }
+    .lesson-nav a.soon {
+      opacity: 0.55;
+      pointer-events: none;
+    }
+    
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <img src="../assets/logo.png" alt="Israel Ventura">
+        </div>
+        <div>
+          <h1>Business English Course Portal</h1>
+          <p>Scenario-based lessons for real professional communication.</p>
+        </div>
+      </div>
+      <div class="mode-pill">Student View</div>
+    </header>
+
+    <a class="back-link" href="../">← All lessons</a>
+    <nav class="lesson-nav" aria-label="Lessons">
+        <a class="" href="../lesson-01-negotiating-a-deadline/">01 · Negotiating a Deadline</a>
+        <a class="active" href="../lesson-02-handling-customer-requests/">02 · Handling Customer Requests</a>
+        <a class="" href="../lesson-03-reporting-after-a-conference/">03 · Reporting After a Conference</a>
+        <a class="soon" href="#">04 · Coming soon</a>
+        <a class="soon" href="#">05 · Coming soon</a>
+    </nav>
+
+    <div class="layout">
+      <div class="lessons-stack">
+        <article id="lesson2Card" class="main-card lesson-card lesson-open">
+        <div class="lesson-header" onclick="toggleLessonCard('lesson2Card')">
+          <div class="lesson-toggle-row">
+            <h3>Lesson 02: Handling Customer Requests Professionally</h3>
+            <button class="lesson-toggle-button" type="button" onclick="toggleLessonCard('lesson2Card', event)">Close lesson</button>
+          </div>
+          <p>You work at the information desk of an international logistics expo. Visitors need clear information about appointments, meeting rooms, departments, and service problems.</p>
+          <div class="tag-row"><span class="tag gold">Trade fair reception</span><span class="tag">Customer service</span><span class="tag teal">Indirect questions</span><span class="tag">Professional tone</span></div>
+        </div>
+        <div class="lesson-body"><div class="tabs" role="tablist">
+          <button class="tab active" type="button" data-tab="lesson2-overview">Overview</button><button class="tab" type="button" data-tab="lesson2-vocabulary">Vocabulary</button><button class="tab" type="button" data-tab="lesson2-grammar">Grammar Reference</button><button class="tab" type="button" data-tab="lesson2-practice">Practice</button><button class="tab" type="button" data-tab="lesson2-listening">Listening</button>
+        </div><div class="content">
+          <section id="lesson2-overview" class="panel active" role="tabpanel">
+            <div class="grid-2"><div class="box tint"><h4>Scenario</h4><p><strong>Role:</strong> Information desk agent at an international logistics expo.</p><p><strong>Challenge:</strong> Help visitors without sounding too direct or impatient.</p><p><strong>Goal:</strong> Use indirect questions to request and provide information professionally.</p></div><div class="box dark"><h4>Visitor opening line</h4><p>&ldquo;Hi, I have an appointment with the export team, but I cannot find the right meeting room.&rdquo;</p></div></div>
+            <div class="grid-3" style="margin-top:16px;"><div class="phrase"><strong>10 min</strong><span>Warm-up: direct vs. professional questions.</span></div><div class="phrase"><strong>15 min</strong><span>Vocabulary cards and meaning check.</span></div><div class="phrase"><strong>15 min</strong><span>Indirect-question grammar practice.</span></div><div class="phrase"><strong>10 min</strong><span>Listening: information desk problem.</span></div><div class="phrase"><strong>10 min</strong><span>Role play: visitors with different needs.</span></div><div class="phrase"><strong>Homework</strong><span>Record a two-minute call requesting information.</span></div></div>
+          </section>
+          <section id="lesson2-vocabulary" class="panel" role="tabpanel">
+            <div class="vocab-card-grid">
+              <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">🎫</span><strong>badge</strong><span class="vocab-sentence">Please show your badge at the registration desk.</span><span class="vocab-meaning">An ID card that shows a visitor is allowed to enter an event.</span><span class="vocab-action">Reveal meaning</span></button>
+              <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">🏢</span><strong>exhibitor</strong><span class="vocab-sentence">The exhibitor will present the new tracking platform at booth 12.</span><span class="vocab-meaning">A company or person showing products or services at a trade fair.</span><span class="vocab-action">Reveal meaning</span></button>
+              <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">📍</span><strong>booth</strong><span class="vocab-sentence">Our booth is next to the main entrance.</span><span class="vocab-meaning">A small area where a company presents information at an event.</span><span class="vocab-action">Reveal meaning</span></button>
+              <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">🕒</span><strong>time slot</strong><span class="vocab-sentence">The only available time slot is at 3:30 p.m.</span><span class="vocab-meaning">A specific period reserved for a meeting or activity.</span><span class="vocab-action">Reveal meaning</span></button>
+              <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">🗺️</span><strong>venue</strong><span class="vocab-sentence">The networking session is in a separate venue across the street.</span><span class="vocab-meaning">The place where an event happens.</span><span class="vocab-action">Reveal meaning</span></button>
+              <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">📝</span><strong>registration desk</strong><span class="vocab-sentence">You can collect your badge at the registration desk.</span><span class="vocab-meaning">The place where visitors check in for an event.</span><span class="vocab-action">Reveal meaning</span></button>
+              <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">↪️</span><strong>follow-up</strong><span class="vocab-sentence">I will send a follow-up email after the meeting.</span><span class="vocab-meaning">A later action or message connected to a previous conversation.</span><span class="vocab-action">Reveal meaning</span></button>
+              <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">🧭</span><strong>direct someone to</strong><span class="vocab-sentence">Could you direct me to the export department?</span><span class="vocab-meaning">To show or tell someone where to go.</span><span class="vocab-action">Reveal meaning</span></button>
+            </div>
+            <div class="exercise static-quiz" style="margin-top:18px;"><h5><span class="ex-badge">Practice</span> Vocabulary in Context</h5><div id="lesson2VocabQuiz">
+              <div class="q-block" data-answer="1"><strong>1. The visitor needs a printed ID before entering the expo.</strong><label class="option-btn"><input type="radio" name="l2v1" value="0"> venue</label><label class="option-btn"><input type="radio" name="l2v1" value="1"> badge</label><label class="option-btn"><input type="radio" name="l2v1" value="2"> booth</label></div>
+              <div class="q-block" data-answer="2"><strong>2. The company showing its products is an...</strong><label class="option-btn"><input type="radio" name="l2v2" value="0"> invoice</label><label class="option-btn"><input type="radio" name="l2v2" value="1"> appointment</label><label class="option-btn"><input type="radio" name="l2v2" value="2"> exhibitor</label></div>
+              <div class="q-block" data-answer="0"><strong>3. A reserved meeting period is a...</strong><label class="option-btn"><input type="radio" name="l2v3" value="0"> time slot</label><label class="option-btn"><input type="radio" name="l2v3" value="1"> visitor</label><label class="option-btn"><input type="radio" name="l2v3" value="2"> department</label></div>
+              <div class="q-block" data-answer="2"><strong>4. If you help someone find a location, you...</strong><label class="option-btn"><input type="radio" name="l2v4" value="0"> confirm a badge</label><label class="option-btn"><input type="radio" name="l2v4" value="1"> delay a meeting</label><label class="option-btn"><input type="radio" name="l2v4" value="2"> direct them to a place</label></div>
+            </div><div class="actions"><button class="btn primary" type="button" onclick="checkStaticQuiz('lesson2VocabQuiz','lesson2VocabFeedback')">Check answers</button><button class="btn" type="button" onclick="resetStaticQuiz('lesson2VocabQuiz','lesson2VocabFeedback')">Reset</button></div><div id="lesson2VocabFeedback" class="feedback"></div></div>
+          </section>
+          <section id="lesson2-grammar" class="panel" role="tabpanel">
+            <div class="grid-2"><div class="box tint"><h4>Indirect Questions</h4><p>Use indirect questions when you need information but want to sound professional, patient, and respectful.</p><p><strong>Direct:</strong> Where is the meeting room?</p><p><strong>Indirect:</strong> Could you tell me where the meeting room is?</p></div><div class="box"><h4>Word Order</h4><p>After the polite opener, use statement word order.</p><p><strong>Correct:</strong> Do you know where the export team is?</p><p><strong>Not:</strong> Do you know where is the export team?</p></div></div>
+            <div class="grid-3" style="margin-top:16px;"><div class="phrase"><strong>Could you tell me...?</strong><span>Could you tell me where the registration desk is?</span></div><div class="phrase"><strong>Do you know...?</strong><span>Do you know when the next presentation starts?</span></div><div class="phrase"><strong>Would you mind telling me...?</strong><span>Would you mind telling me who you are meeting with?</span></div><div class="phrase"><strong>Do you happen to know...?</strong><span>Do you happen to know which booth GlobalTech is using?</span></div><div class="phrase"><strong>I was wondering...</strong><span>I was wondering if your appointment has been confirmed.</span></div><div class="phrase"><strong>May I ask...?</strong><span>May I ask which department you need?</span></div></div>
+          </section>
+          <section id="lesson2-practice" class="panel" role="tabpanel">
+            <div class="exercise open" id="lesson2-card-1">
+              <button type="button" class="exercise-header" onclick="toggleLesson2PracticeCard(1)">
+                <div class="exercise-header-left"><span class="exercise-number">1</span><div><h5>Choose the Professional Question</h5><p>Choose the option that uses indirect-question word order correctly.</p></div></div><span class="chevron-icon">v</span>
+              </button>
+              <div class="exercise-body"><div id="lesson2GrammarQuiz">
+                <div class="q-block" data-answer="1"><strong>1. Ask where the conference room is.</strong><label class="option-btn"><input type="radio" name="l2g1" value="0"> Where is the conference room?</label><label class="option-btn"><input type="radio" name="l2g1" value="1"> Could you tell me where the conference room is?</label><label class="option-btn"><input type="radio" name="l2g1" value="2"> Could you tell me where is the conference room?</label></div>
+                <div class="q-block" data-answer="2"><strong>2. Ask when the supplier presentation starts.</strong><label class="option-btn"><input type="radio" name="l2g2" value="0"> When starts the supplier presentation?</label><label class="option-btn"><input type="radio" name="l2g2" value="1"> Do you know when does the supplier presentation start?</label><label class="option-btn"><input type="radio" name="l2g2" value="2"> Do you know when the supplier presentation starts?</label></div>
+                <div class="q-block" data-answer="0"><strong>3. Ask if the visitor has an appointment.</strong><label class="option-btn"><input type="radio" name="l2g3" value="0"> May I ask if you have an appointment?</label><label class="option-btn"><input type="radio" name="l2g3" value="1"> May I ask do you have an appointment?</label><label class="option-btn"><input type="radio" name="l2g3" value="2"> Do you have appointment?</label></div>
+                <div class="q-block" data-answer="1"><strong>4. Ask who the visitor is meeting.</strong><label class="option-btn"><input type="radio" name="l2g4" value="0"> Would you mind telling me who are you meeting?</label><label class="option-btn"><input type="radio" name="l2g4" value="1"> Would you mind telling me who you are meeting?</label><label class="option-btn"><input type="radio" name="l2g4" value="2"> Who you are meeting?</label></div>
+                <div class="q-block" data-answer="2"><strong>5. Ask which department handles invoices.</strong><label class="option-btn"><input type="radio" name="l2g5" value="0"> Which department handles invoices?</label><label class="option-btn"><input type="radio" name="l2g5" value="1"> Do you happen to know which department does handle invoices?</label><label class="option-btn"><input type="radio" name="l2g5" value="2"> Do you happen to know which department handles invoices?</label></div>
+              </div><div class="actions"><button class="btn primary" type="button" onclick="checkStaticQuiz('lesson2GrammarQuiz','lesson2GrammarFeedback')">Check answers</button><button class="btn" type="button" onclick="resetStaticQuiz('lesson2GrammarQuiz','lesson2GrammarFeedback')">Reset</button></div><div id="lesson2GrammarFeedback" class="feedback"></div></div>
+            </div>
+
+            <div class="exercise" id="lesson2-card-2">
+              <button type="button" class="exercise-header" onclick="toggleLesson2PracticeCard(2)">
+                <div class="exercise-header-left"><span class="exercise-number">2</span><div><h5>Build the Indirect Question</h5><p>Select the chunks in the correct order. The second part uses statement word order.</p></div></div><span class="chevron-icon">v</span>
+              </button>
+              <div class="exercise-body"><div id="lesson2BuildContainer"></div><div class="actions"><button class="btn primary" type="button" onclick="checkLesson2Builders()">Check order</button><button class="btn" type="button" onclick="resetLesson2Builders()">Reset</button></div><div id="lesson2BuildFeedback" class="feedback"></div></div>
+            </div>
+
+            <div class="exercise" id="lesson2-card-3">
+              <button type="button" class="exercise-header" onclick="toggleLesson2PracticeCard(3)">
+                <div class="exercise-header-left"><span class="exercise-number">3</span><div><h5>Expo Role Cards</h5><p>Open a situation, then produce two indirect questions before giving help.</p></div></div><span class="chevron-icon">v</span>
+              </button>
+              <div class="exercise-body"><p class="ref-intro">Choose one card. Student A reads the situation silently and asks for help. Student B must ask at least two indirect questions before giving directions or information.</p><div class="vocab-card-grid"><button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">🎫</span><strong>Lost badge</strong><span class="vocab-sentence">Tap to reveal the situation.</span><span class="vocab-meaning">A visitor cannot enter the expo because their badge is missing. Ask about their name, company, and registration.</span><span class="vocab-action">Reveal situation</span></button><button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">🚪</span><strong>Wrong room</strong><span class="vocab-sentence">Tap to reveal the situation.</span><span class="vocab-meaning">A supplier is waiting in the wrong conference room. Ask who they are meeting and what time their appointment is.</span><span class="vocab-action">Reveal situation</span></button><button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">📍</span><strong>Missing exhibitor</strong><span class="vocab-sentence">Tap to reveal the situation.</span><span class="vocab-meaning">A client cannot find booth 12. Ask which company they need and what product or service they are looking for.</span><span class="vocab-action">Reveal situation</span></button><button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">🕒</span><strong>Late appointment</strong><span class="vocab-sentence">Tap to reveal the situation.</span><span class="vocab-meaning">A regional manager is running late. Ask which time slot they have and who should be notified.</span><span class="vocab-action">Reveal situation</span></button></div><div class="box tint" style="margin-top:14px;"><h4>Speaking Frame</h4><p>Could you tell me...? Do you know...? Would you mind telling me...? May I ask...?</p></div></div>
+            </div>
+
+            <div class="exercise" id="lesson2-card-4">
+              <button type="button" class="exercise-header" onclick="toggleLesson2PracticeCard(4)">
+                <div class="exercise-header-left"><span class="exercise-number">4</span><div><h5>Speaking Drill</h5><p>Transform direct questions into indirect questions. Use a different opener each time.</p></div></div><span class="chevron-icon">v</span>
+              </button>
+              <div class="exercise-body"><p class="ref-intro">Transform each direct question into an indirect question. Use a different opener for each one.</p><div class="grid-2"><div class="phrase"><strong>Where is booth 12?</strong></div><div class="phrase"><strong>Who is the regional manager?</strong></div><div class="phrase"><strong>When does the meeting start?</strong></div><div class="phrase"><strong>Is the supplier available?</strong></div></div></div>
+            </div>
+
+            <div class="exercise" id="lesson2-card-5">
+              <button type="button" class="exercise-header" onclick="toggleLesson2PracticeCard(5)">
+                <div class="exercise-header-left"><span class="exercise-number">5</span><div><h5>Error Detective</h5><p>Find the indirect questions with direct-question word order and rewrite them correctly.</p></div></div><span class="chevron-icon">v</span>
+              </button>
+              <div class="exercise-body"><p class="ref-intro">Read the dialogue. Identify the indirect questions that sound incorrect, then rewrite them with statement word order.</p><div class="box tint"><h4>Dialogue</h4><p><strong>Visitor:</strong> Excuse me, I am looking for the GlobalTech booth.</p><p><strong>Agent:</strong> Of course. Could you tell me where is your appointment?</p><p><strong>Visitor:</strong> It is supposed to be in hall B, but I am not sure.</p><p><strong>Agent:</strong> Do you know who you are meeting with?</p><p><strong>Visitor:</strong> I am meeting with the regional manager.</p><p><strong>Agent:</strong> Would you mind telling me what company do you represent?</p><p><strong>Visitor:</strong> Northbridge Supplies.</p><p><strong>Agent:</strong> Thank you. Do you happen to know where your badge is?</p></div><div class="grid-2" style="margin-top:14px;"><div class="phrase"><strong>Incorrect line 1</strong><span>Rewrite it correctly.</span></div><div class="phrase"><strong>Incorrect line 2</strong><span>Rewrite it correctly.</span></div><div class="phrase"><strong>Correct line 1</strong><span>Find one indirect question that is already correct.</span></div><div class="phrase"><strong>Correct line 2</strong><span>Find one more indirect question that is already correct.</span></div></div><div class="box dark" style="margin-top:14px;"><h4>Teacher Check</h4><p>Expected corrections: Could you tell me where your appointment is? / Would you mind telling me what company you represent?</p></div></div>
+            </div>
+          </section>
+          <section id="lesson2-listening" class="panel" role="tabpanel">
+            <div class="box tint"><h4>Listening Task</h4><p>Listen to the conversation at an international logistics expo. A visitor needs help finding a meeting and asks for extra event information.</p><audio controls style="width:100%; margin-top:12px;"><source src="audio/listening.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio><div class="actions"><button class="btn primary" type="button" onclick="toggleScript('lesson2Script', this)">Show script</button></div><div id="lesson2Script" class="box listening-script"><p><strong>Visitor:</strong> Good morning. I'm here for a meeting with the export team, but I'm not sure where to go.</p><p><strong>Agent:</strong> Good morning. Welcome to the GlobalTech Logistics information desk. Could you tell me who you are meeting with?</p><p><strong>Visitor:</strong> I'm meeting with Ana Torres. I think the meeting is at 11:30, but my badge only says Hall B.</p><p><strong>Agent:</strong> Thank you. Let me check that for you. Do you know where is your confirmation email?</p><p><strong>Visitor:</strong> Yes, I have it on my phone. One moment... Here it is.</p><p><strong>Agent:</strong> Great, thank you. I can see your appointment with Ana Torres. It says Conference Room B4. Would you mind telling me what company do you represent?</p><p><strong>Visitor:</strong> Of course. I'm from Northbridge Supplies.</p><p><strong>Agent:</strong> Thank you. Your meeting is in Conference Room B4. Go straight ahead, turn left after booth 18, and the room is next to the registration desk.</p><p><strong>Visitor:</strong> Thank you. Also, do you know when does the supplier presentation start?</p><p><strong>Agent:</strong> The supplier presentation starts at 12:15 in Hall C.</p><p><strong>Visitor:</strong> Great. And could you tell me where is the networking session?</p><p><strong>Agent:</strong> Yes. The networking session is in the main venue, next to the coffee area. You'll see a sign that says "Networking Lounge."</p><p><strong>Visitor:</strong> Perfect. I'll go to Conference Room B4 first, and then I'll attend the presentation.</p><p><strong>Agent:</strong> That sounds good. If you need anything else, please come back to the information desk.</p><p><strong>Visitor:</strong> Thank you for your help.</p><p><strong>Agent:</strong> You're welcome. Enjoy the expo.</p></div></div>
+
+            <div class="exercise static-quiz"><h5><span class="ex-badge">Comprehension</span> Listening Questions</h5><p>Choose the best answer. Some options are close, so listen for the reason, sequence, and purpose.</p><div id="lesson2ListeningQuiz"><div class="q-block" data-answer="1"><strong>1. Why does the visitor stop at the information desk?</strong><label class="option-btn"><input type="radio" name="l2l1" value="0"> The visitor wants to register for the expo for the first time.</label><label class="option-btn"><input type="radio" name="l2l1" value="1"> The visitor has a meeting but does not have the exact room information.</label><label class="option-btn"><input type="radio" name="l2l1" value="2"> The visitor wants to change the appointment time with the export team.</label></div><div class="q-block" data-answer="2"><strong>2. What helps the agent confirm the correct meeting room?</strong><label class="option-btn"><input type="radio" name="l2l2" value="0"> The visitor's badge number and booth location.</label><label class="option-btn"><input type="radio" name="l2l2" value="1"> The supplier presentation schedule in Hall C.</label><label class="option-btn"><input type="radio" name="l2l2" value="2"> The confirmation email and the appointment with Ana Torres.</label></div><div class="q-block" data-answer="0"><strong>3. Which sequence best matches what the visitor plans to do?</strong><label class="option-btn"><input type="radio" name="l2l3" value="0"> Go to Conference Room B4 first, then attend the supplier presentation.</label><label class="option-btn"><input type="radio" name="l2l3" value="1"> Go to the Networking Lounge first, then look for Ana Torres.</label><label class="option-btn"><input type="radio" name="l2l3" value="2"> Go to Hall C first, then collect a badge at the registration desk.</label></div><div class="q-block" data-answer="1"><strong>4. What can you infer about the agent's main role in the conversation?</strong><label class="option-btn"><input type="radio" name="l2l4" value="0"> The agent is negotiating a delivery problem with a client.</label><label class="option-btn"><input type="radio" name="l2l4" value="1"> The agent is helping a visitor navigate the expo and confirm event information.</label><label class="option-btn"><input type="radio" name="l2l4" value="2"> The agent is selling a logistics platform to a potential supplier.</label></div><div class="q-block" data-answer="2"><strong>5. Which detail is true about the networking session?</strong><label class="option-btn"><input type="radio" name="l2l5" value="0"> It is in Conference Room B4, next to the export team.</label><label class="option-btn"><input type="radio" name="l2l5" value="1"> It starts at 12:15 in Hall C.</label><label class="option-btn"><input type="radio" name="l2l5" value="2"> It is in the main venue, next to the coffee area.</label></div></div><div class="actions"><button class="btn primary" type="button" onclick="checkStaticQuiz('lesson2ListeningQuiz','lesson2ListeningFeedback')">Check listening</button><button class="btn" type="button" onclick="resetStaticQuiz('lesson2ListeningQuiz','lesson2ListeningFeedback')">Reset</button></div><div id="lesson2ListeningFeedback" class="feedback"></div></div>
+
+            <div class="exercise"><h5><span class="ex-badge">Grammar Noticing</span> Find the Incorrect Indirect Questions</h5><p>Listen again. Identify four indirect questions that use direct-question word order. Write the incorrect question and the corrected version.</p><div class="grid-2"><div class="phrase"><strong>1. Incorrect question</strong><textarea rows="2" placeholder="Write the question you heard..."></textarea><span>Correct version</span><textarea rows="2" placeholder="Rewrite it with statement word order..."></textarea></div><div class="phrase"><strong>2. Incorrect question</strong><textarea rows="2" placeholder="Write the question you heard..."></textarea><span>Correct version</span><textarea rows="2" placeholder="Rewrite it with statement word order..."></textarea></div><div class="phrase"><strong>3. Incorrect question</strong><textarea rows="2" placeholder="Write the question you heard..."></textarea><span>Correct version</span><textarea rows="2" placeholder="Rewrite it with statement word order..."></textarea></div><div class="phrase"><strong>4. Incorrect question</strong><textarea rows="2" placeholder="Write the question you heard..."></textarea><span>Correct version</span><textarea rows="2" placeholder="Rewrite it with statement word order..."></textarea></div></div><div class="box tint" style="margin-top:14px;"><h4>After Listening</h4><p>Compare your corrections with your teacher. Focus on the word order after the polite opener.</p></div></div>
+
+            <div class="exercise"><h5><span class="ex-badge">Speaking</span> Role Play Scenario</h5><div class="situation-box"><p><strong>You work at the GlobalTech Logistics information desk.</strong> A visitor has a meeting at the expo, but their badge and email do not give them enough clear information. Help them confirm the appointment, find the correct room, and ask about another event using indirect questions.</p></div><div class="scenario-cards"><div class="scenario-card">Appointment unclear</div><div class="scenario-card">Badge only says Hall B</div><div class="scenario-card">Extra event question</div></div><div class="box dark"><h4>Visitor opening line</h4><p><em>"Good morning. I'm here for a meeting with the export team, but I'm not sure where to go."</em></p></div><div class="grid-2" style="margin-top:16px;"><div class="box"><h4>Student Goal</h4><ul><li>Greet the visitor professionally.</li><li>Ask at least four indirect questions.</li><li>Confirm the meeting room and give clear directions.</li><li>Answer one extra question about the expo schedule.</li></ul></div><div class="box tint"><h4>Useful Speaking Frame</h4><p>Could you tell me who you are meeting with? Do you know where your confirmation email is? Would you mind telling me what company you represent?</p></div></div></div>
+          </section>
+        </div></div>
+      </article>
+      </div>
+    </div>
+
+    <p style="text-align:center;color:var(--muted);font-size:0.9rem;margin:28px 0 8px;">
+      This page saves answers in this browser only. If you open it on another device, download your work first.
+      · Israel Ventura · Business English Course Portal
+    </p>
+  </main>
+
+  <script>
+
+    const STORAGE_KEY = "be_portal_lesson01_fc_v6";
+    const GRAMMAR_TASKS = ["quickCheck", "errorCorrection", "completeSentence", "buildSentence", "businessDecision", "writeOwn"];
+    const VOCAB_TASKS = ["vocabPractice"];
+    const TASKS = [...VOCAB_TASKS, ...GRAMMAR_TASKS, "listening"];
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+    const grammar = {
+      mcAnswers: saved.mcAnswers || {},
+      mcChecked: !!saved.mcChecked,
+      corrections: saved.corrections || {},
+      correctionsChecked: !!saved.correctionsChecked,
+      gaps: saved.gaps || {},
+      gapsChecked: !!saved.gapsChecked,
+      builderWords: saved.builderWords || [],
+      builderAnswers: saved.builderAnswers || [],
+      buildersChecked: !!saved.buildersChecked,
+      decisionAnswers: saved.decisionAnswers || {},
+      decisionsChecked: !!saved.decisionsChecked,
+      ownSentence: saved.ownSentence || "",
+      listeningAnswers: saved.listeningAnswers || {},
+      listeningChecked: !!saved.listeningChecked,
+      vocabAnswers: saved.vocabAnswers || {},
+      vocabChecked: !!saved.vocabChecked
+    };
+
+    const REFERENCE_EXAMPLES = [
+      "If we receive your priority list by noon, we can ship those items first.",
+      "If the supplier confirms stock today, we will reserve the materials immediately.",
+      "If the warehouse is still full, we may need to use an alternative storage option.",
+      "If Tuesday is too soon for the full order, we may send a partial shipment first.",
+      "Unless we receive the customs documents today, we will not be able to dispatch the order tomorrow.",
+      "If that option works on your side, I will lock the transport booking this afternoon."
+    ];const MC = [
+      { prompt: "The supplier has not confirmed the delivery yet. Choose the correct sentence.", options: ["If the supplier will confirm today, we ship tomorrow.", "If the supplier confirms today, we will ship tomorrow.", "If the supplier confirmed today, we will ship tomorrow.", "If the supplier confirms today, we shipped tomorrow."], answer: 1 },
+      { prompt: "The warehouse may receive the materials this afternoon.", options: ["If the warehouse receives the materials today, we can complete the order.", "If the warehouse will receive the materials today, we can complete the order.", "If the warehouse receive the materials today, we can complete the order.", "If the warehouse received the materials today, we can complete the order."], answer: 0 },
+      { prompt: "The client still needs to approve the revised schedule.", options: ["If the client approves the schedule, we may start production immediately.", "If the client will approve the schedule, we may start production immediately.", "If the client approve the schedule, we may start production immediately.", "If the client approved the schedule, we may start production immediately."], answer: 0 },
+      { prompt: "Transportation capacity is limited.", options: ["If we book the truck today, we will secure the available capacity.", "If we will book the truck today, we secure the available capacity.", "If we booked the truck today, we will secure the available capacity.", "If we book the truck today, we secured the available capacity."], answer: 0 },
+      { prompt: "The customer may accept a partial shipment.", options: ["If the customer accepts a partial shipment, we can deliver the urgent items first.", "If the customer will accept a partial shipment, we can deliver the urgent items first.", "If the customer accept a partial shipment, we can deliver the urgent items first.", "If the customer accepted a partial shipment, we can deliver the urgent items first."], answer: 0 }
+    ];
+
+    const ERRORS = [
+      { sentence: "If the supplier will arrive tomorrow, we can finish the order.", answer: "If the supplier arrives tomorrow, we can finish the order." },
+      { sentence: "If the client approve the quotation today, we will reserve the truck.", answer: "If the client approves the quotation today, we will reserve the truck." },
+      { sentence: "We will send a partial shipment if the warehouse will release the urgent items.", answer: "We will send a partial shipment if the warehouse releases the urgent items." },
+      { sentence: "If transportation becomes available, we delivered the order on Friday.", answer: "If transportation becomes available, we will deliver the order on Friday." },
+      { sentence: "If the customer does not confirms the change, we cannot update the schedule.", answer: "If the customer does not confirm the change, we cannot update the schedule." }
+    ];
+
+    const GAPS = [
+      { before: "If the client ", verb1: "approve", middle: " the quotation today, we ", verb2: "ship", after: " the order tomorrow.", answer1: "approves", answer2: "will ship" },
+      { before: "If the supplier ", verb1: "deliver", middle: " the materials before noon, production ", verb2: "start", after: " this afternoon.", answer1: "delivers", answer2: "can start" },
+      { before: "If we ", verb1: "book", middle: " the carrier now, we ", verb2: "avoid", after: " an additional delay.", answer1: "book", answer2: "will avoid" },
+      { before: "If the warehouse ", verb1: "not release", middle: " the goods today, we ", verb2: "not meet", after: " the requested deadline.", answer1: "does not release", answer2: "will not meet" },
+      { before: "If the customer ", verb1: "accept", middle: " a partial delivery, we ", verb2: "send", after: " the urgent items first.", answer1: "accepts", answer2: "can send" },
+      { before: "If the customs documents ", verb1: "be", middle: " complete, the shipment ", verb2: "clear", after: " without further delay.", answer1: "are", answer2: "will clear" },
+      { before: "If the truck ", verb1: "arrive", middle: " before 3:00 p.m., the team ", verb2: "load", after: " it today.", answer1: "arrives", answer2: "can load" },
+      { before: "If we ", verb1: "not receive", middle: " confirmation by noon, we ", verb2: "contact", after: " the client again.", answer1: "do not receive", answer2: "will contact" }
+    ];
+
+    const BUILDERS = [
+      ["If", "the client", "approves", "the revised deadline,", "we will", "update", "the delivery schedule."],
+      ["If", "the supplier", "delivers", "the components today,", "we can", "finish", "the order tomorrow."],
+      ["We will", "send", "a partial shipment", "if", "the warehouse", "releases", "the urgent items."],
+      ["If", "transportation", "is", "available tonight,", "we will", "dispatch", "the order immediately."]
+    ];
+
+    const DECISIONS = [
+      { scenario: "The client needs the shipment three days earlier, but the full order will not be ready.", options: ["If you need it earlier, we can send the urgent items first and deliver the balance on Friday.", "If you will need it earlier, we send something first.", "If you needed it earlier, we will see what happens.", "If you need it earlier, we sent the urgent items first."], answer: 0 },
+      { scenario: "The supplier may confirm stock before noon.", options: ["If the supplier confirms stock before noon, we will reserve the materials immediately.", "If the supplier will confirm stock before noon, we reserve the materials immediately.", "If the supplier confirmed stock before noon, we will reserve the materials immediately.", "If the supplier confirms stock before noon, we reserved the materials immediately."], answer: 0 },
+      { scenario: "The warehouse cannot load the truck unless the documents are complete.", options: ["If the documents are complete, the warehouse can load the truck.", "If the documents will be complete, the warehouse can load the truck.", "If the documents is complete, the warehouse can load the truck.", "If the documents were complete, the warehouse can load the truck tomorrow."], answer: 0 },
+      { scenario: "The carrier has one available unit, but it must be booked now.", options: ["If we book the unit now, we will secure transportation for tomorrow.", "If we will book the unit now, we secure transportation for tomorrow.", "If we booked the unit now, we will secure transportation for tomorrow.", "If we book the unit now, we secured transportation for tomorrow."], answer: 0 }
+    ];
+
+
+
+    const VOCAB_PRACTICE = [
+      {
+        prompt: "David needs the order earlier than planned. What phrase best shows you need to check what is possible before promising?",
+        options: ["Let me check what we can realistically do.", "The order is impossible.", "We already shipped everything.", "That is not my responsibility."],
+        answer: 0,
+        feedback: "This phrase is professional because it buys time without sounding negative."
+      },
+      {
+        prompt: "The full order cannot leave on Tuesday, but 200 units can. Which term describes this solution?",
+        options: ["lead time", "partial shipment", "supplier delay", "deadline"],
+        answer: 1,
+        feedback: "A partial shipment means sending part of the order first."
+      },
+      {
+        prompt: "The warehouse is full and one supplier is late. What word describes a practical alternative solution?",
+        options: ["workaround", "stock", "discount", "deadline"],
+        answer: 0,
+        feedback: "A workaround is an alternative path when the normal process is blocked."
+      },
+      {
+        prompt: "David asks for 200 units first. What should GlobalTech do with those items?",
+        options: ["overpromise", "prioritize them", "delay the client", "remove the stock"],
+        answer: 1,
+        feedback: "To prioritize items means to handle the most important ones first."
+      },
+      {
+        prompt: "Choose the best professional closing after offering Tuesday for 200 units and Friday for the rest.",
+        options: ["Would that work on your side?", "That is all we can do.", "Take it or leave it.", "We might forget the rest."],
+        answer: 0,
+        feedback: "This checks if the solution works for the client and keeps the tone collaborative."
+      },
+      {
+        prompt: "If GlobalTech promises the full order for Tuesday without checking capacity, what is the problem?",
+        options: ["They confirm by noon.", "They overpromise.", "They create a workaround.", "They reduce the lead time."],
+        answer: 1,
+        feedback: "To overpromise means promising more than the company can realistically deliver."
+      }
+    ];
+    const LISTENING_QUESTIONS = [
+      {
+        prompt: "Which company does David represent?",
+        options: ["Green Solutions", "Blue Market", "GlobalTech Logistics", "Regional Launch Group"],
+        answer: 0
+      },
+      {
+        prompt: "When does David need the shipment?",
+        options: ["Monday instead of Wednesday", "Tuesday instead of Friday", "Friday instead of Tuesday", "Today before noon"],
+        answer: 1
+      },
+      {
+        prompt: "What problems does the agent mention?",
+        options: ["The client has not paid and the order is cancelled.", "The warehouse is full and one supplier is delayed.", "Transportation is closed and the price changed.", "The order is too small and the product is unavailable."],
+        answer: 1
+      },
+      {
+        prompt: "How many units does David ask to receive first?",
+        options: ["One hundred units", "Two hundred units", "Five hundred units", "The full order"],
+        answer: 1
+      },
+      {
+        prompt: "What discount does the agent offer if David accepts the schedule?",
+        options: ["Two percent", "Five percent", "Ten percent", "No discount"],
+        answer: 1
+      }
+    ];
+    function escapeHtml(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function shuffleWords(words) {
+      const shuffled = [...words];
+      for (let i = shuffled.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      return shuffled;
+    }
+
+    function normalizeGrammarAnswer(value) {
+      let normalized = (value || "")
+        .trim()
+        .toLowerCase()
+        .replace(/[’']/g, "'")
+        .replace(/[.,!?]+$/g, "")
+        .replace(/\s+/g, " ");
+      [[/\bwon't\b/g, "will not"], [/\bcan't\b/g, "cannot"], [/\bcannot\b/g, "can not"], [/\bdoesn't\b/g, "does not"], [/\bdon't\b/g, "do not"], [/\bisn't\b/g, "is not"], [/\baren't\b/g, "are not"]]
+        .forEach(([pattern, replacement]) => { normalized = normalized.replace(pattern, replacement); });
+      return normalized;
+    }
+
+    function initBuilders(force = false) {
+      if (force || !grammar.builderWords.length || !grammar.builderAnswers.length) {
+        grammar.builderWords = BUILDERS.map(words => shuffleWords(words));
+        grammar.builderAnswers = BUILDERS.map(() => []);
+      }
+    }
+
+    function saveGrammar() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(grammar));
+      } catch (error) {
+        // Keep the activity responsive even if this browser blocks local saving.
+      }
+      updateSummary();
+    }
+
+    function taskCompletion() {
+      const listeningComplete = grammar.listeningChecked && LISTENING_QUESTIONS.every((item, i) => Number(grammar.listeningAnswers[i]) === item.answer);
+      return {
+        vocabPractice: vocabComplete,
+        quickCheck: grammar.mcChecked,
+        errorCorrection: grammar.correctionsChecked,
+        completeSentence: grammar.gapsChecked,
+        buildSentence: grammar.buildersChecked,
+        businessDecision: grammar.decisionsChecked,
+        writeOwn: hasFirstConditional(grammar.ownSentence) && grammar.ownSentence.trim().length >= 20,
+        listening: listeningComplete
+      };
+    }
+
+    function updatePortalProgress() {
+      const complete = taskCompletion();
+      const done = TASKS.filter(k => complete[k]).length;
+      const pct = Math.round((done / TASKS.length) * 100);
+      const grammarDone = GRAMMAR_TASKS.filter(k => complete[k]).length;
+      const grammarPct = Math.round((grammarDone / GRAMMAR_TASKS.length) * 100);
+
+      const topTargets = [
+        ["progressLabel", `${done} of ${TASKS.length} tasks complete`],
+        ["progressPercent", `${pct}%`]
+      ];
+      topTargets.forEach(([id, text]) => { const el = document.getElementById(id); if (el) el.textContent = text; });
+      const progressFill = document.getElementById("progressFill");
+      if (progressFill) progressFill.style.width = `${pct}%`;
+
+      const practiceTargets = [
+        ["practiceProgressLabel", `${grammarDone} of ${GRAMMAR_TASKS.length} exercises complete`],
+        ["practiceProgressPercent", `${grammarPct}%`]
+      ];
+      practiceTargets.forEach(([id, text]) => { const el = document.getElementById(id); if (el) el.textContent = text; });
+      const practiceFill = document.getElementById("practiceProgressFill");
+      if (practiceFill) practiceFill.style.width = `${grammarPct}%`;
+    }
+    function toggleCard(n) {
+      const card = document.getElementById(`card-${n}`);
+      const body = document.getElementById(`card-body-${n}`);
+      if (!card || !body) return;
+      const open = body.classList.contains("open");
+      body.classList.toggle("open", !open);
+      card.classList.toggle("open", !open);
+    }
+
+    function renderReference() {
+      const el = document.getElementById("ref-examples");
+      if (!el) return;
+      el.innerHTML = REFERENCE_EXAMPLES.map((ex, i) => `<div class="ref-example"><span class="num">${i + 1}</span><p>${escapeHtml(ex)}</p></div>`).join("");
+    }
+
+    function renderMC() {
+      const el = document.getElementById("mc-container");
+      if (!el) return;
+      el.innerHTML = MC.map((item, qi) => {
+        const selected = grammar.mcAnswers[qi];
+        return `<div class="q-block"><p class="q-prompt">${qi + 1}. ${escapeHtml(item.prompt)}</p>${item.options.map((opt, oi) => {
+          const isSelected = Number(selected) === oi;
+          const isCorrect = grammar.mcChecked && oi === item.answer;
+          const isWrong = grammar.mcChecked && isSelected && oi !== item.answer;
+          let cls = "option-btn vocab-choice";
+          if (isCorrect) cls += " correct";
+          else if (isWrong) cls += " wrong";
+          return `<label class="${cls}"><input type="radio" name="mc-q${qi}" value="${oi}" ${isSelected ? "checked" : ""}>${escapeHtml(opt)}</label>`;
+        }).join("")}</div>`;
+      }).join("");
+    }
+
+    function syncMCFromDom() {
+      document.querySelectorAll("#mc-container .q-block").forEach((block, qi) => {
+        const checked = block.querySelector(`input[name="mc-q${qi}"]:checked`);
+        if (checked) grammar.mcAnswers[qi] = Number(checked.value);
+      });
+    }
+
+    function selectMC(qi, oi) {
+      grammar.mcAnswers[qi] = oi;
+      grammar.mcChecked = false;
+      const score = document.getElementById("mc-score");
+      if (score) score.style.display = "none";
+      saveGrammar();
+      renderMC();
+    }
+
+    function checkMC() {
+      syncMCFromDom();
+      grammar.mcChecked = true;
+      renderMC();
+      const score = MC.reduce((sum, item, i) => sum + (Number(grammar.mcAnswers[i]) === item.answer ? 1 : 0), 0);
+      const scoreEl = document.getElementById("mc-score");
+      scoreEl.style.display = "block";
+      scoreEl.textContent = `${score}/${MC.length} correct`;
+      saveGrammar();
+    }
+
+    function renderCorrections() {
+      const el = document.getElementById("corrections-container");
+      if (!el) return;
+      el.innerHTML = ERRORS.map((item, i) => {
+        const isCorrect = grammar.correctionsChecked && normalizeGrammarAnswer(grammar.corrections[i]) === normalizeGrammarAnswer(item.answer);
+        const cls = grammar.correctionsChecked ? (isCorrect ? "correct" : "wrong") : "";
+        return `<div class="q-block"><p class="sentence-line"><strong>${i + 1}.</strong> ${escapeHtml(item.sentence)}</p><textarea rows="2" class="${cls}" oninput="updateCorrection(${i}, this.value)" placeholder="Write the corrected sentence...">${escapeHtml(grammar.corrections[i] || "")}</textarea>${grammar.correctionsChecked && !isCorrect ? `<p class="model-answer"><strong>Model answer:</strong> ${escapeHtml(item.answer)}</p>` : ""}</div>`;
+      }).join("");
+    }
+
+    function updateCorrection(i, value) {
+      grammar.corrections[i] = value;
+      grammar.correctionsChecked = false;
+      const score = document.getElementById("corrections-score");
+      if (score) score.style.display = "none";
+      saveGrammar();
+    }
+
+    function checkCorrections() {
+      grammar.correctionsChecked = true;
+      renderCorrections();
+      const score = ERRORS.reduce((sum, item, i) => sum + (normalizeGrammarAnswer(grammar.corrections[i]) === normalizeGrammarAnswer(item.answer) ? 1 : 0), 0);
+      const scoreEl = document.getElementById("corrections-score");
+      scoreEl.style.display = "block";
+      scoreEl.textContent = `${score}/${ERRORS.length} correct`;
+      saveGrammar();
+    }
+
+    function renderGaps() {
+      const el = document.getElementById("gaps-container");
+      if (!el) return;
+      el.innerHTML = GAPS.map((item, i) => {
+        const correct = grammar.gapsChecked && normalizeGrammarAnswer(grammar.gaps[`${i}-1`]) === normalizeGrammarAnswer(item.answer1) && normalizeGrammarAnswer(grammar.gaps[`${i}-2`]) === normalizeGrammarAnswer(item.answer2);
+        const cls = grammar.gapsChecked ? (correct ? "correct" : "wrong") : "";
+        return `<div class="gap-block"><strong>${i + 1}.</strong> ${escapeHtml(item.before)}<input type="text" class="gap-input ${cls}" value="${escapeHtml(grammar.gaps[`${i}-1`] || "")}" oninput="updateGap(${i},1,this.value)" placeholder="(${escapeHtml(item.verb1)})">${escapeHtml(item.middle)}<input type="text" class="gap-input ${cls}" value="${escapeHtml(grammar.gaps[`${i}-2`] || "")}" oninput="updateGap(${i},2,this.value)" placeholder="(${escapeHtml(item.verb2)})">${escapeHtml(item.after)}${grammar.gapsChecked && !correct ? `<p class="gap-answer">Answer: ${escapeHtml(item.answer1)} / ${escapeHtml(item.answer2)}</p>` : ""}</div>`;
+      }).join("");
+    }
+
+    function updateGap(i, part, value) {
+      grammar.gaps[`${i}-${part}`] = value;
+      grammar.gapsChecked = false;
+      const score = document.getElementById("gaps-score");
+      if (score) score.style.display = "none";
+      saveGrammar();
+    }
+
+    function checkGaps() {
+      grammar.gapsChecked = true;
+      renderGaps();
+      const score = GAPS.reduce((sum, item, i) => {
+        const first = normalizeGrammarAnswer(grammar.gaps[`${i}-1`]);
+        const second = normalizeGrammarAnswer(grammar.gaps[`${i}-2`]);
+        return sum + (first === normalizeGrammarAnswer(item.answer1) && second === normalizeGrammarAnswer(item.answer2) ? 1 : 0);
+      }, 0);
+      const scoreEl = document.getElementById("gaps-score");
+      scoreEl.style.display = "block";
+      scoreEl.textContent = `${score}/${GAPS.length} correct`;
+      saveGrammar();
+    }
+
+    function renderBuilders() {
+      initBuilders();
+      const el = document.getElementById("builders-container");
+      if (!el) return;
+      el.innerHTML = BUILDERS.map((correctWords, ei) => {
+        const isCorrect = grammar.buildersChecked && grammar.builderAnswers[ei].join(" ") === correctWords.join(" ");
+        const zoneCls = grammar.buildersChecked ? (isCorrect ? "correct" : "wrong") : "";
+        return `<div class="q-block"><p class="q-prompt">${ei + 1}.</p><div class="builder-answer-zone ${zoneCls}">${grammar.builderAnswers[ei].map((word, wi) => `<button type="button" class="chunk-chosen" data-builder-return="${ei}:${wi}" onclick="returnBuilderWord(${ei},${wi})">${escapeHtml(word)}</button>`).join("")}</div><div class="chunk-pool">${grammar.builderWords[ei].map((word, wi) => `<button type="button" class="chunk-available" data-builder-select="${ei}:${wi}" onclick="selectBuilderWord(${ei},${wi})">${escapeHtml(word)}</button>`).join("")}</div>${grammar.buildersChecked && !isCorrect ? `<p class="model-line"><strong>Model:</strong> ${escapeHtml(correctWords.join(" "))}</p>` : ""}</div>`;
+      }).join("");
+    }
+
+    function selectBuilderWord(ei, wi) {
+      initBuilders();
+      if (!grammar.builderWords[ei] || grammar.builderWords[ei][wi] == null) return;
+      const word = grammar.builderWords[ei][wi];
+      grammar.builderWords[ei] = grammar.builderWords[ei].filter((_, i) => i !== wi);
+      grammar.builderAnswers[ei] = [...grammar.builderAnswers[ei], word];
+      grammar.buildersChecked = false;
+      const score = document.getElementById("builders-score");
+      if (score) score.style.display = "none";
+      renderBuilders();
+      saveGrammar();
+    }
+
+    function returnBuilderWord(ei, wi) {
+      if (!grammar.builderAnswers[ei] || grammar.builderAnswers[ei][wi] == null) return;
+      const word = grammar.builderAnswers[ei][wi];
+      grammar.builderAnswers[ei] = grammar.builderAnswers[ei].filter((_, i) => i !== wi);
+      grammar.builderWords[ei] = [...grammar.builderWords[ei], word];
+      grammar.buildersChecked = false;
+      const score = document.getElementById("builders-score");
+      if (score) score.style.display = "none";
+      renderBuilders();
+      saveGrammar();
+    }
+
+    function checkBuilders() {
+      grammar.buildersChecked = true;
+      renderBuilders();
+      const score = BUILDERS.reduce((sum, words, i) => sum + (grammar.builderAnswers[i].join(" ") === words.join(" ") ? 1 : 0), 0);
+      const scoreEl = document.getElementById("builders-score");
+      scoreEl.style.display = "block";
+      scoreEl.textContent = `${score}/${BUILDERS.length} correct`;
+      saveGrammar();
+    }
+
+    function renderDecisions() {
+      const el = document.getElementById("decisions-container");
+      if (!el) return;
+      el.innerHTML = DECISIONS.map((item, qi) => {
+        const selected = grammar.decisionAnswers[qi];
+        return `<div class="q-block"><p class="q-prompt">${qi + 1}. ${escapeHtml(item.scenario)}</p>${item.options.map((opt, oi) => {
+          const isSelected = Number(selected) === oi;
+          const isCorrect = grammar.decisionsChecked && oi === item.answer;
+          const isWrong = grammar.decisionsChecked && isSelected && oi !== item.answer;
+          let cls = "option-btn vocab-choice";
+          if (isCorrect) cls += " correct";
+          else if (isWrong) cls += " wrong";
+          return `<label class="${cls}"><input type="radio" name="decision-q${qi}" value="${oi}" ${isSelected ? "checked" : ""}>${escapeHtml(opt)}</label>`;
+        }).join("")}</div>`;
+      }).join("");
+    }
+
+    function syncDecisionsFromDom() {
+      document.querySelectorAll("#decisions-container .q-block").forEach((block, qi) => {
+        const checked = block.querySelector(`input[name="decision-q${qi}"]:checked`);
+        if (checked) grammar.decisionAnswers[qi] = Number(checked.value);
+      });
+    }
+
+    function selectDecision(qi, oi) {
+      grammar.decisionAnswers[qi] = oi;
+      grammar.decisionsChecked = false;
+      const score = document.getElementById("decisions-score");
+      if (score) score.style.display = "none";
+      saveGrammar();
+      renderDecisions();
+    }
+
+    function checkDecisions() {
+      syncDecisionsFromDom();
+      grammar.decisionsChecked = true;
+      renderDecisions();
+      const score = DECISIONS.reduce((sum, item, i) => sum + (Number(grammar.decisionAnswers[i]) === item.answer ? 1 : 0), 0);
+      const scoreEl = document.getElementById("decisions-score");
+      scoreEl.style.display = "block";
+      scoreEl.textContent = `${score}/${DECISIONS.length} correct`;
+      saveGrammar();
+    }
+
+    function renderVocabPractice() {
+      document.querySelectorAll("[data-vocab-question]").forEach(block => {
+        const qi = block.dataset.vocabQuestion;
+        const savedValue = grammar.vocabAnswers?.[qi];
+        const checked = block.querySelector(`input[name="vocab-q${qi}"][value="${savedValue}"]`);
+        if (checked) checked.checked = true;
+      });
+    }
+
+    function syncVocabAnswersFromDom() {
+      if (!grammar.vocabAnswers) grammar.vocabAnswers = {};
+      document.querySelectorAll("[data-vocab-question]").forEach(block => {
+        const qi = block.dataset.vocabQuestion;
+        const checked = block.querySelector(`input[name="vocab-q${qi}"]:checked`);
+        if (checked) grammar.vocabAnswers[qi] = checked.value;
+      });
+    }
+
+    function checkVocabPractice() {
+      syncVocabAnswersFromDom();
+      grammar.vocabChecked = true;
+      let score = 0;
+      const blocks = [...document.querySelectorAll("[data-vocab-question]")];
+      blocks.forEach(block => {
+        const answer = String(block.dataset.answer);
+        const qi = block.dataset.vocabQuestion;
+        const checked = block.querySelector(`input[name="vocab-q${qi}"]:checked`);
+        block.querySelectorAll(".vocab-choice").forEach(label => {
+          const input = label.querySelector("input");
+          label.classList.remove("correct", "wrong");
+          if (!input) return;
+          if (input.value === answer) label.classList.add("correct");
+          if (checked && input.checked && input.value !== answer) label.classList.add("wrong");
+        });
+        if (checked && checked.value === answer) score += 1;
+        const note = block.querySelector(".model-answer");
+        if (note) {
+          note.style.display = "block";
+          note.innerHTML = `<strong>Feedback:</strong> ${escapeHtml(block.dataset.feedback || "Review the vocabulary card and try again.")}`;
+        }
+      });
+      const fb = document.getElementById("vocabPracticeFeedback");
+      if (fb) {
+        fb.className = `feedback ${score === blocks.length ? "good" : "warn"}`;
+        fb.textContent = score === blocks.length
+          ? `Score: ${score}/${blocks.length}. Excellent vocabulary control in context.`
+          : `Score: ${score}/${blocks.length}. Review the cards, then try again.`;
+      }
+      saveGrammar();
+    }
+
+    function resetVocabPractice() {
+      grammar.vocabAnswers = {};
+      grammar.vocabChecked = false;
+      document.querySelectorAll("[data-vocab-question]").forEach(block => {
+        block.querySelectorAll("input[type='radio']").forEach(input => { input.checked = false; });
+        block.querySelectorAll(".vocab-choice").forEach(label => label.classList.remove("correct", "wrong"));
+        const note = block.querySelector(".model-answer");
+        if (note) {
+          note.style.display = "none";
+          note.textContent = "";
+        }
+      });
+      const fb = document.getElementById("vocabPracticeFeedback");
+      if (fb) {
+        fb.className = "feedback";
+        fb.textContent = "";
+      }
+      saveGrammar();
+    }
+
+    function renderListening() {
+      const container = document.getElementById("listeningQuestions");
+      if (!container) return;
+      container.innerHTML = LISTENING_QUESTIONS.map((item, qi) => {
+        const selected = grammar.listeningAnswers[qi];
+        const isChecked = grammar.listeningChecked;
+        const isCorrect = Number(selected) === item.answer;
+        return `<div class="q-block"><p class="q-prompt">${qi + 1}. ${escapeHtml(item.prompt)}</p>${item.options.map((option, oi) => {
+          let cls = "option-btn";
+          if (isChecked && oi === item.answer) cls += " correct";
+          else if (isChecked && Number(selected) === oi && !isCorrect) cls += " wrong";
+          else if (Number(selected) === oi) cls += " selected";
+          return `<button type="button" class="${cls}" onclick="selectListening(${qi}, ${oi})">${escapeHtml(option)}</button>`;
+        }).join("")}${isChecked ? `<p class="model-answer"><strong>Feedback:</strong> ${isCorrect ? "Correct." : "Incorrect. Listen again and check the transcript if needed."}</p>` : ""}</div>`;
+      }).join("");
+    }
+
+    function selectListening(qi, oi) {
+      grammar.listeningAnswers[qi] = oi;
+      grammar.listeningChecked = false;
+      const fb = document.getElementById("listeningFeedback");
+      if (fb) {
+        fb.className = "feedback";
+        fb.textContent = "";
+      }
+      saveGrammar();
+      renderListening();
+    }
+
+    function checkListening() {
+      grammar.listeningChecked = true;
+      const score = LISTENING_QUESTIONS.reduce((sum, item, i) => sum + (Number(grammar.listeningAnswers[i]) === item.answer ? 1 : 0), 0);
+      const fb = document.getElementById("listeningFeedback");
+      if (fb) {
+        fb.className = `feedback ${score === LISTENING_QUESTIONS.length ? "good" : "warn"}`;
+        fb.textContent = score === LISTENING_QUESTIONS.length
+          ? `Score: ${score}/${LISTENING_QUESTIONS.length}. Excellent listening comprehension.`
+          : `Score: ${score}/${LISTENING_QUESTIONS.length}. Listen again, then use the transcript to confirm the details.`;
+      }
+      saveGrammar();
+      renderListening();
+    }
+
+    function resetListening() {
+      grammar.listeningAnswers = {};
+      grammar.listeningChecked = false;
+      const fb = document.getElementById("listeningFeedback");
+      if (fb) {
+        fb.className = "feedback";
+        fb.textContent = "";
+      }
+      saveGrammar();
+      renderListening();
+    }
+
+    function toggleTranscript() {
+      const box = document.getElementById("listeningTranscript");
+      if (box) box.classList.toggle("show");
+    }
+    function scoreRows() {
+      const rows = [];
+      if (grammar.mcChecked) rows.push({ label: "Quick Check", score: MC.reduce((sum, item, i) => sum + (grammar.mcAnswers[i] === item.answer ? 1 : 0), 0), total: MC.length });
+      if (grammar.correctionsChecked) rows.push({ label: "Error Correction", score: ERRORS.reduce((sum, item, i) => sum + (normalizeGrammarAnswer(grammar.corrections[i]) === normalizeGrammarAnswer(item.answer) ? 1 : 0), 0), total: ERRORS.length });
+      if (grammar.gapsChecked) rows.push({ label: "Complete the Sentence", score: GAPS.reduce((sum, item, i) => sum + (normalizeGrammarAnswer(grammar.gaps[`${i}-1`]) === normalizeGrammarAnswer(item.answer1) && normalizeGrammarAnswer(grammar.gaps[`${i}-2`]) === normalizeGrammarAnswer(item.answer2) ? 1 : 0), 0), total: GAPS.length });
+      if (grammar.buildersChecked) rows.push({ label: "Build the Sentence", score: BUILDERS.reduce((sum, words, i) => sum + (grammar.builderAnswers[i].join(" ") === words.join(" ") ? 1 : 0), 0), total: BUILDERS.length });
+      if (grammar.decisionsChecked) rows.push({ label: "Business Decision", score: DECISIONS.reduce((sum, item, i) => sum + (grammar.decisionAnswers[i] === item.answer ? 1 : 0), 0), total: DECISIONS.length });
+      return rows;
+    }
+
+    function updateSummary() {
+      const rows = scoreRows();
+      const totalCorrect = rows.reduce((sum, row) => sum + row.score, 0);
+      const totalQuestions = rows.reduce((sum, row) => sum + row.total, 0);
+      const accuracy = totalQuestions ? Math.round((totalCorrect / totalQuestions) * 100) : 0;
+      const valueEl = document.getElementById("accuracy-value");
+      const iconEl = document.getElementById("accuracy-icon");
+      if (valueEl) valueEl.textContent = totalQuestions ? `${accuracy}%` : "Complete an exercise";
+      if (iconEl) {
+        iconEl.style.display = totalQuestions ? "inline" : "none";
+        iconEl.textContent = accuracy >= 80 ? "OK" : "Review";
+      }
+      const fill = document.getElementById("grammar-progress-fill");
+      if (fill) fill.style.width = `${accuracy}%`;
+      const list = document.getElementById("summary-list");
+      if (list) {
+        list.innerHTML = rows.length
+          ? rows.map(row => `<div class="summary-row"><span>${escapeHtml(row.label)}</span><strong>${row.score}/${row.total}</strong></div>`).join("")
+          : '<p class="summary-empty">Scores will appear here after each checked exercise.</p>';
+      }
+      updatePortalProgress();
+    }
+
+    function resetGrammar() {
+      if (!confirm("Clear all practice answers for this lesson in this browser?")) return;
+      localStorage.removeItem(STORAGE_KEY);
+      grammar.mcAnswers = {};
+      grammar.mcChecked = false;
+      grammar.corrections = {};
+      grammar.correctionsChecked = false;
+      grammar.gaps = {};
+      grammar.gapsChecked = false;
+      grammar.builderWords = [];
+      grammar.builderAnswers = [];
+      grammar.buildersChecked = false;
+      grammar.decisionAnswers = {};
+      grammar.decisionsChecked = false;
+      grammar.ownSentence = "";
+      initBuilders(true);
+      renderAll();
+      const own = document.getElementById("own-sentence");
+      if (own) own.value = "";
+      ["mc-score", "corrections-score", "gaps-score", "builders-score", "decisions-score"].forEach(id => { const el = document.getElementById(id); if (el) el.style.display = "none"; });
+      saveGrammar();
+    }
+
+    function collectAnswers() {
+      return {
+        vocabPractice: grammar.vocabAnswers,
+        quickCheck: grammar.mcAnswers,
+        errorCorrection: grammar.corrections,
+        completeTheSentence: grammar.gaps,
+        buildTheSentence: grammar.builderAnswers,
+        businessDecision: grammar.decisionAnswers,
+        writeOwn: grammar.ownSentence,
+        listening: grammar.listeningAnswers
+      };
+    }
+
+    function downloadProgress() {
+      const complete = taskCompletion();
+      const data = {
+        course: "Business English Course Portal",
+        lesson: "Negotiating a Deadline",
+        focus: "First Conditional",
+        progress: { complete: TASKS.filter(k => complete[k]).length, total: TASKS.length, tasks: complete },
+        accuracy: scoreRows(),
+        answers: collectAnswers(),
+        exportedAt: new Date().toISOString()
+      };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "business-english-lesson-01-practice.json";
+      link.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function toggleVocabCard(card) {
+      card.classList.toggle("revealed");
+      const action = card.querySelector(".vocab-action");
+      if (action) action.textContent = card.classList.contains("revealed") ? "Tap to hide" : "Reveal meaning";
+    }
+
+
+    function toggleLesson2PracticeCard(n) {
+      const card = document.getElementById(`lesson2-card-${n}`);
+      if (card) card.classList.toggle("open");
+    }
+
+    function togglePracticeCard(cardId) {
+      const card = document.getElementById(cardId);
+      if (card) card.classList.toggle("open");
+    }
+
+    function toggleLessonCard(cardId, event) {
+      if (event) event.stopPropagation();
+      const card = document.getElementById(cardId);
+      if (!card) return;
+      const isOpen = card.classList.toggle("lesson-open");
+      const button = card.querySelector(".lesson-toggle-button");
+      if (button) button.textContent = isOpen ? "Close lesson" : "Open lesson";
+    }
+
+    function toggleLessonBody(event) {
+      toggleLessonCard("lesson1Card", event);
+    }
+
+    function openLessonCard(cardId, button) {
+      const card = document.getElementById(cardId);
+      if (!card) return;
+      card.classList.add("lesson-open");
+      const toggle = card.querySelector(".lesson-toggle-button");
+      if (toggle) toggle.textContent = "Close lesson";
+      document.querySelectorAll(".lesson-button[data-lesson-card]").forEach(item => item.classList.remove("active"));
+      if (button) button.classList.add("active");
+      card.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function toggleScript(scriptId, button) {
+      const script = document.getElementById(scriptId);
+      if (!script) return;
+      const open = script.classList.toggle("open");
+      if (button) button.textContent = open ? "Hide script" : "Show script";
+    }
+
+    function checkStaticQuiz(containerId, feedbackId) {
+      const root = document.getElementById(containerId);
+      const feedback = document.getElementById(feedbackId);
+      if (!root || !feedback) return;
+      const blocks = [...root.querySelectorAll(".q-block[data-answer]")];
+      let correct = 0;
+      let answered = 0;
+      blocks.forEach(block => {
+        block.querySelectorAll(".option-btn").forEach(label => label.classList.remove("correct", "wrong"));
+        const selected = block.querySelector('input[type="radio"]:checked');
+        if (!selected) return;
+        answered += 1;
+        const label = selected.closest(".option-btn");
+        if (selected.value === block.dataset.answer) {
+          correct += 1;
+          if (label) label.classList.add("correct");
+        } else if (label) {
+          label.classList.add("wrong");
+        }
+      });
+      feedback.className = "feedback " + (correct === blocks.length ? "good" : "warn");
+      feedback.innerHTML = answered < blocks.length
+        ? `You answered ${answered}/${blocks.length}. Finish every item, then check again.`
+        : correct === blocks.length
+          ? `Excellent: ${correct}/${blocks.length} correct.`
+          : `${correct}/${blocks.length} correct. Try again and read the context carefully.`;
+    }
+
+    function resetStaticQuiz(containerId, feedbackId) {
+      const root = document.getElementById(containerId);
+      const feedback = document.getElementById(feedbackId);
+      if (!root) return;
+      root.querySelectorAll('input[type="radio"]').forEach(input => { input.checked = false; });
+      root.querySelectorAll(".option-btn").forEach(label => label.classList.remove("correct", "wrong"));
+      if (feedback) {
+        feedback.className = "feedback";
+        feedback.textContent = "";
+      }
+    }
+
+    const LESSON2_BUILDERS = [
+      ["Could you tell me", "where", "the registration desk", "is?"],
+      ["Do you know", "when", "the supplier presentation", "starts?"],
+      ["Would you mind telling me", "who", "you are meeting", "with?"],
+      ["I was wondering", "if", "your appointment", "has been confirmed."],
+      ["May I ask", "which department", "handles invoices?"],
+      ["Do you happen to know", "where", "booth 12", "is?"]
+    ];
+    let lesson2BuilderWords = LESSON2_BUILDERS.map(words => shuffleWords(words));
+    let lesson2BuilderAnswers = LESSON2_BUILDERS.map(() => []);
+    let lesson2BuildersChecked = false;
+
+    function renderLesson2Builders() {
+      const el = document.getElementById("lesson2BuildContainer");
+      if (!el) return;
+      el.innerHTML = LESSON2_BUILDERS.map((correctWords, ei) => {
+        const current = lesson2BuilderAnswers[ei] || [];
+        const pool = lesson2BuilderWords[ei] || [];
+        const isCorrect = lesson2BuildersChecked && current.join(" ") === correctWords.join(" ");
+        const zoneCls = lesson2BuildersChecked ? (isCorrect ? "correct" : "wrong") : "";
+        const prompt = [
+          "Where is the registration desk?",
+          "When does the supplier presentation start?",
+          "Who are you meeting with?",
+          "Is your appointment confirmed?",
+          "Which department handles invoices?",
+          "Where is booth 12?"
+        ][ei];
+        return `<div class="q-block"><p class="q-prompt"><strong>${ei + 1}.</strong> Direct question: ${escapeHtml(prompt)}</p><div class="builder-answer-zone ${zoneCls}">${current.length ? current.map((word, wi) => `<button type="button" class="chunk-chosen" onclick="returnLesson2BuilderWord(${ei},${wi})">${escapeHtml(word)}</button>`).join("") : `<span class="placeholder-text">Build the indirect question here...</span>`}</div><div class="chunk-pool">${pool.map((word, wi) => `<button type="button" class="chunk-available" onclick="selectLesson2BuilderWord(${ei},${wi})">${escapeHtml(word)}</button>`).join("")}</div></div>`;
+      }).join("");
+    }
+
+    function selectLesson2BuilderWord(ei, wi) {
+      if (!lesson2BuilderWords[ei] || lesson2BuilderWords[ei][wi] == null) return;
+      const word = lesson2BuilderWords[ei][wi];
+      lesson2BuilderWords[ei] = lesson2BuilderWords[ei].filter((_, i) => i !== wi);
+      lesson2BuilderAnswers[ei] = [...lesson2BuilderAnswers[ei], word];
+      lesson2BuildersChecked = false;
+      const feedback = document.getElementById("lesson2BuildFeedback");
+      if (feedback) { feedback.className = "feedback"; feedback.textContent = ""; }
+      renderLesson2Builders();
+    }
+
+    function returnLesson2BuilderWord(ei, wi) {
+      if (!lesson2BuilderAnswers[ei] || lesson2BuilderAnswers[ei][wi] == null) return;
+      const word = lesson2BuilderAnswers[ei][wi];
+      lesson2BuilderAnswers[ei] = lesson2BuilderAnswers[ei].filter((_, i) => i !== wi);
+      lesson2BuilderWords[ei] = [...lesson2BuilderWords[ei], word];
+      lesson2BuildersChecked = false;
+      const feedback = document.getElementById("lesson2BuildFeedback");
+      if (feedback) { feedback.className = "feedback"; feedback.textContent = ""; }
+      renderLesson2Builders();
+    }
+
+    function checkLesson2Builders() {
+      lesson2BuildersChecked = true;
+      renderLesson2Builders();
+      const score = LESSON2_BUILDERS.reduce((sum, words, i) => sum + (lesson2BuilderAnswers[i].join(" ") === words.join(" ") ? 1 : 0), 0);
+      const feedback = document.getElementById("lesson2BuildFeedback");
+      if (!feedback) return;
+      feedback.className = "feedback " + (score === LESSON2_BUILDERS.length ? "good" : "warn");
+      feedback.textContent = score === LESSON2_BUILDERS.length
+        ? `Excellent: ${score}/${LESSON2_BUILDERS.length} correct.`
+        : `${score}/${LESSON2_BUILDERS.length} correct. Try again: the second part should not use direct question order.`;
+    }
+
+    function resetLesson2Builders() {
+      lesson2BuilderWords = LESSON2_BUILDERS.map(words => shuffleWords(words));
+      lesson2BuilderAnswers = LESSON2_BUILDERS.map(() => []);
+      lesson2BuildersChecked = false;
+      const feedback = document.getElementById("lesson2BuildFeedback");
+      if (feedback) { feedback.className = "feedback"; feedback.textContent = ""; }
+      renderLesson2Builders();
+    }
+    function renderAll() {
+      initBuilders();
+      renderReference();
+      renderVocabPractice();
+      renderMC();
+      renderCorrections();
+      renderGaps();
+      renderBuilders();
+      renderDecisions();
+      renderListening();
+      renderLesson2Builders();
+      const own = document.getElementById("own-sentence");
+      if (own) {
+        own.value = grammar.ownSentence || "";
+        own.addEventListener("input", () => {
+          grammar.ownSentence = own.value;
+          saveGrammar();
+        });
+      }
+      updateSummary();
+    }
+
+    document.querySelectorAll(".tab").forEach(tab => {
+      tab.addEventListener("click", () => {
+        const card = tab.closest(".lesson-card") || document;
+        card.querySelectorAll(".tab").forEach(t => {
+          t.classList.remove("active");
+          t.setAttribute("aria-selected", "false");
+        });
+        card.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+        tab.classList.add("active");
+        tab.setAttribute("aria-selected", "true");
+        const panel = document.getElementById(tab.dataset.tab);
+        if (panel) panel.classList.add("active");
+        if (tab.dataset.tab === "vocabulary") renderVocabPractice();
+      });
+    });
+
+    renderAll();
+  
+    // Auto-open this lesson card on single-lesson pages
+    document.addEventListener("DOMContentLoaded", function () {
+      var card = document.getElementById("lesson2Card");
+      if (card && !card.classList.contains("lesson-open")) {
+        card.classList.add("lesson-open");
+      }
+      var btn = card ? card.querySelector(".lesson-toggle-button") : null;
+      if (btn) btn.textContent = "Close lesson";
+    });
+  </script>
+</body>
+</html>
