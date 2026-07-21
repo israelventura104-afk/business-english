@@ -1,0 +1,2307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <link rel="apple-touch-icon" href="../favicon.png">
+  <title>Lesson 04: Updating Operations | Business English</title>
+  <style>
+
+
+    :root {
+      --brand-logo: url('../assets/logo.png');
+      --navy: #1e2d5a;
+      --teal: #5bb8b0;
+      --teal-dark: #238d85;
+      --gold: #d4a843;
+      --ink: #172033;
+      --muted: #6b7fa3;
+      --line: #e8ecf4;
+      --paper: #ffffff;
+      --wash: #f0faf9;
+      --soft: #f8fafc;
+      --warn: #fff7e6;
+      --good: #e9f8ef;
+      --bad: #fff0f0;
+      --shadow: 0 18px 45px rgba(30, 45, 90, 0.10);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top right, rgba(91, 184, 176, 0.16), transparent 34rem),
+        linear-gradient(180deg, #f7fafc 0%, #eef4f7 100%);
+      min-height: 100vh;
+    }
+
+    button, input, textarea, select { font: inherit; }
+    button { cursor: pointer; }
+
+    .shell {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    /* Header */
+    .topbar {
+      position: sticky;
+      top: 16px;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 18px;
+      padding: 12px 16px;
+      background: var(--navy);
+      color: white;
+      border-radius: 18px;
+      box-shadow: 0 16px 34px rgba(30, 45, 90, 0.22);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 52px;
+      height: 52px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+      overflow: hidden;
+      padding: 3px;
+      flex: 0 0 auto;
+    }
+
+    .brand-mark img {
+      width: 100%;
+      height: 100%;
+      border-radius: 999px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .brand h1 {
+      margin: 0;
+      color: white;
+      font-size: clamp(1.05rem, 2vw, 1.35rem);
+      line-height: 1.05;
+    }
+
+    .brand p {
+      margin: 3px 0 0;
+      color: #d7ecea;
+      font-size: 0.84rem;
+    }
+
+    .mode-pill {
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: white;
+      background: rgba(255, 255, 255, 0.10);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      background: #f4fbfa;
+      color: var(--navy);
+      border: 1px solid rgba(30, 45, 90, 0.08);
+      box-shadow: var(--shadow);
+      margin-bottom: 22px;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: clamp(0.75rem, 3vw, 1.75rem);
+      top: 50%;
+      transform: translateY(-50%);
+      width: clamp(160px, 22vw, 280px);
+      max-width: 32%;
+      aspect-ratio: 1 / 1;
+      border-radius: 999px;
+      background-image: var(--brand-logo);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      padding: clamp(24px, 5vw, 42px);
+      /* leave room on the right for the watermark, without overlap */
+      max-width: min(620px, calc(100% - clamp(150px, 26vw, 300px)));
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      color: var(--teal-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.75rem;
+      font-weight: 900;
+    }
+
+    .hero h2 {
+      margin: 0;
+      max-width: 780px;
+      font-size: clamp(2rem, 5vw, 4.25rem);
+      line-height: 0.98;
+      letter-spacing: 0;
+    }
+
+    .hero h2 span { color: var(--teal); }
+
+    .hero-copy {
+      color: var(--muted);
+      margin: 18px 0 0;
+      max-width: 670px;
+      line-height: 1.65;
+      font-size: 1.02rem;
+    }
+
+    .hero-panel {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(30, 45, 90, 0.08);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 12px 28px rgba(30, 45, 90, 0.08);
+    }
+
+    .hero-panel h3 {
+      margin: 0 0 8px;
+      color: var(--navy);
+      font-size: 0.94rem;
+    }
+
+    .progress-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-weight: 800;
+      font-size: 0.82rem;
+      margin-bottom: 9px;
+    }
+
+    .progress-track {
+      height: 8px;
+      background: #eef2f6;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: var(--teal);
+      transition: width 0.35s ease;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .stat {
+      border: 1px solid rgba(30, 45, 90, 0.08);
+      border-radius: 12px;
+      padding: 10px;
+      text-align: center;
+      background: #fbfdfe;
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--navy);
+      font-size: 1rem;
+    }
+
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.72rem;
+      margin-top: 2px;
+    }
+
+    /* Layout */
+    .layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .lessons-stack {
+      grid-column: 2;
+      display: grid;
+      gap: 18px;
+    }
+    .layout > .lesson-card {
+      grid-column: 2;
+    }
+
+    .sidebar, .main-card {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(30, 45, 90, 0.08);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 100px;
+      padding: 14px;
+    }
+
+    .side-title {
+      margin: 6px 8px 12px;
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .lesson-button {
+      width: 100%;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      text-align: left;
+      border: 1px solid transparent;
+      border-radius: 14px;
+      background: transparent;
+      padding: 12px;
+      color: var(--ink);
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .lesson-button.active {
+      background: var(--wash);
+      border-color: rgba(91, 184, 176, 0.45);
+    }
+
+    .lesson-button.locked {
+      color: #9aa9bf;
+      cursor: default;
+    }
+
+    .lesson-num {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      background: var(--navy);
+      color: white;
+      font-size: 0.78rem;
+      font-weight: 900;
+    }
+
+    .lesson-button.active .lesson-num { background: var(--teal); }
+    .lesson-button.locked .lesson-num { background: #c9d3df; }
+    .lesson-button.lesson-teal .lesson-num { background: var(--teal); }
+    .lesson-button.lesson-gold .lesson-num { background: var(--gold); color: var(--navy); }
+    .lesson-button.lesson-navy .lesson-num { background: var(--navy); }
+    .lesson-button:not(.locked) { cursor: pointer; }
+    .lesson-button:not(.locked):hover { background: #f7fbfc; border-color: rgba(91, 184, 176, 0.32); }
+    .lesson-button.locked.lesson-teal .lesson-num,
+    .lesson-button.locked.lesson-gold .lesson-num,
+    .lesson-button.locked.lesson-navy .lesson-num { background: #d8e1ea; color: #718096; }
+    .lesson-card { margin-bottom: 18px; }
+    .lesson-card .lesson-body { display: none; }
+    .lesson-card.lesson-open .lesson-body { display: block; }
+    .static-quiz .q-block { margin-bottom: 14px; }
+    .listening-script { display: none; margin-top: 12px; }
+    .listening-script.open { display: block; }
+
+
+    .lesson-meta strong {
+      display: block;
+      font-size: 0.92rem;
+      line-height: 1.2;
+    }
+
+    .lesson-meta span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.76rem;
+      line-height: 1.35;
+    }
+
+
+    .lesson-header {
+      cursor: pointer;
+      position: relative;
+    }
+
+    .lesson-toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .lesson-toggle-button {
+      border: 1px solid rgba(91, 184, 176, 0.4);
+      border-radius: 999px;
+      background: #f0faf9;
+      color: var(--teal-dark);
+      font-weight: 900;
+      padding: 8px 12px;
+      white-space: nowrap;
+    }
+
+    .lesson-body {
+      display: none;
+    }
+
+    .main-card.lesson-open .lesson-body {
+      display: block;
+    }
+
+    .main-card.lesson-open .lesson-header {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .lesson-header {
+      border-bottom: 0;
+    }
+
+    @media (max-width: 640px) {
+      .lesson-toggle-row {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+    .main-card { overflow: hidden; }
+
+    .lesson-header {
+      padding: 24px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .lesson-header h3 {
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(1.35rem, 3vw, 2rem);
+      line-height: 1.05;
+    }
+
+    .lesson-header p {
+      color: var(--muted);
+      margin: 8px 0 0;
+      line-height: 1.5;
+      max-width: 680px;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .tag {
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.75rem;
+      font-weight: 900;
+      background: #edf4f7;
+      color: var(--navy);
+      border: 1px solid rgba(30, 45, 90, 0.08);
+    }
+
+    .tag.teal {
+      background: var(--wash);
+      color: var(--teal-dark);
+      border-color: rgba(91, 184, 176, 0.35);
+    }
+
+    .tag.gold {
+      background: var(--warn);
+      color: #8a6400;
+      border-color: rgba(212, 168, 67, 0.32);
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 6px;
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfdfe;
+      overflow-x: auto;
+    }
+
+    .tab {
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--muted);
+      padding: 8px 14px;
+      font-weight: 900;
+      white-space: nowrap;
+      font-size: 0.84rem;
+    }
+
+    .tab.active {
+      color: white;
+      background: var(--navy);
+    }
+
+    .content { padding: 24px; }
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .box {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      background: var(--paper);
+    }
+
+    .box.tint {
+      background: var(--wash);
+      border-color: rgba(91, 184, 176, 0.35);
+    }
+
+    .box.dark {
+      background: var(--navy);
+      color: white;
+      border-color: var(--navy);
+    }
+
+    .box h4 {
+      margin: 0 0 10px;
+      color: var(--navy);
+      font-size: 1rem;
+    }
+
+    .box.dark h4 { color: var(--gold); }
+
+    .box p, .box li {
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .box.dark p, .box.dark li { color: #d7ecea; }
+
+    .box ul { margin: 0; padding-left: 1.15rem; }
+
+    .phrase {
+      display: grid;
+      gap: 6px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px;
+      background: #fff;
+    }
+
+    .phrase strong { color: var(--navy); }
+    .phrase span {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .vocabulary-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .vocabulary-list .phrase strong {
+      font-size: 1.04rem;
+      line-height: 1.25;
+    }
+
+
+    .vocab-card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .vocab-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+      background: #fff;
+      text-align: left;
+      cursor: pointer;
+      font: inherit;
+      color: var(--navy);
+      min-height: 142px;
+      display: grid;
+      gap: 10px;
+      align-content: start;
+      transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+    }
+
+    .vocab-card:hover {
+      transform: translateY(-1px);
+      border-color: rgba(91, 184, 176, 0.5);
+    }
+
+    .vocab-card.revealed {
+      background: #f0faf9;
+      border-color: rgba(28, 128, 124, 0.62);
+    }
+
+    .vocab-card-top {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .vocab-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: var(--wash);
+      color: var(--teal-dark);
+      font-weight: 900;
+      flex: 0 0 auto;
+    }
+
+    .vocab-term {
+      display: inline;
+      color: var(--gold-dark);
+      background: rgba(212, 168, 67, 0.16);
+      border-radius: 6px;
+      padding: 1px 5px;
+      font-weight: 900;
+    }
+
+    .vocab-sentence {
+      margin: 0;
+      line-height: 1.55;
+      font-size: 0.95rem;
+    }
+
+    .vocab-meaning {
+      display: none;
+      margin: 0;
+      color: var(--teal-dark);
+      line-height: 1.5;
+      font-size: 0.94rem;
+      font-weight: 700;
+    }
+
+    .vocab-card.revealed .vocab-meaning {
+      display: block;
+    }
+
+    .vocab-action {
+      margin: 0;
+      color: var(--teal-dark);
+      font-size: 0.84rem;
+      font-weight: 900;
+    }
+
+    @media (max-width: 720px) {
+      .vocab-card-grid { grid-template-columns: 1fr; }
+    }
+    .exercise-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      width: 100%;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      text-align: left;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .exercise-header-left {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .exercise-number {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      background: var(--teal);
+      color: #fff;
+      font-weight: 900;
+      font-size: 0.88rem;
+    }
+
+    .exercise-header h5 {
+      margin: 0;
+      color: var(--navy);
+      font-size: 1.02rem;
+    }
+
+    .exercise-header p {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .chevron-icon {
+      color: var(--muted);
+      transition: transform 0.2s ease;
+      font-size: 0.9rem;
+      margin-top: 7px;
+    }
+
+    .exercise.open .chevron-icon { transform: rotate(180deg); }
+    .exercise-body {
+      display: none;
+      margin-top: 16px;
+    }
+
+    .exercise.open .exercise-body {
+      display: block;
+    }
+
+    .card-body {
+      display: none;
+      margin-top: 16px;
+    }
+
+    .card-body.open { display: block; }
+
+    .ref-intro {
+      color: var(--muted);
+      margin: 0 0 14px;
+      line-height: 1.55;
+    }
+
+    .ref-formula {
+      border-radius: 14px;
+      padding: 16px;
+      text-align: center;
+      background: var(--navy);
+      margin-bottom: 14px;
+    }
+
+    .ref-formula p {
+      margin: 0;
+      color: #fff;
+      font-weight: 800;
+      font-size: 1.03rem;
+    }
+
+    .if-word { color: var(--gold); }
+    .modal-word { color: var(--teal); }
+
+    .ref-example {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      border-radius: 12px;
+      padding: 12px;
+      background: var(--soft);
+      margin-bottom: 8px;
+    }
+
+    .ref-example .num {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      background: var(--teal);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 900;
+    }
+
+    .ref-example p {
+      margin: 0;
+      color: var(--navy);
+      font-size: 0.92rem;
+      font-style: italic;
+    }
+
+    .q-block {
+      border-radius: 12px;
+      padding: 16px;
+      background: var(--soft);
+      margin-bottom: 14px;
+    }
+
+    .q-block:last-child { margin-bottom: 0; }
+
+    .q-prompt, .sentence-line {
+      margin: 0 0 12px;
+      color: var(--navy);
+      font-size: 0.94rem;
+      font-weight: 750;
+      line-height: 1.45;
+    }
+
+    .option-btn {
+      display: block;
+      width: 100%;
+      text-align: left;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--navy);
+      padding: 12px 14px;
+      font-size: 0.92rem;
+      margin-bottom: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .option-btn:last-child { margin-bottom: 0; }
+
+    .vocab-practice-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .vocab-choice {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .vocab-choice input {
+      width: auto;
+      min-height: 0;
+      margin-top: 3px;
+      accent-color: var(--teal);
+      flex: 0 0 auto;
+    }
+
+    .vocab-choice.correct {
+      border-color: var(--teal);
+      background: #f0faf9;
+    }
+
+    .vocab-choice.wrong {
+      border-color: #d97706;
+      background: #fff7ed;
+    }
+
+    .vocab-choice:has(input:checked) {
+      border-color: var(--navy);
+      background: #eef4f7;
+    }
+    .option-btn.selected { border-color: var(--navy); background: #eef4f7; }
+    .option-btn.correct { border-color: var(--teal); background: #f0faf9; }
+    .option-btn.wrong { border-color: #d97706; background: #fff7ed; }
+
+    .score-line {
+      margin: 12px 0 0;
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--teal);
+    }
+
+    .model-answer, .gap-answer, .model-line, .feedback-note {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.45;
+    }
+
+    .gap-block {
+      border-radius: 12px;
+      padding: 16px;
+      background: var(--soft);
+      font-size: 0.94rem;
+      line-height: 2.15;
+      color: var(--navy);
+      margin-bottom: 14px;
+    }
+
+    .gap-input {
+      width: 155px;
+      display: inline-block;
+      margin: 0 4px;
+      padding: 5px 8px;
+    }
+
+    .builder-answer-zone {
+      min-height: 54px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .builder-answer-zone.correct { border-color: var(--teal); }
+    .builder-answer-zone.wrong { border-color: #d97706; }
+
+    .chunk-pool {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chunk-chosen, .chunk-available {
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .chunk-chosen {
+      color: #fff;
+      background: var(--navy);
+      border: 0;
+    }
+
+    .chunk-available {
+      color: var(--navy);
+      background: #fff;
+      border: 1px solid rgba(28, 128, 124, 0.35);
+    }
+
+    .situation-box {
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      background: #f0faf9;
+      border: 1px solid rgba(28, 128, 124, 0.22);
+    }
+
+    .situation-box p {
+      margin: 0;
+      color: var(--navy);
+      line-height: 1.5;
+    }
+
+    .grammar-summary {
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--navy);
+      margin-top: 18px;
+    }
+
+    .grammar-summary-inner { padding: 22px; }
+
+    .summary-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .summary-label {
+      margin: 0;
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+    }
+
+    .summary-value {
+      margin: 2px 0 0;
+      color: #fff;
+      font-size: 1.45rem;
+    }
+
+    .summary-icon { color: #fff; font-weight: 900; }
+
+    .summary-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 12px;
+      padding: 9px 12px;
+      font-size: 0.9rem;
+      background: rgba(255,255,255,0.08);
+      margin-bottom: 8px;
+    }
+
+    .summary-row span { color: #dce8f5; }
+    .summary-row strong { color: #fff; }
+    .summary-empty { color: #cce4e1; font-size: 0.9rem; }
+
+    /* Exercises */
+    .exercise {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      background: #fff;
+      margin-bottom: 16px;
+    }
+
+    .exercise h5 {
+      margin: 0 0 8px;
+      color: var(--navy);
+      font-size: 1rem;
+    }
+
+    .exercise > p {
+      color: var(--muted);
+      margin: 0 0 12px;
+      line-height: 1.5;
+    }
+
+    .ex-badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 3px 9px;
+      font-size: 0.72rem;
+      font-weight: 900;
+      background: var(--wash);
+      color: var(--teal-dark);
+      border: 1px solid rgba(91, 184, 176, 0.35);
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+
+    .question {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .question label {
+      color: var(--navy);
+      font-weight: 800;
+      font-size: 0.92rem;
+      line-height: 1.4;
+    }
+
+    select, input[type="text"], textarea {
+      width: 100%;
+      border: 1.5px solid #dbe3ec;
+      border-radius: 12px;
+      padding: 10px 12px;
+      color: var(--ink);
+      background: #fff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    select:focus, input[type="text"]:focus, textarea:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(91, 184, 176, 0.16);
+    }
+
+    input[type="text"] { min-height: 44px; }
+
+    textarea {
+      resize: vertical;
+      min-height: 110px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .btn {
+      border: 1.5px solid rgba(30, 45, 90, 0.12);
+      border-radius: 12px;
+      padding: 10px 14px;
+      background: #fff;
+      color: var(--navy);
+      font-weight: 900;
+      box-shadow: 0 8px 18px rgba(30, 45, 90, 0.07);
+    }
+
+    .btn.primary {
+      color: white;
+      background: var(--navy);
+      border-color: var(--navy);
+    }
+
+    .btn.gold {
+      border-color: rgba(212, 168, 67, 0.6);
+      background: #fff;
+    }
+
+    .btn:hover { filter: brightness(1.03); }
+
+    .feedback {
+      display: none;
+      margin-top: 12px;
+      border-radius: 14px;
+      padding: 12px;
+      font-weight: 800;
+      line-height: 1.45;
+    }
+
+    .feedback.good {
+      display: block;
+      background: var(--good);
+      color: #207444;
+      border: 1px solid rgba(32, 116, 68, 0.18);
+    }
+
+    .feedback.warn {
+      display: block;
+      background: var(--warn);
+      color: #875f00;
+      border: 1px solid rgba(212, 168, 67, 0.22);
+    }
+
+
+    .audio-panel {
+      display: grid;
+      gap: 12px;
+      border: 1px solid rgba(91, 184, 176, 0.28);
+      border-radius: 16px;
+      padding: 16px;
+      background: #f7fcfb;
+      margin-bottom: 16px;
+    }
+
+    .audio-panel audio {
+      width: 100%;
+    }
+
+    .pending-audio-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    .transcript-box {
+      display: none;
+      white-space: pre-line;
+      margin-top: 12px;
+    }
+
+    .transcript-box.show {
+      display: block;
+    }
+
+    .scenario-cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 14px 0;
+    }
+
+    .scenario-card {
+      border-radius: 12px;
+      padding: 14px;
+      background: #e9edf5;
+      color: var(--navy);
+      text-align: center;
+      font-weight: 900;
+      min-height: 76px;
+      display: grid;
+      place-items: center;
+    }
+
+    @media (max-width: 720px) {
+      .scenario-cards { grid-template-columns: 1fr; }
+    }
+    .word-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0;
+    }
+
+    .chip {
+      border: 1px solid rgba(91, 184, 176, 0.35);
+      border-radius: 999px;
+      padding: 8px 11px;
+      background: var(--wash);
+      color: var(--teal-dark);
+      font-size: 0.86rem;
+      font-weight: 900;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .chip:hover {
+      border-color: var(--teal);
+      background: #e4f6f4;
+    }
+
+    .chip.used {
+      opacity: 0.45;
+      text-decoration: line-through;
+    }
+
+    .formula {
+      font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin: 10px 0;
+      color: #e8f7f5;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .example-row {
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .example-row .phrase { background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.12); }
+    .example-row .phrase strong { color: #fff; }
+    .example-row .phrase span { color: #b8d4d1; }
+
+    .build-slots {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin: 10px 0 4px;
+      min-height: 48px;
+      padding: 10px;
+      border: 1.5px dashed #dbe3ec;
+      border-radius: 12px;
+      background: var(--soft);
+    }
+
+    .build-slots .slot-chip {
+      border-radius: 999px;
+      padding: 8px 11px;
+      background: var(--navy);
+      color: white;
+      font-size: 0.86rem;
+      font-weight: 800;
+    }
+
+    .build-slots .placeholder-text {
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .email-preview {
+      white-space: pre-wrap;
+      border: 1px solid var(--line);
+      background: var(--soft);
+      border-radius: 14px;
+      padding: 14px;
+      color: var(--ink);
+      line-height: 1.55;
+      min-height: 80px;
+    }
+
+    .footer-note {
+      color: var(--muted);
+      text-align: center;
+      margin: 24px 0 0;
+      font-size: 0.86rem;
+    }
+
+    .practice-head {
+      margin-bottom: 16px;
+    }
+
+    .practice-head h4 {
+      margin: 0 0 6px;
+      color: var(--navy);
+      font-size: 1.15rem;
+    }
+
+    .practice-head p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .lessons-stack {
+      grid-column: 1;
+      display: grid;
+      gap: 18px;
+    }
+    .layout > .lesson-card { grid-column: 1; }
+      .sidebar { position: static; }
+    }
+
+    @media (max-width: 640px) {
+      .shell { padding: 16px; }
+      .topbar { align-items: flex-start; }
+      .mode-pill { display: none; }
+      .lesson-header { padding: 18px; }
+      .content { padding: 18px; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: 1fr; }
+      .hero::after {
+        right: 0.75rem;
+        width: 120px;
+        max-width: 28%;
+        opacity: 0.12;
+      }
+
+      .hero-inner {
+        max-width: calc(100% - 100px);
+        padding-right: 0.5rem;
+      }
+    }
+  
+
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .home-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      color: #fff !important;
+      background: rgba(91, 184, 176, 0.28);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-decoration: none !important;
+      white-space: nowrap;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+    }
+    .home-btn:hover {
+      background: rgba(91, 184, 176, 0.48);
+      border-color: rgba(255, 255, 255, 0.5);
+      transform: translateY(-1px);
+    }
+    .home-btn:focus-visible {
+      outline: 3px solid rgba(91, 184, 176, 0.65);
+      outline-offset: 2px;
+    }
+    @media (max-width: 520px) {
+      .home-btn .home-btn-label { display: none; }
+      .home-btn { padding: 8px 12px; }
+    }
+
+
+    /* Reading section (Lesson 03) */
+    .reading-memo {
+      margin-top: 16px;
+      padding: 20px 20px 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(91, 184, 176, 0.35);
+      background: linear-gradient(180deg, #f3fbfa 0%, #ffffff 48%);
+      box-shadow: 0 10px 28px rgba(30, 45, 90, 0.06);
+    }
+    .reading-memo .memo-kicker {
+      margin: 0 0 10px;
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal-dark);
+    }
+    .reading-memo .memo-meta {
+      margin: 0 0 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed rgba(30, 45, 90, 0.14);
+      color: var(--ink);
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+    .reading-memo .memo-meta strong {
+      color: var(--navy);
+      font-weight: 800;
+    }
+    .reading-memo p {
+      margin: 0 0 12px;
+      color: var(--ink);
+      line-height: 1.65;
+      font-size: 0.98rem;
+    }
+    .reading-memo p:last-child { margin-bottom: 0; }
+    .reading-title-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+    .reading-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(212, 168, 67, 0.16);
+      color: #8a6a12;
+      border: 1px solid rgba(212, 168, 67, 0.35);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    /* Single-lesson page layout */
+    .layout { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .lesson-card { display: block; }
+    .lesson-card .lesson-body,
+    .main-card.lesson-open .lesson-body,
+    .lesson-card.lesson-open .lesson-body {
+      display: block !important;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin: 0 0 14px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    .back-link:hover { color: var(--teal-dark); }
+    .lesson-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0 0 16px;
+    }
+    .lesson-nav a {
+      text-decoration: none;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      color: var(--navy);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+    .lesson-nav a.active {
+      background: var(--navy);
+      color: #fff;
+      border-color: var(--navy);
+    }
+    .lesson-nav a.soon {
+      opacity: 0.55;
+      pointer-events: none;
+    }
+    
+  
+
+    /* Desktop email client mock (screenshot style) */
+    .email-desktop {
+      margin-top: 16px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(30, 45, 90, 0.16);
+      box-shadow:
+        0 24px 50px rgba(30, 45, 90, 0.14),
+        0 2px 0 rgba(255,255,255,0.6) inset;
+      background: #d9dee8;
+    }
+    .email-desktop .os-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: linear-gradient(180deg, #3a4664 0%, #2a3450 100%);
+      color: #e8eef8;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+    .email-desktop .os-dots {
+      display: flex;
+      gap: 6px;
+      margin-right: 8px;
+    }
+    .email-desktop .os-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .email-desktop .os-dots .r { background: #ff5f57; }
+    .email-desktop .os-dots .y { background: #febc2e; }
+    .email-desktop .os-dots .g { background: #28c840; }
+    .email-desktop .os-title {
+      opacity: 0.92;
+      letter-spacing: 0.02em;
+    }
+    .email-desktop .mail-chrome {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      min-height: 420px;
+      background: #eef1f6;
+    }
+    @media (max-width: 760px) {
+      .email-desktop .mail-chrome { grid-template-columns: 1fr; }
+      .email-desktop .mail-sidebar { display: none; }
+    }
+    .email-desktop .mail-sidebar {
+      background: #f7f8fb;
+      border-right: 1px solid #d7dde8;
+      padding: 14px 12px;
+    }
+    .email-desktop .mail-sidebar .compose {
+      display: block;
+      width: 100%;
+      border: 0;
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 14px;
+      background: var(--teal);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.85rem;
+    }
+    .email-desktop .folder {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 10px;
+      border-radius: 8px;
+      color: #3d4d6b;
+      font-size: 0.84rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .email-desktop .folder.active {
+      background: rgba(91, 184, 176, 0.18);
+      color: var(--navy);
+    }
+    .email-desktop .folder span {
+      background: #e3e8f0;
+      border-radius: 999px;
+      padding: 1px 7px;
+      font-size: 0.72rem;
+      color: #5a6a80;
+    }
+    .email-desktop .mail-main {
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    .email-desktop .mail-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      padding: 10px 14px;
+      border-bottom: 1px solid #e5eaf2;
+      background: #fbfcfe;
+      color: #5a6a80;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+    .email-desktop .tool-chip {
+      border: 1px solid #d7dde8;
+      background: #fff;
+      border-radius: 8px;
+      padding: 5px 9px;
+    }
+    .email-desktop .mail-header {
+      padding: 16px 18px 12px;
+      border-bottom: 1px solid #eef1f6;
+    }
+    .email-desktop .mail-subject {
+      margin: 0 0 12px;
+      color: var(--navy);
+      font-size: 1.15rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+    }
+    .email-desktop .mail-meta-row {
+      display: grid;
+      grid-template-columns: 56px 1fr auto;
+      gap: 10px;
+      align-items: start;
+    }
+    .email-desktop .avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--navy), var(--teal-dark));
+      color: #fff;
+      font-weight: 900;
+      font-size: 0.85rem;
+    }
+    .email-desktop .from-line {
+      margin: 0;
+      color: var(--ink);
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+    .email-desktop .from-line span {
+      font-weight: 600;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+    .email-desktop .to-line {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+    .email-desktop .mail-time {
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .email-desktop .mail-body {
+      padding: 18px;
+      color: var(--ink);
+      line-height: 1.65;
+      font-size: 0.95rem;
+    }
+    .email-desktop .mail-body p { margin: 0 0 12px; }
+    .email-desktop .mail-body p:last-child { margin-bottom: 0; }
+    .email-desktop .error-word {
+      background: rgba(248, 113, 113, 0.16);
+      border-bottom: 2px solid #e35d5d;
+      border-radius: 3px;
+      padding: 0 2px;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+    .email-desktop .error-word.found {
+      background: rgba(91, 184, 176, 0.22);
+      border-bottom-color: var(--teal-dark);
+    }
+    .email-desktop .error-word.reveal-correct::after {
+      content: attr(data-fix);
+      display: inline;
+      margin-left: 4px;
+      color: var(--teal-dark);
+      font-weight: 800;
+      font-size: 0.88em;
+    }
+    .email-desktop .mail-footer-bar {
+      margin-top: auto;
+      padding: 10px 14px;
+      border-top: 1px solid #e5eaf2;
+      background: #f8fafc;
+      color: #7a889e;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .error-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .error-legend strong { color: var(--navy); }
+    .audio-soon {
+      margin-top: 12px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px dashed rgba(91, 184, 176, 0.5);
+      background: rgba(91, 184, 176, 0.08);
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .write-box textarea {
+      width: 100%;
+      min-height: 96px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 14px;
+      resize: vertical;
+      background: #fff;
+    }
+    .corrected-email {
+      display: none;
+      margin-top: 14px;
+    }
+    .corrected-email.show { display: block; }
+
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <img src="../assets/logo.png" alt="Israel Ventura">
+        </div>
+        <div>
+          <h1>Business English Course Portal</h1>
+          <p>Scenario-based lessons for real professional communication.</p>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <a class="home-btn" href="../" title="Back to main menu" aria-label="Back to main menu">
+          <span aria-hidden="true">⌂</span> <span class="home-btn-label">Home</span>
+        </a>
+        <div class="mode-pill">Student View</div>
+      </div>
+    </header>
+
+    <a class="back-link" href="../">← Back to lesson menu</a>
+    
+    <nav class="lesson-nav" aria-label="Lessons">
+        <a class="" href="../lesson-01-negotiating-a-deadline/">01 · Negotiating a Deadline</a>
+        <a class="" href="../lesson-02-handling-customer-requests/">02 · Handling Customer Requests</a>
+        <a class="" href="../lesson-03-reporting-after-a-conference/">03 · Reporting After a Conference</a>
+        <a class="active" href="../lesson-04-updating-operations/">04 · Updating Operations</a>
+        <a class="soon" href="#">05 · Coming soon</a>
+    </nav>
+
+    <div class="layout">
+      <div class="lessons-stack">
+        <article id="lesson4Card" class="main-card lesson-card lesson-open">
+          <div class="lesson-header" onclick="toggleLessonCard('lesson4Card')">
+            <div class="lesson-toggle-row">
+              <h3>Lesson 04: Updating Operations</h3>
+              <button class="lesson-toggle-button" type="button" onclick="toggleLessonCard('lesson4Card', event)">Close lesson</button>
+            </div>
+            <p>You are the Logistics Coordinator for an International Expo. Report routines, correct operational updates, and extract key information from a vendor call.</p>
+            <div class="tag-row">
+              <span class="tag teal">Simple Present</span>
+              <span class="tag">Logistics ops</span>
+              <span class="tag gold">Email update</span>
+              <span class="tag">Vendor call</span>
+            </div>
+          </div>
+
+          <div class="lesson-body">
+            <div class="tabs" role="tablist">
+              <button class="tab active" type="button" data-tab="lesson4-overview">Overview</button>
+              <button class="tab" type="button" data-tab="lesson4-vocabulary">Vocabulary</button>
+              <button class="tab" type="button" data-tab="lesson4-grammar">Grammar Reference</button>
+              <button class="tab" type="button" data-tab="lesson4-practice">Practice</button>
+              <button class="tab" type="button" data-tab="lesson4-reading">Reading · Email</button>
+              <button class="tab" type="button" data-tab="lesson4-listening">Listening</button>
+            </div>
+
+            <!-- OVERVIEW -->
+            <section id="lesson4-overview" class="panel active" role="tabpanel">
+              <div class="box tint">
+                <h4>Scenario</h4>
+                <p><strong>Role:</strong> Logistics Coordinator for an International Expo.</p>
+                <p><strong>Challenge:</strong> Describe daily operations clearly, correct weak updates, and report accurately to your manager.</p>
+                <p><strong>Goal:</strong> Use the Simple Present for routines, facts, and schedules in professional logistics communication.</p>
+              </div>
+              <div class="grid-3" style="margin-top:16px;">
+                <div class="phrase"><strong>Language focus</strong><span>Simple Present (routines, facts, schedules)</span></div>
+                <div class="phrase"><strong>Recycled</strong><span>Indirect questions + First Conditional</span></div>
+                <div class="phrase"><strong>Output</strong><span>Corrected email + short ops update</span></div>
+              </div>
+              <div class="box" style="margin-top:16px;">
+                <h4>In this lesson you will</h4>
+                <ul style="margin:8px 0 0 18px; line-height:1.7; color:var(--ink);">
+                  <li>Describe daily and weekly routines accurately</li>
+                  <li>Report operational information to your manager</li>
+                  <li>Correct and write professional updates using the Simple Present</li>
+                  <li>Understand a supplier call and extract key information</li>
+                </ul>
+              </div>
+              <div class="grid-3" style="margin-top:16px;">
+                <div class="phrase"><strong>10 min</strong><span>Warm-up: expo logistics routines.</span></div>
+                <div class="phrase"><strong>12 min</strong><span>Vocabulary cards for operations updates.</span></div>
+                <div class="phrase"><strong>12 min</strong><span>Simple Present quick review + recycled forms.</span></div>
+                <div class="phrase"><strong>18 min</strong><span>Practice: accuracy, decisions, short writing.</span></div>
+                <div class="phrase"><strong>15 min</strong><span>Reading: email on a desktop screen + error hunt.</span></div>
+                <div class="phrase"><strong>10 min</strong><span>Listening: vendor call (audio coming soon).</span></div>
+              </div>
+            </section>
+
+            <!-- VOCABULARY -->
+            <section id="lesson4-vocabulary" class="panel" role="tabpanel">
+              <div class="box tint">
+                <h4>Vocabulary for Updating Operations</h4>
+                <p>Tap a card to reveal the professional meaning. These phrases help you sound precise in logistics emails and calls.</p>
+              </div>
+              <div class="vocab-card-grid" style="margin-top:16px;">
+                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">🛃</span><strong>clear customs</strong><span class="vocab-sentence">The exhibition stands clear customs before opening day.</span><span class="vocab-meaning">Complete the official process to enter a country.</span><span class="vocab-action">Reveal meaning</span></button>
+                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">⏱️</span><strong>meet the delivery window</strong><span class="vocab-sentence">The forwarder meets the delivery window 92% of the time.</span><span class="vocab-meaning">Arrive within the agreed time slot.</span><span class="vocab-action">Reveal meaning</span></button>
+                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">🚩</span><strong>flag a discrepancy</strong><span class="vocab-sentence">Please flag a discrepancy if the packing list does not match.</span><span class="vocab-meaning">Report a difference or problem in the shipment.</span><span class="vocab-action">Reveal meaning</span></button>
+                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">⬆️</span><strong>escalate the issue</strong><span class="vocab-sentence">If the delay continues, we escalate the issue to the operations manager.</span><span class="vocab-meaning">Pass a problem to a higher level.</span><span class="vocab-action">Reveal meaning</span></button>
+                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">⚙️</span><strong>streamline the process</strong><span class="vocab-sentence">A digital log helps us streamline the process at the gate.</span><span class="vocab-meaning">Make the process more efficient.</span><span class="vocab-action">Reveal meaning</span></button>
+                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">📦</span><strong>track the consignment</strong><span class="vocab-sentence">We track the consignment every morning until it arrives.</span><span class="vocab-meaning">Follow the location of the shipment.</span><span class="vocab-action">Reveal meaning</span></button>
+                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">🤝</span><strong>liaise with the freight forwarder</strong><span class="vocab-sentence">I liaise with the freight forwarder when the ETA changes.</span><span class="vocab-meaning">Communicate and coordinate with the shipping company.</span><span class="vocab-action">Reveal meaning</span></button>
+                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">💸</span><strong>incur demurrage charges</strong><span class="vocab-sentence">If the truck arrives late, we incur demurrage charges.</span><span class="vocab-meaning">Have to pay extra fees because of delays.</span><span class="vocab-action">Reveal meaning</span></button>
+                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">📍</span><strong>confirm the ETA</strong><span class="vocab-sentence">Can you confirm the estimated time of arrival for booth materials?</span><span class="vocab-meaning">Verify when the shipment is expected to arrive.</span><span class="vocab-action">Reveal meaning</span></button>
+                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">🐢</span><strong>run behind schedule</strong><span class="vocab-sentence">The setup team runs behind schedule when documents are incomplete.</span><span class="vocab-meaning">Be delayed / not on time.</span><span class="vocab-action">Reveal meaning</span></button>
+              </div>
+
+              <div class="exercise static-quiz" style="margin-top:18px;">
+                <h5><span class="ex-badge">Practice</span> Vocabulary in Context</h5>
+                <p>Choose the best expression for each operations situation.</p>
+                <div id="lesson4VocabQuiz">
+                  <div class="q-block" data-answer="1">
+                    <strong>1. The truck must arrive between 9:00 and 10:00. We need to ______.</strong>
+                    <label class="option-btn"><input type="radio" name="l4v1" value="0"> escalate the issue</label>
+                    <label class="option-btn"><input type="radio" name="l4v1" value="1"> meet the delivery window</label>
+                    <label class="option-btn"><input type="radio" name="l4v1" value="2"> incur demurrage charges</label>
+                  </div>
+                  <div class="q-block" data-answer="0">
+                    <strong>2. The packing list shows 40 units, but the crate has 36. You should ______.</strong>
+                    <label class="option-btn"><input type="radio" name="l4v2" value="0"> flag a discrepancy</label>
+                    <label class="option-btn"><input type="radio" name="l4v2" value="1"> clear customs</label>
+                    <label class="option-btn"><input type="radio" name="l4v2" value="2"> streamline the process</label>
+                  </div>
+                  <div class="q-block" data-answer="2">
+                    <strong>3. The port keeps the container too long, so the company may ______.</strong>
+                    <label class="option-btn"><input type="radio" name="l4v3" value="0"> track the consignment</label>
+                    <label class="option-btn"><input type="radio" name="l4v3" value="1"> confirm the ETA</label>
+                    <label class="option-btn"><input type="radio" name="l4v3" value="2"> incur demurrage charges</label>
+                  </div>
+                  <div class="q-block" data-answer="1">
+                    <strong>4. You need updates from the shipping company, so you ______.</strong>
+                    <label class="option-btn"><input type="radio" name="l4v4" value="0"> run behind schedule</label>
+                    <label class="option-btn"><input type="radio" name="l4v4" value="1"> liaise with the freight forwarder</label>
+                    <label class="option-btn"><input type="radio" name="l4v4" value="2"> open the loading dock</label>
+                  </div>
+                  <div class="q-block" data-answer="0">
+                    <strong>5. The supervisor cannot solve the delay alone. She decides to ______.</strong>
+                    <label class="option-btn"><input type="radio" name="l4v5" value="0"> escalate the issue</label>
+                    <label class="option-btn"><input type="radio" name="l4v5" value="1"> meet the delivery window</label>
+                    <label class="option-btn"><input type="radio" name="l4v5" value="2"> clear customs</label>
+                  </div>
+                </div>
+                <div class="actions">
+                  <button class="btn primary" type="button" onclick="checkStaticQuiz('lesson4VocabQuiz','lesson4VocabFeedback')">Check vocabulary</button>
+                  <button class="btn ghost" type="button" onclick="resetStaticQuiz('lesson4VocabQuiz','lesson4VocabFeedback')">Reset</button>
+                </div>
+                <p class="score-line" id="lesson4VocabFeedback" style="display:none;"></p>
+              </div>
+            </section>
+
+            <!-- GRAMMAR -->
+            <section id="lesson4-grammar" class="panel" role="tabpanel">
+              <div class="box tint">
+                <h4>Grammar Reference · Simple Present</h4>
+                <p>Use the Simple Present for routines, facts, schedules, and regular operations in logistics.</p>
+              </div>
+              <div class="grid-3" style="margin-top:16px;">
+                <div class="phrase"><strong>Affirmative (3rd person)</strong><span>He/She/It + verb<strong>-s / -es</strong><br>The driver <em>leaves</em> the depot at 10 a.m.</span></div>
+                <div class="phrase"><strong>Negative</strong><span>don’t / doesn’t + base form<br>The supplier <em>doesn’t confirm</em> the tracking number.</span></div>
+                <div class="phrase"><strong>Questions</strong><span>Do / Does + subject + base form<br><em>Does</em> the venue <em>allow</em> deliveries after 6 p.m.?</span></div>
+              </div>
+              <div class="box" style="margin-top:16px;">
+                <h4>Frequency in operations</h4>
+                <p>always · usually · often · frequently · every morning · every Tuesday · once a week</p>
+                <p style="margin-top:8px;"><strong>Example:</strong> Customs <em>inspects</em> every third container.</p>
+              </div>
+              <div class="box" style="margin-top:16px;">
+                <h4>Connection with previous lessons</h4>
+                <p><strong>Indirect question:</strong> Could you tell me where the catering team meets?</p>
+                <p><strong>First Conditional + Simple Present:</strong> If the shipment arrives late, we contact the forwarder immediately.</p>
+              </div>
+              <div class="box" style="margin-top:16px;">
+                <h4>Common mistakes in ops emails</h4>
+                <p><strong>Not:</strong> The forwarder meet the window. → <strong>Correct:</strong> The forwarder <em>meets</em> the window.</p>
+                <p><strong>Not:</strong> Does the venue allows late deliveries? → <strong>Correct:</strong> Does the venue <em>allow</em> late deliveries?</p>
+                <p><strong>Not:</strong> The staff opens the dock at 7:30. → <strong>Correct:</strong> The staff <em>open</em> the dock at 7:30. <span style="color:var(--muted);">(plural group noun in BrE/ops English)</span></p>
+              </div>
+            </section>
+
+            <!-- PRACTICE -->
+            <section id="lesson4-practice" class="panel" role="tabpanel">
+              <div class="box tint">
+                <h4>Practice · Simple Present in Operations</h4>
+                <p>Complete the accuracy checks first. Then write a short professional update for your manager.</p>
+              </div>
+
+              <div class="exercise open" id="lesson4-card-1">
+                <button type="button" class="exercise-header" onclick="togglePracticeCard('lesson4-card-1')">
+                  <div class="exercise-header-left"><span class="exercise-number">1</span><div><h5>Choose the Correct Form</h5><p>Pick the accurate Simple Present form.</p></div></div>
+                  <span class="chevron-icon">v</span>
+                </button>
+                <div class="exercise-body">
+                  <div class="static-quiz" id="lesson4GrammarQuiz">
+                    <div class="q-block" data-answer="1">
+                      <strong>1. The driver ______ the depot at 6:30 every morning.</strong>
+                      <label class="option-btn"><input type="radio" name="l4g1" value="0"> leave</label>
+                      <label class="option-btn"><input type="radio" name="l4g1" value="1"> leaves</label>
+                      <label class="option-btn"><input type="radio" name="l4g1" value="2"> leaving</label>
+                    </div>
+                    <div class="q-block" data-answer="0">
+                      <strong>2. The supplier ______ the tracking number on Fridays.</strong>
+                      <label class="option-btn"><input type="radio" name="l4g2" value="0"> doesn’t confirm</label>
+                      <label class="option-btn"><input type="radio" name="l4g2" value="1"> don’t confirms</label>
+                      <label class="option-btn"><input type="radio" name="l4g2" value="2"> doesn’t confirms</label>
+                    </div>
+                    <div class="q-block" data-answer="2">
+                      <strong>3. ______ the venue allow deliveries after 6 p.m.?</strong>
+                      <label class="option-btn"><input type="radio" name="l4g3" value="0"> Do</label>
+                      <label class="option-btn"><input type="radio" name="l4g3" value="1"> Is</label>
+                      <label class="option-btn"><input type="radio" name="l4g3" value="2"> Does</label>
+                    </div>
+                    <div class="q-block" data-answer="1">
+                      <strong>4. If the consignment ______ after 4 p.m., we incur demurrage charges.</strong>
+                      <label class="option-btn"><input type="radio" name="l4g4" value="0"> arrive</label>
+                      <label class="option-btn"><input type="radio" name="l4g4" value="1"> arrives</label>
+                      <label class="option-btn"><input type="radio" name="l4g4" value="2"> arriving</label>
+                    </div>
+                    <div class="q-block" data-answer="0">
+                      <strong>5. Could you tell me where the catering team ______?</strong>
+                      <label class="option-btn"><input type="radio" name="l4g5" value="0"> meets</label>
+                      <label class="option-btn"><input type="radio" name="l4g5" value="1"> meet</label>
+                      <label class="option-btn"><input type="radio" name="l4g5" value="2"> meeting</label>
+                    </div>
+                  </div>
+                  <div class="actions">
+                    <button class="btn primary" type="button" onclick="checkStaticQuiz('lesson4GrammarQuiz','lesson4GrammarFeedback')">Check answers</button>
+                    <button class="btn ghost" type="button" onclick="resetStaticQuiz('lesson4GrammarQuiz','lesson4GrammarFeedback')">Reset</button>
+                  </div>
+                  <p class="score-line" id="lesson4GrammarFeedback" style="display:none;"></p>
+                </div>
+              </div>
+
+              <div class="exercise" id="lesson4-card-2">
+                <button type="button" class="exercise-header" onclick="togglePracticeCard('lesson4-card-2')">
+                  <div class="exercise-header-left"><span class="exercise-number">2</span><div><h5>Ops Decision</h5><p>Choose the most professional update.</p></div></div>
+                  <span class="chevron-icon">v</span>
+                </button>
+                <div class="exercise-body">
+                  <div class="static-quiz" id="lesson4DecisionQuiz">
+                    <div class="q-block" data-answer="1">
+                      <strong>1. You need to report a regular morning routine.</strong>
+                      <label class="option-btn"><input type="radio" name="l4d1" value="0"> The staff opened the dock yesterday at 7:30.</label>
+                      <label class="option-btn"><input type="radio" name="l4d1" value="1"> The staff open the loading dock at 7:30 a.m. every day.</label>
+                      <label class="option-btn"><input type="radio" name="l4d1" value="2"> The staff are open the dock at 7:30.</label>
+                    </div>
+                    <div class="q-block" data-answer="2">
+                      <strong>2. Customs is slow because documents are incomplete.</strong>
+                      <label class="option-btn"><input type="radio" name="l4d2" value="0"> We will delayed at customs always.</label>
+                      <label class="option-btn"><input type="radio" name="l4d2" value="1"> We delaying at customs when documents incomplete.</label>
+                      <label class="option-btn"><input type="radio" name="l4d2" value="2"> We experience delays at customs when documentation is incomplete.</label>
+                    </div>
+                    <div class="q-block" data-answer="0">
+                      <strong>3. You want a polite indirect question about the ETA.</strong>
+                      <label class="option-btn"><input type="radio" name="l4d3" value="0"> Could you tell me when the consignment arrives?</label>
+                      <label class="option-btn"><input type="radio" name="l4d3" value="1"> When arrives the consignment?</label>
+                      <label class="option-btn"><input type="radio" name="l4d3" value="2"> Tell me the ETA now.</label>
+                    </div>
+                  </div>
+                  <div class="actions">
+                    <button class="btn primary" type="button" onclick="checkStaticQuiz('lesson4DecisionQuiz','lesson4DecisionFeedback')">Check decisions</button>
+                    <button class="btn ghost" type="button" onclick="resetStaticQuiz('lesson4DecisionQuiz','lesson4DecisionFeedback')">Reset</button>
+                  </div>
+                  <p class="score-line" id="lesson4DecisionFeedback" style="display:none;"></p>
+                </div>
+              </div>
+
+              <div class="exercise" id="lesson4-card-3">
+                <button type="button" class="exercise-header" onclick="togglePracticeCard('lesson4-card-3')">
+                  <div class="exercise-header-left"><span class="exercise-number">3</span><div><h5>Write as Operations Manager</h5><p>Three sentences: Simple Present + one First Conditional.</p></div></div>
+                  <span class="chevron-icon">v</span>
+                </button>
+                <div class="exercise-body write-box">
+                  <p class="ref-intro">Explain what you would do after Maria’s Q2 report. Use at least <strong>two Simple Present</strong> sentences and <strong>one First Conditional</strong>.</p>
+                  <textarea id="lesson4WriteOps" rows="5" placeholder="Example: The security team checks every badge at the gate. If the forwarder runs behind schedule, we escalate the issue before noon."></textarea>
+                  <p class="score-line" style="display:block;margin-top:10px;color:var(--muted);">Teacher check: routines in Simple Present · one clear If + present, will/can/contact result.</p>
+                </div>
+              </div>
+            </section>
+
+            <!-- READING / EMAIL -->
+            <section id="lesson4-reading" class="panel" role="tabpanel">
+              <div class="box tint">
+                <h4>Reading · Operational Update Email</h4>
+                <p>Maria López sent this Q2 update from her laptop. The email looks correct at first glance, but it contains <strong>Simple Present errors</strong>. Tap each red-underlined word to mark the error, then check your work.</p>
+              </div>
+
+              <div class="email-desktop" aria-label="Email on a desktop computer screen">
+                <div class="os-bar">
+                  <div class="os-dots" aria-hidden="true"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+                  <div class="os-title">Mail · GlobalTech Logistics — Operations Inbox</div>
+                </div>
+                <div class="mail-chrome">
+                  <aside class="mail-sidebar" aria-hidden="true">
+                    <button class="compose" type="button" tabindex="-1">＋ Compose</button>
+                    <div class="folder active">Inbox <span>3</span></div>
+                    <div class="folder">Starred</div>
+                    <div class="folder">Sent</div>
+                    <div class="folder">Drafts <span>1</span></div>
+                    <div class="folder">Ops updates</div>
+                  </aside>
+                  <div class="mail-main">
+                    <div class="mail-toolbar" aria-hidden="true">
+                      <span class="tool-chip">⬅ Archive</span>
+                      <span class="tool-chip">🗑 Delete</span>
+                      <span class="tool-chip">↩ Reply</span>
+                      <span class="tool-chip">→ Forward</span>
+                    </div>
+                    <div class="mail-header">
+                      <h3 class="mail-subject">Q2 Logistics Performance Review – International Expo</h3>
+                      <div class="mail-meta-row">
+                        <div class="avatar" aria-hidden="true">ML</div>
+                        <div>
+                          <p class="from-line">Maria López <span>&lt;m.lopez@globaltech-logistics.com&gt;</span></p>
+                          <p class="to-line">to Operations Team · cc Tom Reeves (Operations Manager)</p>
+                        </div>
+                        <div class="mail-time">Tue 09:14</div>
+                      </div>
+                    </div>
+                    <div class="mail-body" id="lesson4EmailBody">
+                      <p>Dear Operations Team,</p>
+                      <p>As we approach the end of Q2, I would like to provide a comprehensive update on our current logistics performance. The freight forwarder <span class="error-word" data-fix="meets" tabindex="0" role="button" aria-label="Possible error: meet">meet</span> 92% of our delivery windows this quarter. However, we <span class="error-word" data-fix="continue" tabindex="0" role="button">continues</span> to experience occasional delays at customs clearance due to incomplete documentation from our German supplier.</p>
+                      <p>The venue staff usually <span class="error-word" data-fix="open" tabindex="0" role="button">opens</span> the loading dock at 7:30 a.m., but they frequently <span class="error-word" data-fix="do not complete" tabindex="0" role="button">does not complete</span> the safety inspection until 8:15 a.m., which <span class="error-word" data-fix="affects" tabindex="0" role="button">affect</span> our morning schedule. If the consignment <span class="error-word" data-fix="arrives" tabindex="0" role="button">arrive</span> after 4 p.m., we <span class="error-word" data-fix="incur" tabindex="0" role="button">incurs</span> significant demurrage charges from the port authority.</p>
+                      <p>The security team <span class="error-word" data-fix="handles" tabindex="0" role="button">handle</span> the gates efficiently, but we recommend that they implement a digital logging system to reduce manual errors. Additionally, the catering team <span class="error-word" data-fix="meets" tabindex="0" role="button">meet</span> every day at 10 a.m. to coordinate the daily requirements. Could you please confirm whether the new exhibition stands already <span class="error-word" data-fix="clear" tabindex="0" role="button">clears</span> customs this week?</p>
+                      <p>Tom <span class="error-word" data-fix="needs" tabindex="0" role="button">need</span> to know if the catering team meets before or after the morning delivery window.</p>
+                      <p>I would appreciate your feedback on how we can further streamline these processes.</p>
+                      <p>Best regards,<br>Maria López<br>Senior Logistics Coordinator</p>
+                    </div>
+                    <div class="mail-footer-bar">Secure message · GlobalTech Mail for Desktop · Do not forward externally</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="error-legend">
+                <span><strong>How to play:</strong> click each underlined error.</span>
+                <span id="lesson4ErrorCount">Errors found: 0 / 11</span>
+              </div>
+
+              <div class="actions" style="margin-top:12px;">
+                <button class="btn primary" type="button" onclick="checkEmailErrors()">Check error hunt</button>
+                <button class="btn gold" type="button" onclick="revealEmailCorrections()">Show corrections</button>
+                <button class="btn ghost" type="button" onclick="resetEmailErrors()">Reset</button>
+              </div>
+              <p class="score-line" id="lesson4EmailFeedback" style="display:none;"></p>
+
+              <div class="corrected-email" id="lesson4CorrectedEmail">
+                <div class="box" style="margin-top:8px;">
+                  <h4>Corrected version</h4>
+                  <p><strong>Subject:</strong> Q2 Logistics Performance Review – International Expo</p>
+                  <p>Dear Operations Team,</p>
+                  <p>As we approach the end of Q2, I would like to provide a comprehensive update on our current logistics performance. The freight forwarder <strong>meets</strong> 92% of our delivery windows this quarter. However, we <strong>continue</strong> to experience occasional delays at customs clearance due to incomplete documentation from our German supplier.</p>
+                  <p>The venue staff usually <strong>open</strong> the loading dock at 7:30 a.m., but they frequently <strong>do not complete</strong> the safety inspection until 8:15 a.m., which <strong>affects</strong> our morning schedule. If the consignment <strong>arrives</strong> after 4 p.m., we <strong>incur</strong> significant demurrage charges from the port authority.</p>
+                  <p>The security team <strong>handles</strong> the gates efficiently, but we recommend that they implement a digital logging system to reduce manual errors. Additionally, the catering team <strong>meets</strong> every day at 10 a.m. to coordinate the daily requirements. Could you please confirm whether the new exhibition stands already <strong>clear</strong> customs this week?</p>
+                  <p>Tom <strong>needs</strong> to know if the catering team meets before or after the morning delivery window.</p>
+                  <p>I would appreciate your feedback on how we can further streamline these processes.</p>
+                  <p>Best regards,<br>Maria López<br>Senior Logistics Coordinator</p>
+                </div>
+              </div>
+
+              <div class="exercise static-quiz" style="margin-top:18px;">
+                <h5><span class="ex-badge">Comprehension</span> After you read</h5>
+                <p>Answer based on the email content (use the corrected meaning).</p>
+                <div id="lesson4ReadingQuiz">
+                  <div class="q-block" data-answer="1">
+                    <strong>1. What percentage of delivery windows does the freight forwarder meet?</strong>
+                    <label class="option-btn"><input type="radio" name="l4r1" value="0"> 82%</label>
+                    <label class="option-btn"><input type="radio" name="l4r1" value="1"> 92%</label>
+                    <label class="option-btn"><input type="radio" name="l4r1" value="2"> 100%</label>
+                  </div>
+                  <div class="q-block" data-answer="0">
+                    <strong>2. What is the main cause of delays at customs?</strong>
+                    <label class="option-btn"><input type="radio" name="l4r2" value="0"> Incomplete documentation from the German supplier</label>
+                    <label class="option-btn"><input type="radio" name="l4r2" value="1"> The security team is unprofessional</label>
+                    <label class="option-btn"><input type="radio" name="l4r2" value="2"> The catering team meets too late</label>
+                  </div>
+                  <div class="q-block" data-answer="2">
+                    <strong>3. What recommendation does Maria make about the security team?</strong>
+                    <label class="option-btn"><input type="radio" name="l4r3" value="0"> Hire more staff at the gates</label>
+                    <label class="option-btn"><input type="radio" name="l4r3" value="1"> Close the gates after 4 p.m.</label>
+                    <label class="option-btn"><input type="radio" name="l4r3" value="2"> Implement a digital logging system</label>
+                  </div>
+                  <div class="q-block" data-answer="1">
+                    <strong>4. What specific action does she request from the Operations Team?</strong>
+                    <label class="option-btn"><input type="radio" name="l4r4" value="0"> Cancel the German supplier contract</label>
+                    <label class="option-btn"><input type="radio" name="l4r4" value="1"> Confirm whether the new exhibition stands clear customs this week</label>
+                    <label class="option-btn"><input type="radio" name="l4r4" value="2"> Move the catering meeting to 8 a.m.</label>
+                  </div>
+                  <div class="q-block" data-answer="0">
+                    <strong>5. What is the main problem mentioned in the email?</strong>
+                    <label class="option-btn"><input type="radio" name="l4r5" value="0"> Occasional customs delays and process friction around dock timing</label>
+                    <label class="option-btn"><input type="radio" name="l4r5" value="1"> The expo was cancelled</label>
+                    <label class="option-btn"><input type="radio" name="l4r5" value="2"> Tom resigned from operations</label>
+                  </div>
+                  <div class="q-block" data-answer="2">
+                    <strong>6. What does Tom need to know about the catering team?</strong>
+                    <label class="option-btn"><input type="radio" name="l4r6" value="0"> Their salary budget for Q3</label>
+                    <label class="option-btn"><input type="radio" name="l4r6" value="1"> Whether they speak German</label>
+                    <label class="option-btn"><input type="radio" name="l4r6" value="2"> If they meet before or after the morning delivery window</label>
+                  </div>
+                </div>
+                <div class="actions">
+                  <button class="btn primary" type="button" onclick="checkStaticQuiz('lesson4ReadingQuiz','lesson4ReadingFeedback')">Check reading</button>
+                  <button class="btn ghost" type="button" onclick="resetStaticQuiz('lesson4ReadingQuiz','lesson4ReadingFeedback')">Reset</button>
+                </div>
+                <p class="score-line" id="lesson4ReadingFeedback" style="display:none;"></p>
+              </div>
+
+              <div class="exercise write-box" style="margin-top:16px;">
+                <h5><span class="ex-badge">Writing</span> Rewrite the email</h5>
+                <p>Rewrite Maria’s update correctly in your own words (or fully corrected). Keep a professional tone.</p>
+                <textarea id="lesson4RewriteEmail" rows="8" placeholder="Write the corrected professional email here..."></textarea>
+              </div>
+            </section>
+
+            <!-- LISTENING -->
+            <section id="lesson4-listening" class="panel" role="tabpanel">
+              <div class="box tint">
+                <h4>Listening · The Vendor Call</h4>
+                <p>Listen to the call between you and <strong>Marcus from ExpoBuild Ltd.</strong> Extract the key operational facts in Simple Present.</p>
+                <div class="audio-soon" id="lesson4AudioSoon">
+                  🎧 Audio file coming next — drop the MP3 in when ready and we will wire it here.
+                </div>
+                <audio id="lesson4ListeningAudio" controls preload="metadata" style="width:100%; margin-top:12px; display:none;">
+                  <source id="lesson4AudioSource" src="audio/listening.mp3" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+              </div>
+
+              <div class="exercise write-box" style="margin-top:16px;">
+                <h5><span class="ex-badge">Comprehension</span> Listening Questions</h5>
+                <p>Answer after you listen. Keys will be calibrated when the final audio is added.</p>
+                <div class="q-block"><strong>1. When does the driver normally leave the depot?</strong><textarea rows="2" placeholder="Write your answer..."></textarea></div>
+                <div class="q-block"><strong>2. How long does the journey to the venue take?</strong><textarea rows="2" placeholder="Write your answer..."></textarea></div>
+                <div class="q-block"><strong>3. What does the warehouse do within 48 hours?</strong><textarea rows="2" placeholder="Write your answer..."></textarea></div>
+                <div class="q-block"><strong>4. What happens if the team needs an earlier delivery?</strong><textarea rows="2" placeholder="Write your answer..."></textarea></div>
+              </div>
+
+              <div class="exercise write-box" style="margin-top:16px;">
+                <h5><span class="ex-badge">Extra</span> Simple Present from the audio</h5>
+                <p>Write three sentences from the call that use the Simple Present.</p>
+                <textarea id="lesson4ListeningSentences" rows="4" placeholder="1. The driver leaves...&#10;2. The journey takes...&#10;3. If we need an earlier delivery, we..."></textarea>
+              </div>
+
+              <div class="exercise" style="margin-top:16px;">
+                <h5><span class="ex-badge">Speaking</span> Role Play Frame</h5>
+                <div class="situation-box">
+                  <p><strong>You call Marcus (ExpoBuild Ltd.)</strong> to confirm routines for tomorrow’s delivery.</p>
+                  <p><strong>Student goals:</strong></p>
+                  <ul style="margin:8px 0 0 18px;line-height:1.65;">
+                    <li>Ask at least one indirect question about the schedule</li>
+                    <li>Use Simple Present for normal routines</li>
+                    <li>Use one First Conditional for an early-delivery request</li>
+                  </ul>
+                  <p style="margin-top:10px;"><strong>Useful frame:</strong> Could you tell me when the driver leaves the depot? If we need the materials earlier, can you rearrange the slot?</p>
+                </div>
+              </div>
+            </section>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <p style="text-align:center;color:var(--muted);font-size:0.9rem;margin:28px 0 8px;">
+      This page saves answers in this browser only. If you open it on another device, download your work first.
+      · Israel Ventura · Business English Course Portal
+    </p>
+  </main>
+
+  <script>
+    function toggleVocabCard(card) {
+      card.classList.toggle("revealed");
+      const action = card.querySelector(".vocab-action");
+      if (action) action.textContent = card.classList.contains("revealed") ? "Tap to hide" : "Reveal meaning";
+    }
+
+    function togglePracticeCard(cardId) {
+      const card = document.getElementById(cardId);
+      if (card) card.classList.toggle("open");
+    }
+
+    function toggleLessonCard(cardId, event) {
+      if (event) event.stopPropagation();
+      const card = document.getElementById(cardId);
+      if (!card) return;
+      const isOpen = card.classList.toggle("lesson-open");
+      const button = card.querySelector(".lesson-toggle-button");
+      if (button) button.textContent = isOpen ? "Close lesson" : "Open lesson";
+    }
+
+    function checkStaticQuiz(containerId, feedbackId) {
+      const root = document.getElementById(containerId);
+      const feedback = document.getElementById(feedbackId);
+      if (!root || !feedback) return;
+      const blocks = [...root.querySelectorAll(".q-block[data-answer]")];
+      let score = 0;
+      blocks.forEach(block => {
+        const answer = String(block.dataset.answer);
+        const selected = block.querySelector('input[type="radio"]:checked');
+        block.querySelectorAll(".option-btn").forEach(l => l.classList.remove("correct", "wrong"));
+        if (!selected) return;
+        const label = selected.closest(".option-btn");
+        if (selected.value === answer) {
+          score += 1;
+          if (label) label.classList.add("correct");
+        } else if (label) {
+          label.classList.add("wrong");
+          const right = block.querySelector(`input[value="${answer}"]`);
+          if (right) right.closest(".option-btn")?.classList.add("correct");
+        }
+      });
+      feedback.style.display = "block";
+      feedback.textContent = `Score: ${score} / ${blocks.length}`;
+      feedback.style.color = score === blocks.length ? "var(--teal-dark)" : "var(--navy)";
+    }
+
+    function resetStaticQuiz(containerId, feedbackId) {
+      const root = document.getElementById(containerId);
+      const feedback = document.getElementById(feedbackId);
+      if (!root) return;
+      root.querySelectorAll('input[type="radio"]').forEach(i => { i.checked = false; });
+      root.querySelectorAll(".option-btn").forEach(l => l.classList.remove("correct", "wrong"));
+      if (feedback) { feedback.style.display = "none"; feedback.textContent = ""; }
+    }
+
+    function updateErrorCount() {
+      const total = document.querySelectorAll("#lesson4EmailBody .error-word").length;
+      const found = document.querySelectorAll("#lesson4EmailBody .error-word.found").length;
+      const el = document.getElementById("lesson4ErrorCount");
+      if (el) el.textContent = `Errors found: ${found} / ${total}`;
+    }
+
+    function initEmailErrors() {
+      document.querySelectorAll("#lesson4EmailBody .error-word").forEach(word => {
+        word.addEventListener("click", () => {
+          word.classList.add("found");
+          updateErrorCount();
+        });
+        word.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            word.click();
+          }
+        });
+      });
+      updateErrorCount();
+    }
+
+    function checkEmailErrors() {
+      const total = document.querySelectorAll("#lesson4EmailBody .error-word").length;
+      const found = document.querySelectorAll("#lesson4EmailBody .error-word.found").length;
+      const fb = document.getElementById("lesson4EmailFeedback");
+      if (!fb) return;
+      fb.style.display = "block";
+      if (found === total) {
+        fb.textContent = `Great work — you found all ${total} Simple Present errors.`;
+        fb.style.color = "var(--teal-dark)";
+      } else {
+        fb.textContent = `You found ${found} of ${total} errors. Keep scanning subject-verb agreement and 3rd person -s.`;
+        fb.style.color = "var(--navy)";
+      }
+    }
+
+    function revealEmailCorrections() {
+      document.querySelectorAll("#lesson4EmailBody .error-word").forEach(word => {
+        word.classList.add("found", "reveal-correct");
+      });
+      updateErrorCount();
+      const box = document.getElementById("lesson4CorrectedEmail");
+      if (box) box.classList.add("show");
+      const fb = document.getElementById("lesson4EmailFeedback");
+      if (fb) {
+        fb.style.display = "block";
+        fb.textContent = "Corrections revealed. Compare the desktop email with the clean version below.";
+        fb.style.color = "var(--teal-dark)";
+      }
+    }
+
+    function resetEmailErrors() {
+      document.querySelectorAll("#lesson4EmailBody .error-word").forEach(word => {
+        word.classList.remove("found", "reveal-correct");
+      });
+      updateErrorCount();
+      const box = document.getElementById("lesson4CorrectedEmail");
+      if (box) box.classList.remove("show");
+      const fb = document.getElementById("lesson4EmailFeedback");
+      if (fb) { fb.style.display = "none"; fb.textContent = ""; }
+    }
+
+    // Tabs
+    document.querySelectorAll(".tab").forEach(tab => {
+      tab.addEventListener("click", () => {
+        const card = tab.closest(".lesson-card") || document;
+        card.querySelectorAll(".tab").forEach(t => {
+          t.classList.remove("active");
+          t.setAttribute("aria-selected", "false");
+        });
+        tab.classList.add("active");
+        tab.setAttribute("aria-selected", "true");
+        const panelId = tab.dataset.tab;
+        card.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+        const panel = document.getElementById(panelId);
+        if (panel) panel.classList.add("active");
+      });
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      initEmailErrors();
+      // Show audio player only if file is available later
+      const audio = document.getElementById("lesson4ListeningAudio");
+      const soon = document.getElementById("lesson4AudioSoon");
+      if (audio) {
+        fetch("audio/listening.mp3", { method: "HEAD" }).then(r => {
+          if (r.ok) {
+            audio.style.display = "block";
+            if (soon) soon.style.display = "none";
+          }
+        }).catch(() => {});
+      }
+    });
+  </script>
+</body>
+</html>
