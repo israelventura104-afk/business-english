@@ -22,6 +22,9 @@ business-english/
     audio/listening.mp3
   lesson-04-updating-operations/
     index.html
+    audio/listening.mp3
+  lesson-05-post-expo-word-power/
+    index.html
     audio/listening.mp3               # add when ready
   versions/                           # Archived monofile snapshots
 ```
@@ -34,10 +37,12 @@ business-english/
 | 02 | Handling Customer Requests | Indirect questions |
 | 03 | Reporting After a Conference | -ed / -ing adjectives |
 | 04 | Updating Operations | Simple Present |
+| 05 | Post-Expo Word Power | Word families |
 
 ## Notes
 
 - Progress / answers use **separate** `localStorage` keys per lesson (so lessons do not overwrite each other). Data stays in the browser only.
 - Logo and listening audio are external files (not embedded base64).
+- Lesson 05 is Word Families (Post-Expo Word Power).
 - Lesson 04 listening audio: drop `lesson-04-updating-operations/audio/listening.mp3` when ready; the page auto-shows the player if the file exists.
 - Older single-file builds are kept under `versions/`.
