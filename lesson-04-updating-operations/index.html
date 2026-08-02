@@ -1619,17 +1619,19 @@
     }
     .email-desktop .mail-body p { margin: 0 0 12px; }
     .email-desktop .mail-body p:last-child { margin-bottom: 0; }
+    /* Error targets look like normal text until the student marks them */
     .email-desktop .error-word {
-      background: rgba(248, 113, 113, 0.16);
-      border-bottom: 2px solid #e35d5d;
+      background: transparent;
+      border-bottom: 2px solid transparent;
       border-radius: 3px;
       padding: 0 2px;
-      cursor: pointer;
-      transition: background 0.15s ease;
+      cursor: inherit;
+      transition: background 0.15s ease, border-color 0.15s ease;
     }
     .email-desktop .error-word.found {
       background: rgba(91, 184, 176, 0.22);
       border-bottom-color: var(--teal-dark);
+      cursor: pointer;
     }
     .email-desktop .error-word.reveal-correct::after {
       content: attr(data-fix);
@@ -1967,7 +1969,7 @@
             <section id="lesson4-reading" class="panel" role="tabpanel">
               <div class="box tint">
                 <h4>Reading · Operational Update Email</h4>
-                <p>Maria López sent this Q2 update from her laptop. The email looks correct at first glance, but it contains <strong>Simple Present errors</strong>. Tap each red-underlined word to mark the error, then check your work.</p>
+                <p>Maria López sent this Q2 update from her laptop. The email looks correct at first glance, but it contains <strong>Simple Present errors</strong>. Read carefully, tap each incorrect word or phrase to mark it, then check your work. Nothing is highlighted for you — find the mistakes yourself.</p>
               </div>
 
               <div class="email-desktop" aria-label="Email on a desktop computer screen">
@@ -2004,7 +2006,7 @@
                     </div>
                     <div class="mail-body" id="lesson4EmailBody">
                       <p>Dear Operations Team,</p>
-                      <p>As we approach the end of Q2, I would like to provide a comprehensive update on our current logistics performance. The freight forwarder <span class="error-word" data-fix="meets" tabindex="0" role="button" aria-label="Possible error: meet">meet</span> 92% of our delivery windows this quarter. However, we <span class="error-word" data-fix="continue" tabindex="0" role="button">continues</span> to experience occasional delays at customs clearance due to incomplete documentation from our German supplier.</p>
+                      <p>As we approach the end of Q2, I would like to provide a comprehensive update on our current logistics performance. The freight forwarder <span class="error-word" data-fix="meets" tabindex="0" role="button">meet</span> 92% of our delivery windows this quarter. However, we <span class="error-word" data-fix="continue" tabindex="0" role="button">continues</span> to experience occasional delays at customs clearance due to incomplete documentation from our German supplier.</p>
                       <p>The venue staff usually <span class="error-word" data-fix="open" tabindex="0" role="button">opens</span> the loading dock at 7:30 a.m., but they frequently <span class="error-word" data-fix="do not complete" tabindex="0" role="button">does not complete</span> the safety inspection until 8:15 a.m., which <span class="error-word" data-fix="affects" tabindex="0" role="button">affect</span> our morning schedule. If the consignment <span class="error-word" data-fix="arrives" tabindex="0" role="button">arrive</span> after 4 p.m., we <span class="error-word" data-fix="incur" tabindex="0" role="button">incurs</span> significant demurrage charges from the port authority.</p>
                       <p>The security team <span class="error-word" data-fix="handles" tabindex="0" role="button">handle</span> the gates efficiently, but we recommend that they implement a digital logging system to reduce manual errors. Additionally, the catering team <span class="error-word" data-fix="meets" tabindex="0" role="button">meet</span> every day at 10 a.m. to coordinate the daily requirements. Could you please confirm whether the new exhibition stands already <span class="error-word" data-fix="clear" tabindex="0" role="button">clears</span> customs this week?</p>
                       <p>Tom <span class="error-word" data-fix="needs" tabindex="0" role="button">need</span> to know if the catering team meets before or after the morning delivery window.</p>
@@ -2017,7 +2019,7 @@
               </div>
 
               <div class="error-legend">
-                <span><strong>How to play:</strong> click each underlined error.</span>
+                <span><strong>How to play:</strong> click each word or phrase you think is wrong. Marked items turn teal.</span>
                 <span id="lesson4ErrorCount">Errors found: 0 / 11</span>
               </div>
 
@@ -2217,7 +2219,9 @@
     function initEmailErrors() {
       document.querySelectorAll("#lesson4EmailBody .error-word").forEach(word => {
         word.addEventListener("click", () => {
-          word.classList.add("found");
+          // Toggle mark — student may change their mind before checking
+          if (word.classList.contains("reveal-correct")) return;
+          word.classList.toggle("found");
           updateErrorCount();
         });
         word.addEventListener("keydown", (e) => {
