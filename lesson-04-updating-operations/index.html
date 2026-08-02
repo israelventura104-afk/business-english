@@ -1619,24 +1619,31 @@
     }
     .email-desktop .mail-body p { margin: 0 0 12px; }
     .email-desktop .mail-body p:last-child { margin-bottom: 0; }
-    /* Error targets look like normal text until the student marks them */
-    .email-desktop .error-word {
+    /* Every token is clickable with the same look — no cursor/hover leak for errors */
+    .email-desktop .hunt-word {
       background: transparent;
       border-bottom: 2px solid transparent;
       border-radius: 3px;
-      padding: 0 2px;
-      cursor: inherit;
-      transition: background 0.15s ease, border-color 0.15s ease;
+      padding: 0 1px;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
     }
-    .email-desktop .error-word.found {
+    .email-desktop .hunt-word.marked {
+      background: rgba(212, 168, 67, 0.22);
+      border-bottom-color: var(--gold);
+    }
+    .email-desktop .hunt-word.checked-hit {
       background: rgba(91, 184, 176, 0.22);
       border-bottom-color: var(--teal-dark);
-      cursor: pointer;
+    }
+    .email-desktop .hunt-word.checked-miss {
+      background: rgba(248, 113, 113, 0.18);
+      border-bottom-color: #e35d5d;
     }
     .email-desktop .error-word.reveal-correct::after {
-      content: attr(data-fix);
+      content: " → " attr(data-fix);
       display: inline;
-      margin-left: 4px;
+      margin-left: 2px;
       color: var(--teal-dark);
       font-weight: 800;
       font-size: 0.88em;
@@ -1969,7 +1976,7 @@
             <section id="lesson4-reading" class="panel" role="tabpanel">
               <div class="box tint">
                 <h4>Reading · Operational Update Email</h4>
-                <p>Maria López sent this Q2 update from her laptop. The email looks correct at first glance, but it contains <strong>Simple Present errors</strong>. Read carefully, tap each incorrect word or phrase to mark it, then check your work. Nothing is highlighted for you — find the mistakes yourself.</p>
+                <p>Maria López sent this Q2 update from her laptop. The email looks correct at first glance, but it contains <strong>Simple Present errors</strong>. Click any word you think is wrong (every word is clickable — nothing is pre-highlighted). Then press <strong>Check error hunt</strong>.</p>
               </div>
 
               <div class="email-desktop" aria-label="Email on a desktop computer screen">
@@ -2019,8 +2026,8 @@
               </div>
 
               <div class="error-legend">
-                <span><strong>How to play:</strong> click each word or phrase you think is wrong. Marked items turn teal.</span>
-                <span id="lesson4ErrorCount">Errors found: 0 / 11</span>
+                <span><strong>How to play:</strong> mark suspect words (gold). Correct hits turn teal; false marks turn red after Check.</span>
+                <span id="lesson4ErrorCount">Marked: 0</span>
               </div>
 
               <div class="actions" style="margin-top:12px;">
@@ -2209,64 +2216,148 @@
       if (feedback) { feedback.style.display = "none"; feedback.textContent = ""; }
     }
 
+    function clearHuntCheckState() {
+      document.querySelectorAll("#lesson4EmailBody .hunt-word").forEach(word => {
+        word.classList.remove("checked-hit", "checked-miss", "reveal-correct");
+      });
+    }
+
     function updateErrorCount() {
-      const total = document.querySelectorAll("#lesson4EmailBody .error-word").length;
-      const found = document.querySelectorAll("#lesson4EmailBody .error-word.found").length;
+      const marked = document.querySelectorAll("#lesson4EmailBody .hunt-word.marked").length;
       const el = document.getElementById("lesson4ErrorCount");
-      if (el) el.textContent = `Errors found: ${found} / ${total}`;
+      if (el) el.textContent = `Marked: ${marked}`;
+    }
+
+    /** Wrap every word so cursor/interaction is identical; real errors keep .error-word + data-fix. */
+    function wrapEmailHuntWords() {
+      const body = document.getElementById("lesson4EmailBody");
+      if (!body || body.dataset.huntReady === "1") return;
+
+      const tokenRe = /([A-Za-z0-9'’%.:/-]+)|(\s+)|([^\sA-Za-z0-9'’%.:/-]+)/g;
+
+      function wrapTextNode(node) {
+        const text = node.textContent;
+        if (!text || !text.trim()) return;
+        const frag = document.createDocumentFragment();
+        let match;
+        tokenRe.lastIndex = 0;
+        while ((match = tokenRe.exec(text)) !== null) {
+          if (match[1]) {
+            const span = document.createElement("span");
+            span.className = "hunt-word";
+            span.tabIndex = 0;
+            span.setAttribute("role", "button");
+            span.textContent = match[1];
+            frag.appendChild(span);
+          } else {
+            frag.appendChild(document.createTextNode(match[0]));
+          }
+        }
+        node.parentNode.replaceChild(frag, node);
+      }
+
+      function walk(parent) {
+        [...parent.childNodes].forEach(node => {
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            if (node.classList && node.classList.contains("error-word")) {
+              node.classList.add("hunt-word");
+              if (!node.hasAttribute("tabindex")) node.tabIndex = 0;
+              if (!node.getAttribute("role")) node.setAttribute("role", "button");
+              return;
+            }
+            if (node.tagName === "BR") return;
+            walk(node);
+            return;
+          }
+          if (node.nodeType === Node.TEXT_NODE) wrapTextNode(node);
+        });
+      }
+
+      body.querySelectorAll("p").forEach(p => walk(p));
+      body.dataset.huntReady = "1";
+    }
+
+    function bindHuntWord(word) {
+      if (word.dataset.bound === "1") return;
+      word.dataset.bound = "1";
+      const toggle = () => {
+        if (word.classList.contains("reveal-correct")) return;
+        clearHuntCheckState();
+        word.classList.toggle("marked");
+        updateErrorCount();
+        const fb = document.getElementById("lesson4EmailFeedback");
+        if (fb) { fb.style.display = "none"; fb.textContent = ""; }
+      };
+      word.addEventListener("click", toggle);
+      word.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggle();
+        }
+      });
     }
 
     function initEmailErrors() {
-      document.querySelectorAll("#lesson4EmailBody .error-word").forEach(word => {
-        word.addEventListener("click", () => {
-          // Toggle mark — student may change their mind before checking
-          if (word.classList.contains("reveal-correct")) return;
-          word.classList.toggle("found");
-          updateErrorCount();
-        });
-        word.addEventListener("keydown", (e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            word.click();
-          }
-        });
-      });
+      wrapEmailHuntWords();
+      document.querySelectorAll("#lesson4EmailBody .hunt-word").forEach(bindHuntWord);
       updateErrorCount();
     }
 
     function checkEmailErrors() {
-      const total = document.querySelectorAll("#lesson4EmailBody .error-word").length;
-      const found = document.querySelectorAll("#lesson4EmailBody .error-word.found").length;
+      const errors = [...document.querySelectorAll("#lesson4EmailBody .error-word")];
+      const total = errors.length;
+      const found = errors.filter(w => w.classList.contains("marked")).length;
+      const falseMarks = [...document.querySelectorAll("#lesson4EmailBody .hunt-word.marked:not(.error-word)")].length;
       const fb = document.getElementById("lesson4EmailFeedback");
       if (!fb) return;
+
+      document.querySelectorAll("#lesson4EmailBody .hunt-word").forEach(word => {
+        word.classList.remove("checked-hit", "checked-miss");
+        if (!word.classList.contains("marked")) return;
+        if (word.classList.contains("error-word")) word.classList.add("checked-hit");
+        else word.classList.add("checked-miss");
+      });
+
       fb.style.display = "block";
-      if (found === total) {
-        fb.textContent = `Great work — you found all ${total} Simple Present errors.`;
+      if (found === total && falseMarks === 0) {
+        fb.textContent = `Excellent — you found all ${total} Simple Present errors with no false marks.`;
         fb.style.color = "var(--teal-dark)";
       } else {
-        fb.textContent = `You found ${found} of ${total} errors. Keep scanning subject-verb agreement and 3rd person -s.`;
+        const parts = [`You found ${found} of ${total} real errors.`];
+        if (falseMarks > 0) parts.push(`${falseMarks} false mark${falseMarks === 1 ? "" : "s"} (red).`);
+        if (found < total) parts.push("Keep scanning subject–verb agreement and 3rd person -s.");
+        fb.textContent = parts.join(" ");
         fb.style.color = "var(--navy)";
       }
+
+      const el = document.getElementById("lesson4ErrorCount");
+      if (el) el.textContent = `Score: ${found}/${total} · false: ${falseMarks}`;
     }
 
     function revealEmailCorrections() {
-      document.querySelectorAll("#lesson4EmailBody .error-word").forEach(word => {
-        word.classList.add("found", "reveal-correct");
+      document.querySelectorAll("#lesson4EmailBody .hunt-word").forEach(word => {
+        word.classList.remove("marked", "checked-hit", "checked-miss");
+        if (word.classList.contains("error-word")) {
+          word.classList.add("marked", "checked-hit", "reveal-correct");
+        }
       });
       updateErrorCount();
+      const total = document.querySelectorAll("#lesson4EmailBody .error-word").length;
+      const el = document.getElementById("lesson4ErrorCount");
+      if (el) el.textContent = `All ${total} errors revealed`;
       const box = document.getElementById("lesson4CorrectedEmail");
       if (box) box.classList.add("show");
       const fb = document.getElementById("lesson4EmailFeedback");
       if (fb) {
         fb.style.display = "block";
-        fb.textContent = "Corrections revealed. Compare the desktop email with the clean version below.";
+        fb.textContent = "Corrections revealed. Teal words were the errors (with the fix after →). Compare with the clean version below.";
         fb.style.color = "var(--teal-dark)";
       }
     }
 
     function resetEmailErrors() {
-      document.querySelectorAll("#lesson4EmailBody .error-word").forEach(word => {
-        word.classList.remove("found", "reveal-correct");
+      document.querySelectorAll("#lesson4EmailBody .hunt-word").forEach(word => {
+        word.classList.remove("marked", "checked-hit", "checked-miss", "reveal-correct");
       });
       updateErrorCount();
       const box = document.getElementById("lesson4CorrectedEmail");
