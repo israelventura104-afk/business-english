@@ -1691,25 +1691,70 @@
     .corrected-email.show { display: block; }
 
 
-    /* ========== L05 layout polish: spacing, cards, tabs ========== */
+
+
+    /* ========== L05 unified layout (same margins every tab) ========== */
+    html {
+      overflow-y: scroll; /* always reserve scrollbar — no jump between short/long tabs */
+    }
+
+    .main-card {
+      overflow-x: hidden;
+    }
+
+    /* Tabs share the SAME horizontal inset as content */
+    .lesson-header {
+      padding: 24px 24px 20px;
+    }
+    .tabs {
+      padding: 12px 24px;
+      gap: 8px;
+      box-sizing: border-box;
+    }
+
+    /* Constant stage: padding never depends on which tab is active */
+    .panel-stage {
+      padding: 24px 24px 32px;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    /* Panels only toggle visibility — NO extra side padding here */
     .panel {
-      display: none;
-      padding: 24px 22px 32px;
+      display: none !important;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      margin: 0;
+      padding: 0 !important;
       box-sizing: border-box;
     }
     .panel.active {
-      display: flex;
+      display: flex !important;
       flex-direction: column;
+      align-items: stretch;
       gap: 18px;
       min-height: 0;
+      width: 100%;
+      max-width: 100%;
+      padding: 0 !important;
+      margin: 0;
+      box-sizing: border-box;
     }
-    /* neutralize leftover inline top margins inside panels */
-    .panel > [style*='margin-top'] {
+    .panel > * {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+    .panel > [style*="margin-top"] {
       margin-top: 0 !important;
     }
 
     .box {
       padding: 20px 22px;
+      box-sizing: border-box;
     }
     .box h4 {
       margin: 0 0 12px;
@@ -1717,17 +1762,16 @@
     }
     .box p {
       margin: 0 0 10px;
+      line-height: 1.65;
     }
-    .box p:last-child {
-      margin-bottom: 0;
-    }
+    .box p:last-child { margin-bottom: 0; }
     .box ul {
       margin: 4px 0 0;
       padding-left: 1.25rem;
     }
     .box li {
       margin: 0 0 6px;
-      padding-left: 2px;
+      line-height: 1.55;
     }
     .box li:last-child { margin-bottom: 0; }
 
@@ -1736,6 +1780,7 @@
       gap: 8px;
       min-height: 100%;
       align-content: start;
+      box-sizing: border-box;
     }
     .phrase strong {
       display: block;
@@ -1750,25 +1795,45 @@
 
     .grid-2, .grid-3 {
       gap: 14px;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
     }
     @media (max-width: 900px) {
       .grid-3 { grid-template-columns: 1fr; }
     }
     @media (max-width: 720px) {
       .grid-2 { grid-template-columns: 1fr; }
-      .panel { padding: 18px 16px 28px; }
-      .panel.active { min-height: 0; }
+      .panel-stage {
+        padding: 18px 16px 28px;
+      }
+      .tabs, .lesson-header {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
     }
 
     .vocab-card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 14px;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
     }
     .vocab-card {
-      grid-template-columns: 42px 1fr;
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
       column-gap: 12px;
       row-gap: 10px;
       padding: 18px;
       min-height: 0;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
       align-items: start;
     }
     .vocab-card .vocab-icon {
@@ -1784,19 +1849,19 @@
       display: block;
       font-size: 1.05rem;
       line-height: 1.3;
-      letter-spacing: -0.01em;
+      min-width: 0;
     }
     .vocab-card .vocab-sentence,
     .vocab-card .vocab-meaning,
     .vocab-card .vocab-action {
       grid-column: 1 / -1;
+      min-width: 0;
     }
     .vocab-card .vocab-sentence {
       display: block;
       line-height: 1.55;
       font-size: 0.94rem;
       color: var(--ink);
-      padding-top: 2px;
     }
     .vocab-card .vocab-meaning {
       line-height: 1.55;
@@ -1806,26 +1871,27 @@
       border-radius: 10px;
       background: rgba(91, 184, 176, 0.10);
     }
-    .vocab-card .vocab-action {
-      margin-top: 2px;
-      padding-top: 2px;
+    @media (max-width: 720px) {
+      .vocab-card-grid { grid-template-columns: 1fr; }
     }
 
     .exercise {
       padding: 18px 20px 20px;
       margin-bottom: 0;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
     }
-    .exercise + .exercise {
-      margin-top: 0;
-    }
-    .exercise-header {
-      padding: 2px 0 4px;
+    .exercise-header,
+    .exercise-header-left,
+    .exercise-body {
+      min-width: 0;
+      max-width: 100%;
+      box-sizing: border-box;
     }
     .exercise-body {
-      padding: 14px 2px 4px;
-    }
-    .exercise.open .exercise-body {
-      padding-top: 14px;
+      padding: 14px 0 4px;
     }
     .exercise h5 {
       margin: 0 0 10px;
@@ -1841,6 +1907,10 @@
     .q-block {
       padding: 16px 18px;
       margin-bottom: 12px;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
     }
     .q-block strong {
       display: block;
@@ -1850,6 +1920,10 @@
       color: var(--navy);
     }
     .option-btn {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
       padding: 12px 14px;
       margin-bottom: 8px;
       line-height: 1.45;
@@ -1868,6 +1942,9 @@
     .situation-box {
       padding: 16px 18px;
       line-height: 1.6;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 100%;
     }
     .situation-box p { margin: 0 0 10px; }
     .situation-box p:last-child { margin-bottom: 0; }
@@ -1877,136 +1954,22 @@
       line-height: 1.65;
     }
 
-    textarea, select, input[type='text'] {
+    textarea, select, input[type="text"] {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
       padding: 12px 14px;
       line-height: 1.5;
     }
     textarea { min-height: 120px; }
 
-    .tabs {
-      padding: 12px 18px;
-      gap: 8px;
+    .static-quiz {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
     }
-    .tab {
-      padding: 9px 14px;
-      line-height: 1.2;
-    }
-
-    .lesson-header {
-      padding: 24px 24px 20px;
-    }
-    .lesson-header p {
-      margin-top: 10px;
-      line-height: 1.55;
-      max-width: 52rem;
-    }
-
     .static-quiz .q-block { margin-bottom: 12px; }
-    .write-box textarea { margin-top: 4px; }
-
-    /* Reading note card readability */
-    .panel .box p {
-      line-height: 1.65;
-    }
-
-
-    /* ========== L05 horizontal alignment: same margins on every tab ========== */
-    html {
-      scrollbar-gutter: stable;
-    }
-    body {
-      overflow-x: hidden;
-    }
-    .main-card,
-    .lesson-body,
-    .tabs {
-      width: 100%;
-      max-width: 100%;
-      box-sizing: border-box;
-    }
-    .main-card {
-      overflow-x: hidden;
-    }
-
-    /* Every panel shares identical horizontal inset */
-    .panel,
-    .panel.active {
-      width: 100% !important;
-      max-width: 100% !important;
-      min-width: 0 !important;
-      margin-left: 0 !important;
-      margin-right: 0 !important;
-      padding-left: 22px !important;
-      padding-right: 22px !important;
-      box-sizing: border-box !important;
-    }
-    .panel.active {
-      /* keep flex column, but prevent children from expanding past card */
-      align-items: stretch;
-    }
-    .panel > * {
-      width: 100%;
-      max-width: 100%;
-      min-width: 0;
-      box-sizing: border-box;
-      margin-left: 0;
-      margin-right: 0;
-    }
-
-    .vocab-card-grid,
-    .grid-2,
-    .grid-3,
-    .exercise,
-    .static-quiz,
-    .q-block,
-    .box,
-    .write-box,
-    .actions,
-    .situation-box {
-      width: 100%;
-      max-width: 100%;
-      min-width: 0;
-      box-sizing: border-box;
-    }
-
-    /* width:100% buttons inside padded parents must not overflow */
-    .option-btn,
-    .vocab-card,
-    button.vocab-card,
-    textarea,
-    select,
-    input[type="text"] {
-      max-width: 100%;
-      box-sizing: border-box;
-    }
-    .option-btn {
-      width: 100%;
-    }
-
-    /* flex/grid children that cause horizontal push */
-    .exercise-header,
-    .exercise-header-left,
-    .exercise-body {
-      min-width: 0;
-      max-width: 100%;
-      box-sizing: border-box;
-    }
-    .exercise-body {
-      padding-left: 0;
-      padding-right: 0;
-    }
-
-    /* tabs bar same horizontal inset language as panels */
-    .tabs {
-      padding-left: 22px;
-      padding-right: 22px;
-      box-sizing: border-box;
-    }
-    .lesson-header {
-      padding-left: 22px;
-      padding-right: 22px;
-      box-sizing: border-box;
-    }
 
   </style>
 </head>
@@ -2069,6 +2032,7 @@
               <button class="tab" type="button" data-tab="lesson5-listening">Listening</button>
             </div>
 
+            <div class="panel-stage">
             <!-- OVERVIEW -->
             <section id="lesson5-overview" class="panel active" role="tabpanel">
               <div class="box tint">
@@ -2447,6 +2411,7 @@
                 </div>
               </div>
             </section>
+            </div><!-- /.panel-stage -->
           </div>
         </article>
       </div>
