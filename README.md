@@ -23,9 +23,9 @@ business-english/
   lesson-04-updating-operations/
     index.html
     audio/listening.mp3               # vendor call (ready)
-  lesson-05-post-expo-word-power/
+  lesson-05-invoice-dispute/
     index.html
-    audio/listening.mp3               # Legal call — add when ready
+    audio/listening.mp3               # AP/finance call — add when ready
   versions/                           # Archived monofile snapshots
 ```
 
@@ -37,7 +37,7 @@ business-english/
 | 02 | Handling Customer Requests | Indirect questions |
 | 03 | Reporting After a Conference | -ed / -ing adjectives |
 | 04 | Updating Operations | Simple Present |
-| 05 | Post-Expo Word Power | Word families |
+| 05 | Invoice Dispute | Prefixes & suffixes |
 | 06 | Coming soon | — |
 
 ## Lesson tabs (same on every unit)
