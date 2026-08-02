@@ -1701,7 +1701,7 @@
       display: flex;
       flex-direction: column;
       gap: 18px;
-      min-height: 560px;
+      min-height: 0;
     }
     /* neutralize leftover inline top margins inside panels */
     .panel > [style*='margin-top'] {
@@ -1907,6 +1907,105 @@
     /* Reading note card readability */
     .panel .box p {
       line-height: 1.65;
+    }
+
+
+    /* ========== L05 horizontal alignment: same margins on every tab ========== */
+    html {
+      scrollbar-gutter: stable;
+    }
+    body {
+      overflow-x: hidden;
+    }
+    .main-card,
+    .lesson-body,
+    .tabs {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+    .main-card {
+      overflow-x: hidden;
+    }
+
+    /* Every panel shares identical horizontal inset */
+    .panel,
+    .panel.active {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      padding-left: 22px !important;
+      padding-right: 22px !important;
+      box-sizing: border-box !important;
+    }
+    .panel.active {
+      /* keep flex column, but prevent children from expanding past card */
+      align-items: stretch;
+    }
+    .panel > * {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .vocab-card-grid,
+    .grid-2,
+    .grid-3,
+    .exercise,
+    .static-quiz,
+    .q-block,
+    .box,
+    .write-box,
+    .actions,
+    .situation-box {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+
+    /* width:100% buttons inside padded parents must not overflow */
+    .option-btn,
+    .vocab-card,
+    button.vocab-card,
+    textarea,
+    select,
+    input[type="text"] {
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+    .option-btn {
+      width: 100%;
+    }
+
+    /* flex/grid children that cause horizontal push */
+    .exercise-header,
+    .exercise-header-left,
+    .exercise-body {
+      min-width: 0;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+    .exercise-body {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    /* tabs bar same horizontal inset language as panels */
+    .tabs {
+      padding-left: 22px;
+      padding-right: 22px;
+      box-sizing: border-box;
+    }
+    .lesson-header {
+      padding-left: 22px;
+      padding-right: 22px;
+      box-sizing: border-box;
     }
 
   </style>
