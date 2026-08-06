@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="../favicon.png">
   <link rel="apple-touch-icon" href="../favicon.png">
-  <title>Lesson 04: Updating Operations | Business English</title>
+  <title>Lesson 06: Resolving an Invoice Dispute | Business English</title>
   <style>
 
 
@@ -1690,8 +1690,290 @@
     }
     .corrected-email.show { display: block; }
 
+
+
+
+    /* ========== L05 unified layout (same margins every tab) ========== */
+    html {
+      overflow-y: scroll; /* always reserve scrollbar — no jump between short/long tabs */
+    }
+
+    .main-card {
+      overflow-x: hidden;
+    }
+
+    /* Tabs share the SAME horizontal inset as content */
+    .lesson-header {
+      padding: 24px 24px 20px;
+    }
+    .tabs {
+      padding: 12px 24px;
+      gap: 8px;
+      box-sizing: border-box;
+    }
+
+    /* Constant stage: padding never depends on which tab is active */
+    .panel-stage {
+      padding: 24px 24px 32px;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    /* Panels only toggle visibility — NO extra side padding here */
+    .panel {
+      display: none !important;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      margin: 0;
+      padding: 0 !important;
+      box-sizing: border-box;
+    }
+    .panel.active {
+      display: flex !important;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 18px;
+      min-height: 0;
+      width: 100%;
+      max-width: 100%;
+      padding: 0 !important;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    .panel > * {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+    .panel > [style*="margin-top"] {
+      margin-top: 0 !important;
+    }
+
+    .box {
+      padding: 20px 22px;
+      box-sizing: border-box;
+    }
+    .box h4 {
+      margin: 0 0 12px;
+      line-height: 1.3;
+    }
+    .box p {
+      margin: 0 0 10px;
+      line-height: 1.65;
+    }
+    .box p:last-child { margin-bottom: 0; }
+    .box ul {
+      margin: 4px 0 0;
+      padding-left: 1.25rem;
+    }
+    .box li {
+      margin: 0 0 6px;
+      line-height: 1.55;
+    }
+    .box li:last-child { margin-bottom: 0; }
+
+    .phrase {
+      padding: 14px 16px;
+      gap: 8px;
+      min-height: 100%;
+      align-content: start;
+      box-sizing: border-box;
+    }
+    .phrase strong {
+      display: block;
+      font-size: 0.92rem;
+      line-height: 1.35;
+    }
+    .phrase span {
+      display: block;
+      line-height: 1.55;
+      font-size: 0.9rem;
+    }
+
+    .grid-2, .grid-3 {
+      gap: 14px;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+    @media (max-width: 900px) {
+      .grid-3 { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .panel-stage {
+        padding: 18px 16px 28px;
+      }
+      .tabs, .lesson-header {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+    }
+
+    .vocab-card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+    .vocab-card {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      column-gap: 12px;
+      row-gap: 10px;
+      padding: 18px;
+      min-height: 0;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+      align-items: start;
+    }
+    .vocab-card .vocab-icon {
+      grid-column: 1;
+      grid-row: 1;
+      width: 42px;
+      height: 42px;
+    }
+    .vocab-card > strong {
+      grid-column: 2;
+      grid-row: 1;
+      align-self: center;
+      display: block;
+      font-size: 1.05rem;
+      line-height: 1.3;
+      min-width: 0;
+    }
+    .vocab-card .vocab-sentence,
+    .vocab-card .vocab-meaning,
+    .vocab-card .vocab-action {
+      grid-column: 1 / -1;
+      min-width: 0;
+    }
+    .vocab-card .vocab-sentence {
+      display: block;
+      line-height: 1.55;
+      font-size: 0.94rem;
+      color: var(--ink);
+    }
+    .vocab-card .vocab-meaning {
+      line-height: 1.55;
+      font-size: 0.92rem;
+      font-weight: 650;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(91, 184, 176, 0.10);
+    }
+    @media (max-width: 720px) {
+      .vocab-card-grid { grid-template-columns: 1fr; }
+    }
+
+    .exercise {
+      padding: 18px 20px 20px;
+      margin-bottom: 0;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+    .exercise-header,
+    .exercise-header-left,
+    .exercise-body {
+      min-width: 0;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+    .exercise-body {
+      padding: 14px 0 4px;
+    }
+    .exercise h5 {
+      margin: 0 0 10px;
+      line-height: 1.35;
+    }
+    .exercise > p,
+    .exercise-body > p,
+    .ref-intro {
+      margin: 0 0 14px;
+      line-height: 1.55;
+    }
+
+    .q-block {
+      padding: 16px 18px;
+      margin-bottom: 12px;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+    .q-block strong {
+      display: block;
+      margin: 0 0 12px;
+      line-height: 1.45;
+      font-size: 0.95rem;
+      color: var(--navy);
+    }
+    .option-btn {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      padding: 12px 14px;
+      margin-bottom: 8px;
+      line-height: 1.45;
+    }
+    .option-btn:last-child { margin-bottom: 0; }
+
+    .actions {
+      margin-top: 16px;
+      gap: 10px;
+    }
+    .score-line {
+      margin: 12px 0 0;
+      line-height: 1.45;
+    }
+
+    .situation-box {
+      padding: 16px 18px;
+      line-height: 1.6;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 100%;
+    }
+    .situation-box p { margin: 0 0 10px; }
+    .situation-box p:last-child { margin-bottom: 0; }
+    .situation-box ul {
+      margin: 8px 0 0 18px;
+      padding: 0;
+      line-height: 1.65;
+    }
+
+    textarea, select, input[type="text"] {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      padding: 12px 14px;
+      line-height: 1.5;
+    }
+    textarea { min-height: 120px; }
+
+    .static-quiz {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+    .static-quiz .q-block { margin-bottom: 12px; }
+
   </style>
 </head>
+
 <body>
   <main class="shell">
     <header class="topbar">
@@ -1713,455 +1995,437 @@
     </header>
 
     <a class="back-link" href="../">← Back to lesson menu</a>
-    
+
     <nav class="lesson-nav" aria-label="Lessons">
         <a class="" href="../lesson-01-negotiating-a-deadline/">01 · Negotiating a Deadline</a>
         <a class="" href="../lesson-02-handling-customer-requests/">02 · Handling Customer Requests</a>
         <a class="" href="../lesson-03-reporting-after-a-conference/">03 · Reporting After a Conference</a>
-        <a class="active" href="../lesson-04-updating-operations/">04 · Updating Operations</a>
+        <a class="" href="../lesson-04-updating-operations/">04 · Updating Operations</a>
         <a class="" href="../lesson-05-project-meeting-debrief/">05 · Project Meeting Debrief</a>
-        <a class="" href="../lesson-06-invoice-dispute/">06 · Invoice Dispute</a>
+        <a class="active" href="../lesson-06-invoice-dispute/">06 · Invoice Dispute</a>
     </nav>
 
     <div class="layout">
       <div class="lessons-stack">
-        <article id="lesson4Card" class="main-card lesson-card lesson-open">
-          <div class="lesson-header" onclick="toggleLessonCard('lesson4Card')">
+        <article id="lesson6Card" class="main-card lesson-card lesson-open">
+          <div class="lesson-header" onclick="toggleLessonCard('lesson6Card')">
             <div class="lesson-toggle-row">
-              <h3>Lesson 04: Updating Operations</h3>
-              <button class="lesson-toggle-button" type="button" onclick="toggleLessonCard('lesson4Card', event)">Close lesson</button>
+              <h3>Lesson 06: Resolving an Invoice Dispute</h3>
+              <button class="lesson-toggle-button" type="button" onclick="toggleLessonCard('lesson6Card', event)">Close lesson</button>
             </div>
-            <p>You are the Logistics Coordinator for an International Expo. Report routines, correct operational updates, and extract key information from a vendor call.</p>
+            <p>You work in Accounts Payable. A supplier invoice looks wrong. Use prefixes and suffixes to read, discuss, and write precise finance language.</p>
             <div class="tag-row">
-              <span class="tag teal">Simple Present</span>
-              <span class="tag">Logistics ops</span>
-              <span class="tag gold">Email update</span>
-              <span class="tag">Vendor call</span>
+              <span class="tag teal">Prefixes &amp; suffixes</span>
+              <span class="tag">Finance English</span>
+              <span class="tag gold">Invoice language</span>
+              <span class="tag">TOEIC word forms</span>
             </div>
           </div>
 
           <div class="lesson-body">
             <div class="tabs" role="tablist">
-              <button class="tab active" type="button" data-tab="lesson4-overview">Overview</button>
-              <button class="tab" type="button" data-tab="lesson4-vocabulary">Vocabulary</button>
-              <button class="tab" type="button" data-tab="lesson4-grammar">Grammar Reference</button>
-              <button class="tab" type="button" data-tab="lesson4-practice">Practice</button>
-              <button class="tab" type="button" data-tab="lesson4-reading">Reading · Email</button>
-              <button class="tab" type="button" data-tab="lesson4-listening">Listening</button>
+              <button class="tab active" type="button" data-tab="lesson6-overview">Overview</button>
+              <button class="tab" type="button" data-tab="lesson6-vocabulary">Vocabulary</button>
+              <button class="tab" type="button" data-tab="lesson6-grammar">Grammar Reference</button>
+              <button class="tab" type="button" data-tab="lesson6-practice">Practice</button>
+              <button class="tab" type="button" data-tab="lesson6-reading">Reading</button>
+              <button class="tab" type="button" data-tab="lesson6-listening">Listening</button>
             </div>
 
+            <div class="panel-stage">
             <!-- OVERVIEW -->
-            <section id="lesson4-overview" class="panel active" role="tabpanel">
+            <section id="lesson6-overview" class="panel active" role="tabpanel">
               <div class="box tint">
                 <h4>Scenario</h4>
-                <p><strong>Role:</strong> Logistics Coordinator for an International Expo.</p>
-                <p><strong>Challenge:</strong> Describe daily operations clearly, correct weak updates, and report accurately to your manager.</p>
-                <p><strong>Goal:</strong> Use the Simple Present for routines, facts, and schedules in professional logistics communication.</p>
+                <p><strong>Role:</strong> Accounts Payable Officer at Northline Retail.</p>
+                <p><strong>Challenge:</strong> Invoice #NR-4821 from supplier BrightPack Co. may include an overcharge. Your manager wants a clear explanation and a professional email to Accounts Receivable.</p>
+                <p><strong>Goal:</strong> Use common business <strong>prefixes</strong> and <strong>suffixes</strong> to form precise finance words (not just “basic” vocabulary).</p>
               </div>
               <div class="grid-3" style="margin-top:16px;">
-                <div class="phrase"><strong>Language focus</strong><span>Simple Present (routines, facts, schedules)</span></div>
-                <div class="phrase"><strong>Recycled</strong><span>Indirect questions + First Conditional</span></div>
-                <div class="phrase"><strong>Output</strong><span>Corrected email + short ops update</span></div>
+                <div class="phrase"><strong>Language focus</strong><span>Prefixes (un-, re-, over-, under-, pre-, non-, mis-, dis-) · Suffixes (-tion, -ment, -able, -ible, -ity, -ly)</span></div>
+                <div class="phrase"><strong>Context</strong><span>Invoices · payments · refunds · clarification</span></div>
+                <div class="phrase"><strong>Output</strong><span>Dispute email with accurate word forms</span></div>
               </div>
               <div class="box" style="margin-top:16px;">
                 <h4>In this lesson you will</h4>
                 <ul style="margin:8px 0 0 18px; line-height:1.7; color:var(--ink);">
-                  <li>Describe daily and weekly routines accurately</li>
-                  <li>Report operational information to your manager</li>
-                  <li>Correct and write professional updates using the Simple Present</li>
-                  <li>Understand a supplier call and extract key information</li>
+                  <li>Recognize high-frequency finance prefixes and suffixes</li>
+                  <li>Build the correct form for TOEIC-style gaps</li>
+                  <li>Read an invoice note and choose affixed forms</li>
+                  <li>Handle a short call about payment and refunds</li>
                 </ul>
               </div>
               <div class="grid-3" style="margin-top:16px;">
-                <div class="phrase"><strong>10 min</strong><span>Warm-up: expo logistics routines.</span></div>
-                <div class="phrase"><strong>12 min</strong><span>Vocabulary cards for operations updates.</span></div>
-                <div class="phrase"><strong>12 min</strong><span>Simple Present quick review + recycled forms.</span></div>
-                <div class="phrase"><strong>18 min</strong><span>Practice: accuracy, decisions, short writing.</span></div>
-                <div class="phrase"><strong>15 min</strong><span>Reading: email on a desktop screen + error hunt.</span></div>
-                <div class="phrase"><strong>10 min</strong><span>Listening: vendor call (audio coming soon).</span></div>
+                <div class="phrase"><strong>10 min</strong><span>Warm-up: what’s wrong with this invoice line?</span></div>
+                <div class="phrase"><strong>12 min</strong><span>Vocabulary: affixed finance words.</span></div>
+                <div class="phrase"><strong>12 min</strong><span>Prefix &amp; suffix meaning map.</span></div>
+                <div class="phrase"><strong>18 min</strong><span>Practice: build forms + decisions + short writing.</span></div>
+                <div class="phrase"><strong>15 min</strong><span>Reading: supplier note with text completion.</span></div>
+                <div class="phrase"><strong>10 min</strong><span>Listening: AP call about the dispute.</span></div>
               </div>
             </section>
 
             <!-- VOCABULARY -->
-            <section id="lesson4-vocabulary" class="panel" role="tabpanel">
+            <section id="lesson6-vocabulary" class="panel" role="tabpanel">
               <div class="box tint">
-                <h4>Vocabulary for Updating Operations</h4>
-                <p>Tap a card to reveal the professional meaning. These phrases help you sound precise in logistics emails and calls.</p>
+                <h4>Vocabulary · Affixed Finance Words</h4>
+                <p>Tap a card to reveal the meaning. Notice the <strong>prefix</strong> or <strong>suffix</strong> that builds the professional form.</p>
               </div>
               <div class="vocab-card-grid" style="margin-top:16px;">
-                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">🛃</span><strong>clear customs</strong><span class="vocab-sentence">The exhibition stands clear customs before opening day.</span><span class="vocab-meaning">Complete the official process to enter a country.</span><span class="vocab-action">Reveal meaning</span></button>
-                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">⏱️</span><strong>meet the delivery window</strong><span class="vocab-sentence">The forwarder meets the delivery window 92% of the time.</span><span class="vocab-meaning">Arrive within the agreed time slot.</span><span class="vocab-action">Reveal meaning</span></button>
-                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">🚩</span><strong>flag a discrepancy</strong><span class="vocab-sentence">Please flag a discrepancy if the packing list does not match.</span><span class="vocab-meaning">Report a difference or problem in the shipment.</span><span class="vocab-action">Reveal meaning</span></button>
-                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">⬆️</span><strong>escalate the issue</strong><span class="vocab-sentence">If the delay continues, we escalate the issue to the operations manager.</span><span class="vocab-meaning">Pass a problem to a higher level.</span><span class="vocab-action">Reveal meaning</span></button>
-                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">⚙️</span><strong>streamline the process</strong><span class="vocab-sentence">A digital log helps us streamline the process at the gate.</span><span class="vocab-meaning">Make the process more efficient.</span><span class="vocab-action">Reveal meaning</span></button>
-                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">📦</span><strong>track the consignment</strong><span class="vocab-sentence">We track the consignment every morning until it arrives.</span><span class="vocab-meaning">Follow the location of the shipment.</span><span class="vocab-action">Reveal meaning</span></button>
-                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">🤝</span><strong>liaise with the freight forwarder</strong><span class="vocab-sentence">I liaise with the freight forwarder when the ETA changes.</span><span class="vocab-meaning">Communicate and coordinate with the shipping company.</span><span class="vocab-action">Reveal meaning</span></button>
-                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">💸</span><strong>incur demurrage charges</strong><span class="vocab-sentence">If the truck arrives late, we incur demurrage charges.</span><span class="vocab-meaning">Have to pay extra fees because of delays.</span><span class="vocab-action">Reveal meaning</span></button>
-                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">📍</span><strong>confirm the ETA</strong><span class="vocab-sentence">Can you confirm the estimated time of arrival for booth materials?</span><span class="vocab-meaning">Verify when the shipment is expected to arrive.</span><span class="vocab-action">Reveal meaning</span></button>
-                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">🐢</span><strong>run behind schedule</strong><span class="vocab-sentence">The setup team runs behind schedule when documents are incomplete.</span><span class="vocab-meaning">Be delayed / not on time.</span><span class="vocab-action">Reveal meaning</span></button>
+                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">⬆️</span><strong>overcharge</strong><span class="vocab-sentence">Line 3 seems to overcharge us for packaging.</span><span class="vocab-meaning"><strong>over-</strong> (too much) + charge → charge more than the correct amount.</span><span class="vocab-action">Reveal meaning</span></button>
+                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">⬇️</span><strong>underpayment</strong><span class="vocab-sentence">An underpayment will appear as an open balance.</span><span class="vocab-meaning"><strong>under-</strong> (too little) + payment → paying less than the amount due.</span><span class="vocab-action">Reveal meaning</span></button>
+                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">🚫</span><strong>non-refundable</strong><span class="vocab-sentence">The deposit is non-refundable after 14 days.</span><span class="vocab-meaning"><strong>non-</strong> (not) + refundable → cannot be returned as money.</span><span class="vocab-action">Reveal meaning</span></button>
+                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">🔁</span><strong>prepayment</strong><span class="vocab-sentence">We made a 30% prepayment last month.</span><span class="vocab-meaning"><strong>pre-</strong> (before) + payment → money paid in advance.</span><span class="vocab-action">Reveal meaning</span></button>
+                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">📝</span><strong>clarification</strong><span class="vocab-sentence">Could you send a clarification of the unit price?</span><span class="vocab-meaning">clarify + <strong>-tion</strong> → a clear explanation (noun).</span><span class="vocab-action">Reveal meaning</span></button>
+                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">✅</span><strong>payable</strong><span class="vocab-sentence">The balance payable is due by Friday.</span><span class="vocab-meaning">pay + <strong>-able</strong> → amount that must / can be paid.</span><span class="vocab-action">Reveal meaning</span></button>
+                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">↩️</span><strong>reissue</strong><span class="vocab-sentence">Please reissue the invoice with the correct total.</span><span class="vocab-meaning"><strong>re-</strong> (again) + issue → send or publish again.</span><span class="vocab-action">Reveal meaning</span></button>
+                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">❌</span><strong>disagreement</strong><span class="vocab-sentence">There is a disagreement about the freight fee.</span><span class="vocab-meaning"><strong>dis-</strong> (not / opposite) + agreement → a difference of opinion.</span><span class="vocab-action">Reveal meaning</span></button>
+                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">🏷️</span><strong>mislabel</strong><span class="vocab-sentence">The carton was mislabeled as “paid in full.”</span><span class="vocab-meaning"><strong>mis-</strong> (wrongly) + label → label incorrectly.</span><span class="vocab-action">Reveal meaning</span></button>
+                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">📬</span><strong>unavailable</strong><span class="vocab-sentence">The original packing list is currently unavailable.</span><span class="vocab-meaning"><strong>un-</strong> (not) + available → cannot be obtained right now.</span><span class="vocab-action">Reveal meaning</span></button>
               </div>
 
               <div class="exercise static-quiz" style="margin-top:18px;">
                 <h5><span class="ex-badge">Practice</span> Vocabulary in Context</h5>
-                <p>Choose the best expression for each operations situation.</p>
-                <div id="lesson4VocabQuiz">
-                  <div class="q-block" data-answer="1">
-                    <strong>1. The truck must arrive between 9:00 and 10:00. We need to ______.</strong>
-                    <label class="option-btn"><input type="radio" name="l4v1" value="0"> escalate the issue</label>
-                    <label class="option-btn"><input type="radio" name="l4v1" value="1"> meet the delivery window</label>
-                    <label class="option-btn"><input type="radio" name="l4v1" value="2"> incur demurrage charges</label>
-                  </div>
+                <p>Choose the best affixed word for each finance situation.</p>
+                <div id="lesson6VocabQuiz">
                   <div class="q-block" data-answer="0">
-                    <strong>2. The packing list shows 40 units, but the crate has 36. You should ______.</strong>
-                    <label class="option-btn"><input type="radio" name="l4v2" value="0"> flag a discrepancy</label>
-                    <label class="option-btn"><input type="radio" name="l4v2" value="1"> clear customs</label>
-                    <label class="option-btn"><input type="radio" name="l4v2" value="2"> streamline the process</label>
+                    <strong>1. The supplier charged $40 too much on tape. That is an ______.</strong>
+                    <label class="option-btn"><input type="radio" name="l6v1" value="0"> overcharge</label>
+                    <label class="option-btn"><input type="radio" name="l6v1" value="1"> underpayment</label>
+                    <label class="option-btn"><input type="radio" name="l6v1" value="2"> prepayment</label>
                   </div>
                   <div class="q-block" data-answer="2">
-                    <strong>3. The port keeps the container too long, so the company may ______.</strong>
-                    <label class="option-btn"><input type="radio" name="l4v3" value="0"> track the consignment</label>
-                    <label class="option-btn"><input type="radio" name="l4v3" value="1"> confirm the ETA</label>
-                    <label class="option-btn"><input type="radio" name="l4v3" value="2"> incur demurrage charges</label>
+                    <strong>2. You already paid 30% before delivery. That money was a ______.</strong>
+                    <label class="option-btn"><input type="radio" name="l6v2" value="0"> disagreement</label>
+                    <label class="option-btn"><input type="radio" name="l6v2" value="1"> non-refundable</label>
+                    <label class="option-btn"><input type="radio" name="l6v2" value="2"> prepayment</label>
                   </div>
                   <div class="q-block" data-answer="1">
-                    <strong>4. You need updates from the shipping company, so you ______.</strong>
-                    <label class="option-btn"><input type="radio" name="l4v4" value="0"> run behind schedule</label>
-                    <label class="option-btn"><input type="radio" name="l4v4" value="1"> liaise with the freight forwarder</label>
-                    <label class="option-btn"><input type="radio" name="l4v4" value="2"> open the loading dock</label>
+                    <strong>3. You need the invoice again with the correct total. Ask them to ______ it.</strong>
+                    <label class="option-btn"><input type="radio" name="l6v3" value="0"> mislabel</label>
+                    <label class="option-btn"><input type="radio" name="l6v3" value="1"> reissue</label>
+                    <label class="option-btn"><input type="radio" name="l6v3" value="2"> overcharge</label>
                   </div>
                   <div class="q-block" data-answer="0">
-                    <strong>5. The supervisor cannot solve the delay alone. She decides to ______.</strong>
-                    <label class="option-btn"><input type="radio" name="l4v5" value="0"> escalate the issue</label>
-                    <label class="option-btn"><input type="radio" name="l4v5" value="1"> meet the delivery window</label>
-                    <label class="option-btn"><input type="radio" name="l4v5" value="2"> clear customs</label>
+                    <strong>4. You and the supplier do not accept the same freight total. There is a ______.</strong>
+                    <label class="option-btn"><input type="radio" name="l6v4" value="0"> disagreement</label>
+                    <label class="option-btn"><input type="radio" name="l6v4" value="1"> payable</label>
+                    <label class="option-btn"><input type="radio" name="l6v4" value="2"> clarification</label>
+                  </div>
+                  <div class="q-block" data-answer="2">
+                    <strong>5. You need a clear explanation of the unit price. You request a ______.</strong>
+                    <label class="option-btn"><input type="radio" name="l6v5" value="0"> mislabel</label>
+                    <label class="option-btn"><input type="radio" name="l6v5" value="1"> underpayment</label>
+                    <label class="option-btn"><input type="radio" name="l6v5" value="2"> clarification</label>
                   </div>
                 </div>
                 <div class="actions">
-                  <button class="btn primary" type="button" onclick="checkStaticQuiz('lesson4VocabQuiz','lesson4VocabFeedback')">Check vocabulary</button>
-                  <button class="btn ghost" type="button" onclick="resetStaticQuiz('lesson4VocabQuiz','lesson4VocabFeedback')">Reset</button>
+                  <button class="btn primary" type="button" onclick="checkStaticQuiz('lesson6VocabQuiz','lesson6VocabFeedback')">Check vocabulary</button>
+                  <button class="btn ghost" type="button" onclick="resetStaticQuiz('lesson6VocabQuiz','lesson6VocabFeedback')">Reset</button>
                 </div>
-                <p class="score-line" id="lesson4VocabFeedback" style="display:none;"></p>
+                <p class="score-line" id="lesson6VocabFeedback" style="display:none;"></p>
               </div>
             </section>
 
             <!-- GRAMMAR -->
-            <section id="lesson4-grammar" class="panel" role="tabpanel">
+            <section id="lesson6-grammar" class="panel" role="tabpanel">
               <div class="box tint">
-                <h4>Grammar Reference · Simple Present</h4>
-                <p>Use the Simple Present for routines, facts, schedules, and regular operations in logistics.</p>
+                <h4>Grammar Reference · Prefixes &amp; Suffixes</h4>
+                <p>Affixes change meaning or word class. In finance emails and TOEIC, the gap often needs the <strong>built form</strong>, not the base word.</p>
               </div>
               <div class="grid-3" style="margin-top:16px;">
-                <div class="phrase"><strong>Affirmative (3rd person)</strong><span>He/She/It + verb<strong>-s / -es</strong><br>The driver <em>leaves</em> the depot at 10 a.m.</span></div>
-                <div class="phrase"><strong>Negative</strong><span>don’t / doesn’t + base form<br>The supplier <em>doesn’t confirm</em> the tracking number.</span></div>
-                <div class="phrase"><strong>Questions</strong><span>Do / Does + subject + base form<br><em>Does</em> the venue <em>allow</em> deliveries after 6 p.m.?</span></div>
+                <div class="phrase"><strong>Prefixes = meaning</strong><span>un- not · re- again · over- too much · under- too little · pre- before · non- not · mis- wrongly · dis- opposite</span></div>
+                <div class="phrase"><strong>Suffixes = word class</strong><span>-tion / -ment → noun<br>-able / -ible → adjective<br>-ly → adverb</span></div>
+                <div class="phrase"><strong>Finance examples</strong><span>pay → payable / payment / prepayment<br>refund → refundable / non-refundable<br>clear → clarification</span></div>
               </div>
               <div class="box" style="margin-top:16px;">
-                <h4>Frequency in operations</h4>
-                <p>always · usually · often · frequently · every morning · every Tuesday · once a week</p>
-                <p style="margin-top:8px;"><strong>Example:</strong> Customs <em>inspects</em> every third container.</p>
+                <h4>Prefix map (this lesson)</h4>
+                <p><strong>over-</strong> overcharge · overpayment</p>
+                <p><strong>under-</strong> undercharge · underpayment</p>
+                <p><strong>pre-</strong> prepayment · pre-approved</p>
+                <p><strong>re-</strong> reissue · recalculate · resend</p>
+                <p><strong>un-</strong> unavailable · unpaid</p>
+                <p><strong>non-</strong> non-refundable · non-negotiable</p>
+                <p><strong>mis-</strong> mislabeled · miscalculated</p>
+                <p><strong>dis-</strong> disagreement · disconnect (rare in AP; know the pattern)</p>
               </div>
               <div class="box" style="margin-top:16px;">
-                <h4>Connection with previous lessons</h4>
-                <p><strong>Indirect question:</strong> Could you tell me where the catering team meets?</p>
-                <p><strong>First Conditional + Simple Present:</strong> If the shipment arrives late, we contact the forwarder immediately.</p>
+                <h4>Suffix map (this lesson)</h4>
+                <p><strong>-tion / -sion</strong> clarification · transaction · discussion</p>
+                <p><strong>-ment</strong> payment · shipment · agreement</p>
+                <p><strong>-able / -ible</strong> payable · refundable · eligible</p>
+                <p><strong>-ity</strong> availability · responsibility</p>
+                <p><strong>-ly</strong> correctly · immediately · currently</p>
               </div>
               <div class="box" style="margin-top:16px;">
-                <h4>Common mistakes in ops emails</h4>
-                <p><strong>Not:</strong> The forwarder meet the window. → <strong>Correct:</strong> The forwarder <em>meets</em> the window.</p>
-                <p><strong>Not:</strong> Does the venue allows late deliveries? → <strong>Correct:</strong> Does the venue <em>allow</em> late deliveries?</p>
-                <p><strong>Not:</strong> The staff opens the dock at 7:30. → <strong>Correct:</strong> The staff <em>open</em> the dock at 7:30. <span style="color:var(--muted);">(plural group noun in BrE/ops English)</span></p>
+                <h4>Common mistakes</h4>
+                <p><strong>Not:</strong> Please send a clarify. → <strong>Correct:</strong> Please send a <em>clarification</em>.</p>
+                <p><strong>Not:</strong> The fee is not refund. → <strong>Correct:</strong> The fee is <em>non-refundable</em>.</p>
+                <p><strong>Not:</strong> We need reissue the invoice. → <strong>Correct:</strong> We need <em>to reissue</em> / Please <em>reissue</em> the invoice.</p>
+                <p><strong>Not:</strong> There was an overpay on the card. → <strong>Correct:</strong> There was an <em>overpayment</em>.</p>
               </div>
             </section>
 
             <!-- PRACTICE -->
-            <section id="lesson4-practice" class="panel" role="tabpanel">
+            <section id="lesson6-practice" class="panel" role="tabpanel">
               <div class="box tint">
-                <h4>Practice · Simple Present in Operations</h4>
-                <p>Complete the accuracy checks first. Then write a short professional update for your manager.</p>
+                <h4>Practice · Build the Right Form</h4>
+                <p>Choose the form that fits the grammar slot. Then write a short professional dispute line.</p>
               </div>
 
-              <div class="exercise open" id="lesson4-card-1">
-                <button type="button" class="exercise-header" onclick="togglePracticeCard('lesson4-card-1')">
-                  <div class="exercise-header-left"><span class="exercise-number">1</span><div><h5>Choose the Correct Form</h5><p>Pick the accurate Simple Present form.</p></div></div>
+              <div class="exercise open" id="lesson6-card-1">
+                <button type="button" class="exercise-header" onclick="togglePracticeCard('lesson6-card-1')">
+                  <div class="exercise-header-left"><span class="exercise-number">1</span><div><h5>Choose the Correct Form</h5><p>Prefix / suffix accuracy (TOEIC style).</p></div></div>
                   <span class="chevron-icon">v</span>
                 </button>
                 <div class="exercise-body">
-                  <div class="static-quiz" id="lesson4GrammarQuiz">
+                  <div class="static-quiz" id="lesson6GrammarQuiz">
+                    <div class="q-block" data-answer="2">
+                      <strong>1. We request a full ______ of the freight calculation.</strong>
+                      <label class="option-btn"><input type="radio" name="l6g1" value="0"> clarify</label>
+                      <label class="option-btn"><input type="radio" name="l6g1" value="1"> clarifying</label>
+                      <label class="option-btn"><input type="radio" name="l6g1" value="2"> clarification</label>
+                      <label class="option-btn"><input type="radio" name="l6g1" value="3"> clearly</label>
+                    </div>
                     <div class="q-block" data-answer="1">
-                      <strong>1. The driver ______ the depot at 6:30 every morning.</strong>
-                      <label class="option-btn"><input type="radio" name="l4g1" value="0"> leave</label>
-                      <label class="option-btn"><input type="radio" name="l4g1" value="1"> leaves</label>
-                      <label class="option-btn"><input type="radio" name="l4g1" value="2"> leaving</label>
+                      <strong>2. The deposit is ______ after the cancellation window closes.</strong>
+                      <label class="option-btn"><input type="radio" name="l6g2" value="0"> refund</label>
+                      <label class="option-btn"><input type="radio" name="l6g2" value="1"> non-refundable</label>
+                      <label class="option-btn"><input type="radio" name="l6g2" value="2"> refunding</label>
+                      <label class="option-btn"><input type="radio" name="l6g2" value="3"> refunds</label>
                     </div>
                     <div class="q-block" data-answer="0">
-                      <strong>2. The supplier ______ the tracking number on Fridays.</strong>
-                      <label class="option-btn"><input type="radio" name="l4g2" value="0"> doesn’t confirm</label>
-                      <label class="option-btn"><input type="radio" name="l4g2" value="1"> don’t confirms</label>
-                      <label class="option-btn"><input type="radio" name="l4g2" value="2"> doesn’t confirms</label>
+                      <strong>3. Please ______ invoice NR-4821 with the corrected unit price.</strong>
+                      <label class="option-btn"><input type="radio" name="l6g3" value="0"> reissue</label>
+                      <label class="option-btn"><input type="radio" name="l6g3" value="1"> issue againment</label>
+                      <label class="option-btn"><input type="radio" name="l6g3" value="2"> unissue</label>
+                      <label class="option-btn"><input type="radio" name="l6g3" value="3"> issuance over</label>
                     </div>
                     <div class="q-block" data-answer="2">
-                      <strong>3. ______ the venue allow deliveries after 6 p.m.?</strong>
-                      <label class="option-btn"><input type="radio" name="l4g3" value="0"> Do</label>
-                      <label class="option-btn"><input type="radio" name="l4g3" value="1"> Is</label>
-                      <label class="option-btn"><input type="radio" name="l4g3" value="2"> Does</label>
+                      <strong>4. The balance ______ is $1,240 after the prepayment.</strong>
+                      <label class="option-btn"><input type="radio" name="l6g4" value="0"> pay</label>
+                      <label class="option-btn"><input type="radio" name="l6g4" value="1"> payment</label>
+                      <label class="option-btn"><input type="radio" name="l6g4" value="2"> payable</label>
+                      <label class="option-btn"><input type="radio" name="l6g4" value="3"> paying</label>
                     </div>
                     <div class="q-block" data-answer="1">
-                      <strong>4. If the consignment ______ after 4 p.m., we incur demurrage charges.</strong>
-                      <label class="option-btn"><input type="radio" name="l4g4" value="0"> arrive</label>
-                      <label class="option-btn"><input type="radio" name="l4g4" value="1"> arrives</label>
-                      <label class="option-btn"><input type="radio" name="l4g4" value="2"> arriving</label>
-                    </div>
-                    <div class="q-block" data-answer="0">
-                      <strong>5. Could you tell me where the catering team ______?</strong>
-                      <label class="option-btn"><input type="radio" name="l4g5" value="0"> meets</label>
-                      <label class="option-btn"><input type="radio" name="l4g5" value="1"> meet</label>
-                      <label class="option-btn"><input type="radio" name="l4g5" value="2"> meeting</label>
+                      <strong>5. The packing list is currently ______ from the shared drive.</strong>
+                      <label class="option-btn"><input type="radio" name="l6g5" value="0"> available</label>
+                      <label class="option-btn"><input type="radio" name="l6g5" value="1"> unavailable</label>
+                      <label class="option-btn"><input type="radio" name="l6g5" value="2"> availability</label>
+                      <label class="option-btn"><input type="radio" name="l6g5" value="3"> unavailably</label>
                     </div>
                   </div>
                   <div class="actions">
-                    <button class="btn primary" type="button" onclick="checkStaticQuiz('lesson4GrammarQuiz','lesson4GrammarFeedback')">Check answers</button>
-                    <button class="btn ghost" type="button" onclick="resetStaticQuiz('lesson4GrammarQuiz','lesson4GrammarFeedback')">Reset</button>
+                    <button class="btn primary" type="button" onclick="checkStaticQuiz('lesson6GrammarQuiz','lesson6GrammarFeedback')">Check answers</button>
+                    <button class="btn ghost" type="button" onclick="resetStaticQuiz('lesson6GrammarQuiz','lesson6GrammarFeedback')">Reset</button>
                   </div>
-                  <p class="score-line" id="lesson4GrammarFeedback" style="display:none;"></p>
+                  <p class="score-line" id="lesson6GrammarFeedback" style="display:none;"></p>
                 </div>
               </div>
 
-              <div class="exercise" id="lesson4-card-2">
-                <button type="button" class="exercise-header" onclick="togglePracticeCard('lesson4-card-2')">
-                  <div class="exercise-header-left"><span class="exercise-number">2</span><div><h5>Ops Decision</h5><p>Choose the most professional update.</p></div></div>
+              <div class="exercise" id="lesson6-card-2">
+                <button type="button" class="exercise-header" onclick="togglePracticeCard('lesson6-card-2')">
+                  <div class="exercise-header-left"><span class="exercise-number">2</span><div><h5>Professional Decision</h5><p>Choose the most precise finance wording.</p></div></div>
                   <span class="chevron-icon">v</span>
                 </button>
                 <div class="exercise-body">
-                  <div class="static-quiz" id="lesson4DecisionQuiz">
+                  <div class="static-quiz" id="lesson6DecisionQuiz">
                     <div class="q-block" data-answer="1">
-                      <strong>1. You need to report a regular morning routine.</strong>
-                      <label class="option-btn"><input type="radio" name="l4d1" value="0"> The staff opened the dock yesterday at 7:30.</label>
-                      <label class="option-btn"><input type="radio" name="l4d1" value="1"> The staff open the loading dock at 7:30 a.m. every day.</label>
-                      <label class="option-btn"><input type="radio" name="l4d1" value="2"> The staff are open the dock at 7:30.</label>
+                      <strong>1. You paid less than the invoice total by mistake.</strong>
+                      <label class="option-btn"><input type="radio" name="l6d1" value="0"> We did a little pay.</label>
+                      <label class="option-btn"><input type="radio" name="l6d1" value="1"> There was an underpayment on invoice NR-4821.</label>
+                      <label class="option-btn"><input type="radio" name="l6d1" value="2"> We under the payment.</label>
                     </div>
                     <div class="q-block" data-answer="2">
-                      <strong>2. Customs is slow because documents are incomplete.</strong>
-                      <label class="option-btn"><input type="radio" name="l4d2" value="0"> We will delayed at customs always.</label>
-                      <label class="option-btn"><input type="radio" name="l4d2" value="1"> We delaying at customs when documents incomplete.</label>
-                      <label class="option-btn"><input type="radio" name="l4d2" value="2"> We experience delays at customs when documentation is incomplete.</label>
+                      <strong>2. You want the supplier to send the bill again with fixes.</strong>
+                      <label class="option-btn"><input type="radio" name="l6d2" value="0"> Send the bill two times more expensive.</label>
+                      <label class="option-btn"><input type="radio" name="l6d2" value="1"> Please unissue the wrong numbers.</label>
+                      <label class="option-btn"><input type="radio" name="l6d2" value="2"> Please reissue the invoice with the corrected total.</label>
                     </div>
                     <div class="q-block" data-answer="0">
-                      <strong>3. You want a polite indirect question about the ETA.</strong>
-                      <label class="option-btn"><input type="radio" name="l4d3" value="0"> Could you tell me when the consignment arrives?</label>
-                      <label class="option-btn"><input type="radio" name="l4d3" value="1"> When arrives the consignment?</label>
-                      <label class="option-btn"><input type="radio" name="l4d3" value="2"> Tell me the ETA now.</label>
+                      <strong>3. You need a polite request for a clear price explanation.</strong>
+                      <label class="option-btn"><input type="radio" name="l6d3" value="0"> Could you provide a clarification of the unit price on line 3?</label>
+                      <label class="option-btn"><input type="radio" name="l6d3" value="1"> Clarify me the price now.</label>
+                      <label class="option-btn"><input type="radio" name="l6d3" value="2"> Where does the clarification is?</label>
                     </div>
                   </div>
                   <div class="actions">
-                    <button class="btn primary" type="button" onclick="checkStaticQuiz('lesson4DecisionQuiz','lesson4DecisionFeedback')">Check decisions</button>
-                    <button class="btn ghost" type="button" onclick="resetStaticQuiz('lesson4DecisionQuiz','lesson4DecisionFeedback')">Reset</button>
+                    <button class="btn primary" type="button" onclick="checkStaticQuiz('lesson6DecisionQuiz','lesson6DecisionFeedback')">Check decisions</button>
+                    <button class="btn ghost" type="button" onclick="resetStaticQuiz('lesson6DecisionQuiz','lesson6DecisionFeedback')">Reset</button>
                   </div>
-                  <p class="score-line" id="lesson4DecisionFeedback" style="display:none;"></p>
+                  <p class="score-line" id="lesson6DecisionFeedback" style="display:none;"></p>
                 </div>
               </div>
 
-              <div class="exercise" id="lesson4-card-3">
-                <button type="button" class="exercise-header" onclick="togglePracticeCard('lesson4-card-3')">
-                  <div class="exercise-header-left"><span class="exercise-number">3</span><div><h5>Write as Operations Manager</h5><p>Three sentences: Simple Present + one First Conditional.</p></div></div>
+              <div class="exercise" id="lesson6-card-3">
+                <button type="button" class="exercise-header" onclick="togglePracticeCard('lesson6-card-3')">
+                  <div class="exercise-header-left"><span class="exercise-number">3</span><div><h5>Write the Dispute Lines</h5><p>Use at least two affixed words from this lesson.</p></div></div>
                   <span class="chevron-icon">v</span>
                 </button>
                 <div class="exercise-body write-box">
-                  <p class="ref-intro">Explain what you would do after Maria’s Q2 report. Use at least <strong>two Simple Present</strong> sentences and <strong>one First Conditional</strong>.</p>
-                  <textarea id="lesson4WriteOps" rows="5" placeholder="Example: The security team checks every badge at the gate. If the forwarder runs behind schedule, we escalate the issue before noon."></textarea>
-                  <p class="score-line" style="display:block;margin-top:10px;color:var(--muted);">Teacher check: routines in Simple Present · one clear If + present, will/can/contact result.</p>
+                  <p class="ref-intro">Write 3–4 sentences to BrightPack Co. Mention a possible <strong>overcharge</strong>, request a <strong>clarification</strong> or <strong>reissue</strong>, and state the <strong>balance payable</strong> (or prepayment) clearly.</p>
+                  <textarea id="lesson6WriteOps" rows="5" placeholder="Example: We believe line 3 includes an overcharge for packaging. Could you provide a clarification of the unit price? Please reissue the invoice so we can process the balance payable this week."></textarea>
+                  <p class="score-line" style="display:block;margin-top:10px;color:var(--muted);">Teacher check: ≥2 affixed forms · polite finance tone · clear request (reissue / clarification / refund).</p>
                 </div>
               </div>
             </section>
 
-            <!-- READING / EMAIL -->
-            <section id="lesson4-reading" class="panel" role="tabpanel">
+            <!-- READING -->
+            <section id="lesson6-reading" class="panel" role="tabpanel">
               <div class="box tint">
-                <h4>Reading · Operational Update Email</h4>
-                <p>Maria López sent this Q2 update from her laptop. The email looks correct at first glance, but it contains <strong>Simple Present errors</strong>. Click any word you think is wrong (every word is clickable — nothing is pre-highlighted). Then press <strong>Check error hunt</strong>.</p>
+                <h4>Reading · Supplier Note on Invoice NR-4821</h4>
+                <p>Read the short note from BrightPack Accounts Receivable. Then complete the text-completion items (same skill family as TOEIC Part 6).</p>
               </div>
 
-              <div class="email-desktop" aria-label="Email on a desktop computer screen">
-                <div class="os-bar">
-                  <div class="os-dots" aria-hidden="true"><span class="r"></span><span class="y"></span><span class="g"></span></div>
-                  <div class="os-title">Mail · GlobalTech Logistics — Operations Inbox</div>
-                </div>
-                <div class="mail-chrome">
-                  <aside class="mail-sidebar" aria-hidden="true">
-                    <button class="compose" type="button" tabindex="-1">＋ Compose</button>
-                    <div class="folder active">Inbox <span>3</span></div>
-                    <div class="folder">Starred</div>
-                    <div class="folder">Sent</div>
-                    <div class="folder">Drafts <span>1</span></div>
-                    <div class="folder">Ops updates</div>
-                  </aside>
-                  <div class="mail-main">
-                    <div class="mail-toolbar" aria-hidden="true">
-                      <span class="tool-chip">⬅ Archive</span>
-                      <span class="tool-chip">🗑 Delete</span>
-                      <span class="tool-chip">↩ Reply</span>
-                      <span class="tool-chip">→ Forward</span>
-                    </div>
-                    <div class="mail-header">
-                      <h3 class="mail-subject">Q2 Logistics Performance Review – International Expo</h3>
-                      <div class="mail-meta-row">
-                        <div class="avatar" aria-hidden="true">ML</div>
-                        <div>
-                          <p class="from-line">Maria López <span>&lt;m.lopez@globaltech-logistics.com&gt;</span></p>
-                          <p class="to-line">to Operations Team · cc Tom Reeves (Operations Manager)</p>
-                        </div>
-                        <div class="mail-time">Tue 09:14</div>
-                      </div>
-                    </div>
-                    <div class="mail-body" id="lesson4EmailBody">
-                      <p>Dear Operations Team,</p>
-                      <p>As we approach the end of Q2, I would like to provide a comprehensive update on our current logistics performance. The freight forwarder <span class="error-word" data-fix="meets" tabindex="0" role="button">meet</span> 92% of our delivery windows this quarter. However, we <span class="error-word" data-fix="continue" tabindex="0" role="button">continues</span> to experience occasional delays at customs clearance due to incomplete documentation from our German supplier.</p>
-                      <p>The venue staff usually <span class="error-word" data-fix="open" tabindex="0" role="button">opens</span> the loading dock at 7:30 a.m., but they frequently <span class="error-word" data-fix="do not complete" tabindex="0" role="button">does not complete</span> the safety inspection until 8:15 a.m., which <span class="error-word" data-fix="affects" tabindex="0" role="button">affect</span> our morning schedule. If the consignment <span class="error-word" data-fix="arrives" tabindex="0" role="button">arrive</span> after 4 p.m., we <span class="error-word" data-fix="incur" tabindex="0" role="button">incurs</span> significant demurrage charges from the port authority.</p>
-                      <p>The security team <span class="error-word" data-fix="handles" tabindex="0" role="button">handle</span> the gates efficiently, but we recommend that they implement a digital logging system to reduce manual errors. Additionally, the catering team <span class="error-word" data-fix="meets" tabindex="0" role="button">meet</span> every day at 10 a.m. to coordinate the daily requirements. Could you please confirm whether the new exhibition stands already <span class="error-word" data-fix="clear" tabindex="0" role="button">clears</span> customs this week?</p>
-                      <p>Tom <span class="error-word" data-fix="needs" tabindex="0" role="button">need</span> to know if the catering team meets before or after the morning delivery window.</p>
-                      <p>I would appreciate your feedback on how we can further streamline these processes.</p>
-                      <p>Best regards,<br>Maria López<br>Senior Logistics Coordinator</p>
-                    </div>
-                    <div class="mail-footer-bar">Secure message · GlobalTech Mail for Desktop · Do not forward externally</div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="error-legend">
-                <span><strong>How to play:</strong> mark suspect words (gold). Correct hits turn teal; false marks turn red after Check.</span>
-                <span id="lesson4ErrorCount">Marked: 0</span>
-              </div>
-
-              <div class="actions" style="margin-top:12px;">
-                <button class="btn primary" type="button" onclick="checkEmailErrors()">Check error hunt</button>
-                <button class="btn gold" type="button" onclick="revealEmailCorrections()">Show corrections</button>
-                <button class="btn ghost" type="button" onclick="resetEmailErrors()">Reset</button>
-              </div>
-              <p class="score-line" id="lesson4EmailFeedback" style="display:none;"></p>
-
-              <div class="corrected-email" id="lesson4CorrectedEmail">
-                <div class="box" style="margin-top:8px;">
-                  <h4>Corrected version</h4>
-                  <p><strong>Subject:</strong> Q2 Logistics Performance Review – International Expo</p>
-                  <p>Dear Operations Team,</p>
-                  <p>As we approach the end of Q2, I would like to provide a comprehensive update on our current logistics performance. The freight forwarder <strong>meets</strong> 92% of our delivery windows this quarter. However, we <strong>continue</strong> to experience occasional delays at customs clearance due to incomplete documentation from our German supplier.</p>
-                  <p>The venue staff usually <strong>open</strong> the loading dock at 7:30 a.m., but they frequently <strong>do not complete</strong> the safety inspection until 8:15 a.m., which <strong>affects</strong> our morning schedule. If the consignment <strong>arrives</strong> after 4 p.m., we <strong>incur</strong> significant demurrage charges from the port authority.</p>
-                  <p>The security team <strong>handles</strong> the gates efficiently, but we recommend that they implement a digital logging system to reduce manual errors. Additionally, the catering team <strong>meets</strong> every day at 10 a.m. to coordinate the daily requirements. Could you please confirm whether the new exhibition stands already <strong>clear</strong> customs this week?</p>
-                  <p>Tom <strong>needs</strong> to know if the catering team meets before or after the morning delivery window.</p>
-                  <p>I would appreciate your feedback on how we can further streamline these processes.</p>
-                  <p>Best regards,<br>Maria López<br>Senior Logistics Coordinator</p>
-                </div>
+              <div class="box" style="margin-top:8px;">
+                <p style="color:var(--muted);font-size:0.85rem;font-weight:800;margin-bottom:8px;">BRIGHTPACK CO. · Accounts Receivable</p>
+                <p><strong>Subject:</strong> Re: Invoice NR-4821 — packaging &amp; freight</p>
+                <p style="margin-top:12px;line-height:1.7;">Dear Northline AP Team,</p>
+                <p style="line-height:1.7;">Thank you for your message regarding invoice NR-4821. We have reviewed the file. The original packing list was briefly <strong>unavailable</strong> in our system, which caused a delay in our response.</p>
+                <p style="line-height:1.7;">Regarding line 3, we agree there may be a pricing error. If our team <strong>miscalculated</strong> the packaging rate, we will <strong>reissue</strong> the invoice within two business days. Any confirmed <strong>overpayment</strong> will be credited to your account; standard deposits remain <strong>non-refundable</strong> only when the order is cancelled after production starts.</p>
+                <p style="line-height:1.7;">Please confirm the <strong>balance payable</strong> you currently show in your system so we can close this <strong>disagreement</strong> quickly.</p>
+                <p style="line-height:1.7;">Best regards,<br>Elena Ruiz<br>Accounts Receivable · BrightPack Co.</p>
               </div>
 
               <div class="exercise static-quiz" style="margin-top:18px;">
-                <h5><span class="ex-badge">Comprehension</span> After you read</h5>
-                <p>Answer based on the email content (use the corrected meaning).</p>
-                <div id="lesson4ReadingQuiz">
+                <h5><span class="ex-badge">Comprehension</span> Text completion</h5>
+                <p>Choose the form that best fits each idea from the note (and parallel finance English).</p>
+                <div id="lesson6ReadingQuiz">
                   <div class="q-block" data-answer="1">
-                    <strong>1. What percentage of delivery windows does the freight forwarder meet?</strong>
-                    <label class="option-btn"><input type="radio" name="l4r1" value="0"> 82%</label>
-                    <label class="option-btn"><input type="radio" name="l4r1" value="1"> 92%</label>
-                    <label class="option-btn"><input type="radio" name="l4r1" value="2"> 100%</label>
+                    <strong>1. The packing list was not ready in the system. It was ______.</strong>
+                    <label class="option-btn"><input type="radio" name="l6r1" value="0"> available</label>
+                    <label class="option-btn"><input type="radio" name="l6r1" value="1"> unavailable</label>
+                    <label class="option-btn"><input type="radio" name="l6r1" value="2"> availability</label>
                   </div>
                   <div class="q-block" data-answer="0">
-                    <strong>2. What is the main cause of delays at customs?</strong>
-                    <label class="option-btn"><input type="radio" name="l4r2" value="0"> Incomplete documentation from the German supplier</label>
-                    <label class="option-btn"><input type="radio" name="l4r2" value="1"> The security team is unprofessional</label>
-                    <label class="option-btn"><input type="radio" name="l4r2" value="2"> The catering team meets too late</label>
+                    <strong>2. If the packaging rate was calculated wrongly, BrightPack will ______ the invoice.</strong>
+                    <label class="option-btn"><input type="radio" name="l6r2" value="0"> reissue</label>
+                    <label class="option-btn"><input type="radio" name="l6r2" value="1"> overcharge</label>
+                    <label class="option-btn"><input type="radio" name="l6r2" value="2"> mislabel</label>
                   </div>
                   <div class="q-block" data-answer="2">
-                    <strong>3. What recommendation does Maria make about the security team?</strong>
-                    <label class="option-btn"><input type="radio" name="l4r3" value="0"> Hire more staff at the gates</label>
-                    <label class="option-btn"><input type="radio" name="l4r3" value="1"> Close the gates after 4 p.m.</label>
-                    <label class="option-btn"><input type="radio" name="l4r3" value="2"> Implement a digital logging system</label>
+                    <strong>3. Extra money already paid by mistake is an ______.</strong>
+                    <label class="option-btn"><input type="radio" name="l6r3" value="0"> underpayment</label>
+                    <label class="option-btn"><input type="radio" name="l6r3" value="1"> prepayment only</label>
+                    <label class="option-btn"><input type="radio" name="l6r3" value="2"> overpayment</label>
                   </div>
                   <div class="q-block" data-answer="1">
-                    <strong>4. What specific action does she request from the Operations Team?</strong>
-                    <label class="option-btn"><input type="radio" name="l4r4" value="0"> Cancel the German supplier contract</label>
-                    <label class="option-btn"><input type="radio" name="l4r4" value="1"> Confirm whether the new exhibition stands clear customs this week</label>
-                    <label class="option-btn"><input type="radio" name="l4r4" value="2"> Move the catering meeting to 8 a.m.</label>
+                    <strong>4. A deposit that cannot be returned is ______.</strong>
+                    <label class="option-btn"><input type="radio" name="l6r4" value="0"> refundable</label>
+                    <label class="option-btn"><input type="radio" name="l6r4" value="1"> non-refundable</label>
+                    <label class="option-btn"><input type="radio" name="l6r4" value="2"> prepaid only</label>
                   </div>
                   <div class="q-block" data-answer="0">
-                    <strong>5. What is the main problem mentioned in the email?</strong>
-                    <label class="option-btn"><input type="radio" name="l4r5" value="0"> Occasional customs delays and process friction around dock timing</label>
-                    <label class="option-btn"><input type="radio" name="l4r5" value="1"> The expo was cancelled</label>
-                    <label class="option-btn"><input type="radio" name="l4r5" value="2"> Tom resigned from operations</label>
-                  </div>
-                  <div class="q-block" data-answer="2">
-                    <strong>6. What does Tom need to know about the catering team?</strong>
-                    <label class="option-btn"><input type="radio" name="l4r6" value="0"> Their salary budget for Q3</label>
-                    <label class="option-btn"><input type="radio" name="l4r6" value="1"> Whether they speak German</label>
-                    <label class="option-btn"><input type="radio" name="l4r6" value="2"> If they meet before or after the morning delivery window</label>
+                    <strong>5. Elena asks Northline to confirm the ______ shown in their system.</strong>
+                    <label class="option-btn"><input type="radio" name="l6r5" value="0"> balance payable</label>
+                    <label class="option-btn"><input type="radio" name="l6r5" value="1"> mislabel list</label>
+                    <label class="option-btn"><input type="radio" name="l6r5" value="2"> non-refundable window</label>
                   </div>
                 </div>
                 <div class="actions">
-                  <button class="btn primary" type="button" onclick="checkStaticQuiz('lesson4ReadingQuiz','lesson4ReadingFeedback')">Check reading</button>
-                  <button class="btn ghost" type="button" onclick="resetStaticQuiz('lesson4ReadingQuiz','lesson4ReadingFeedback')">Reset</button>
+                  <button class="btn primary" type="button" onclick="checkStaticQuiz('lesson6ReadingQuiz','lesson6ReadingFeedback')">Check reading</button>
+                  <button class="btn ghost" type="button" onclick="resetStaticQuiz('lesson6ReadingQuiz','lesson6ReadingFeedback')">Reset</button>
                 </div>
-                <p class="score-line" id="lesson4ReadingFeedback" style="display:none;"></p>
+                <p class="score-line" id="lesson6ReadingFeedback" style="display:none;"></p>
               </div>
 
               <div class="exercise write-box" style="margin-top:16px;">
-                <h5><span class="ex-badge">Writing</span> Rewrite the email</h5>
-                <p>Rewrite Maria’s update correctly in your own words (or fully corrected). Keep a professional tone.</p>
-                <textarea id="lesson4RewriteEmail" rows="8" placeholder="Write the corrected professional email here..."></textarea>
+                <h5><span class="ex-badge">Writing</span> Your reply to Elena</h5>
+                <p>Write a short professional reply (6–8 lines). Use at least three words with prefixes or suffixes from this lesson.</p>
+                <textarea id="lesson6RewriteEmail" rows="8" placeholder="Dear Elena,&#10;Thank you for the clarification...&#10;We still show a possible overcharge on line 3...&#10;Please reissue...&#10;Best regards,"></textarea>
               </div>
             </section>
 
             <!-- LISTENING -->
-            <section id="lesson4-listening" class="panel" role="tabpanel">
+            <section id="lesson6-listening" class="panel" role="tabpanel">
               <div class="box tint">
-                <h4>Listening · The Vendor Call</h4>
-                <p>Listen to the call between you and <strong>Marcus from ExpoBuild Ltd.</strong> Extract the key operational facts in Simple Present.</p>
-                <div class="audio-soon" id="lesson4AudioSoon">
-                  🎧 Audio file coming next — drop the MP3 in when ready and we will wire it here.
+                <h4>Listening · AP Call on the Dispute</h4>
+                <p>Listen to a short call between you (Northline AP) and <strong>Elena Ruiz (BrightPack AR)</strong> about invoice NR-4821.</p>
+                <div class="audio-soon" id="lesson6AudioSoon">
+                  🎧 Audio coming next — record the finance script below and save as <code>audio/listening.mp3</code>.
                 </div>
-                <audio id="lesson4ListeningAudio" controls preload="metadata" style="width:100%; margin-top:12px; display:none;">
-                  <source id="lesson4AudioSource" src="audio/listening.mp3" type="audio/mpeg">
+                <audio id="lesson6ListeningAudio" controls preload="metadata" style="width:100%; margin-top:12px; display:none;">
+                  <source id="lesson6AudioSource" src="audio/listening.mp3" type="audio/mpeg">
                   Your browser does not support the audio element.
                 </audio>
+                <div class="box" style="margin-top:14px;">
+                  <h4>Script (teacher / self-study)</h4>
+                  <p style="line-height:1.65;color:var(--ink);">“Hi, this is Elena from BrightPack Accounts Receivable. I’m calling about invoice NR-4821. We checked the packaging rate again. There was a miscalculation on line 3, so we will reissue the invoice today. Your prepayment is already in the system. After the credit, the balance payable should be one thousand one hundred sixty dollars. The rush-order deposit is non-refundable, but the overcharge will not stay on the account. Could you confirm the balance payable once you receive the revised invoice? Thanks.”</p>
+                </div>
               </div>
 
-              <div class="exercise write-box" style="margin-top:16px;">
+              <div class="exercise static-quiz" style="margin-top:16px;">
                 <h5><span class="ex-badge">Comprehension</span> Listening Questions</h5>
-                <p>Answer after you listen. Keys will be calibrated when the final audio is added.</p>
-                <div class="q-block"><strong>1. When does the driver normally leave the depot?</strong><textarea rows="2" placeholder="Write your answer..."></textarea></div>
-                <div class="q-block"><strong>2. How long does the journey to the venue take?</strong><textarea rows="2" placeholder="Write your answer..."></textarea></div>
-                <div class="q-block"><strong>3. What does the warehouse do within 48 hours?</strong><textarea rows="2" placeholder="Write your answer..."></textarea></div>
-                <div class="q-block"><strong>4. What happens if the team needs an earlier delivery?</strong><textarea rows="2" placeholder="Write your answer..."></textarea></div>
+                <p>Focus on affixed finance words from the call.</p>
+                <div id="lesson6ListeningQuiz">
+                  <div class="q-block" data-answer="1">
+                    <strong>1. What problem does Elena admit on line 3?</strong>
+                    <label class="option-btn"><input type="radio" name="l5l1" value="0"> A missing shipment</label>
+                    <label class="option-btn"><input type="radio" name="l5l1" value="1"> A miscalculation</label>
+                    <label class="option-btn"><input type="radio" name="l5l1" value="2"> A non-refundable ban</label>
+                  </div>
+                  <div class="q-block" data-answer="0">
+                    <strong>2. What will BrightPack do today?</strong>
+                    <label class="option-btn"><input type="radio" name="l5l2" value="0"> Reissue the invoice</label>
+                    <label class="option-btn"><input type="radio" name="l5l2" value="1"> Cancel Northline’s account</label>
+                    <label class="option-btn"><input type="radio" name="l5l2" value="2"> Remove the prepayment</label>
+                  </div>
+                  <div class="q-block" data-answer="2">
+                    <strong>3. Which amount should be the balance payable after the credit?</strong>
+                    <label class="option-btn"><input type="radio" name="l5l3" value="0"> $3,000</label>
+                    <label class="option-btn"><input type="radio" name="l5l3" value="1"> $4821</label>
+                    <label class="option-btn"><input type="radio" name="l5l3" value="2"> $1,160</label>
+                  </div>
+                  <div class="q-block" data-answer="1">
+                    <strong>4. What does Elena say about the rush-order deposit?</strong>
+                    <label class="option-btn"><input type="radio" name="l5l4" value="0"> It is fully refundable anytime</label>
+                    <label class="option-btn"><input type="radio" name="l5l4" value="1"> It is non-refundable</label>
+                    <label class="option-btn"><input type="radio" name="l5l4" value="2"> It was never charged</label>
+                  </div>
+                </div>
+                <div class="actions">
+                  <button class="btn primary" type="button" onclick="checkStaticQuiz('lesson6ListeningQuiz','lesson6ListeningFeedback')">Check listening</button>
+                  <button class="btn ghost" type="button" onclick="resetStaticQuiz('lesson6ListeningQuiz','lesson6ListeningFeedback')">Reset</button>
+                </div>
+                <p class="score-line" id="lesson6ListeningFeedback" style="display:none;"></p>
               </div>
 
               <div class="exercise write-box" style="margin-top:16px;">
-                <h5><span class="ex-badge">Extra</span> Simple Present from the audio</h5>
-                <p>Write three sentences from the call that use the Simple Present.</p>
-                <textarea id="lesson4ListeningSentences" rows="4" placeholder="1. The driver leaves...&#10;2. The journey takes...&#10;3. If we need an earlier delivery, we..."></textarea>
+                <h5><span class="ex-badge">Extra</span> Affixes from the audio</h5>
+                <p>Write three affixed words you heard and split them (prefix/suffix + base), e.g. reissue → re- + issue.</p>
+                <textarea id="lesson6ListeningSentences" rows="4" placeholder="1. miscalculation → mis- + calculation&#10;2. reissue → re- + issue&#10;3. non-refundable → non- + refundable"></textarea>
               </div>
 
               <div class="exercise" style="margin-top:16px;">
                 <h5><span class="ex-badge">Speaking</span> Role Play Frame</h5>
                 <div class="situation-box">
-                  <p><strong>You call Marcus (ExpoBuild Ltd.)</strong> to confirm routines for tomorrow’s delivery.</p>
+                  <p><strong>You call Elena</strong> after receiving the revised invoice.</p>
                   <p><strong>Student goals:</strong></p>
                   <ul style="margin:8px 0 0 18px;line-height:1.65;">
-                    <li>Ask at least one indirect question about the schedule</li>
-                    <li>Use Simple Present for normal routines</li>
-                    <li>Use one First Conditional for an early-delivery request</li>
+                    <li>Use at least two affixed words: <em>overcharge / reissue / clarification / non-refundable / balance payable / prepayment</em></li>
+                    <li>Confirm the balance payable</li>
+                    <li>Ask one clear follow-up question</li>
                   </ul>
-                  <p style="margin-top:10px;"><strong>Useful frame:</strong> Could you tell me when the driver leaves the depot? If we need the materials earlier, can you rearrange the slot?</p>
+                  <p style="margin-top:10px;"><strong>Useful frame:</strong> Thanks for reissuing the invoice. Could you confirm the balance payable after our prepayment? We still need a quick clarification on the packaging rate.</p>
                 </div>
               </div>
             </section>
+            </div><!-- /.panel-stage -->
           </div>
         </article>
       </div>
     </div>
 
     <p style="text-align:center;color:var(--muted);font-size:0.9rem;margin:28px 0 8px;">
-      This page saves answers in this browser only. If you open it on another device, download your work first.
+      Interactive checks stay in this browser session. Writing boxes are not auto-synced across devices.
       · Israel Ventura · Business English Course Portal
     </p>
   </main>
 
   <script>
+
+
     function toggleVocabCard(card) {
       card.classList.toggle("revealed");
       const action = card.querySelector(".vocab-action");
@@ -2217,157 +2481,6 @@
       if (feedback) { feedback.style.display = "none"; feedback.textContent = ""; }
     }
 
-    function clearHuntCheckState() {
-      document.querySelectorAll("#lesson4EmailBody .hunt-word").forEach(word => {
-        word.classList.remove("checked-hit", "checked-miss", "reveal-correct");
-      });
-    }
-
-    function updateErrorCount() {
-      const marked = document.querySelectorAll("#lesson4EmailBody .hunt-word.marked").length;
-      const el = document.getElementById("lesson4ErrorCount");
-      if (el) el.textContent = `Marked: ${marked}`;
-    }
-
-    /** Wrap every word so cursor/interaction is identical; real errors keep .error-word + data-fix. */
-    function wrapEmailHuntWords() {
-      const body = document.getElementById("lesson4EmailBody");
-      if (!body || body.dataset.huntReady === "1") return;
-
-      const tokenRe = /([A-Za-z0-9'’%.:/-]+)|(\s+)|([^\sA-Za-z0-9'’%.:/-]+)/g;
-
-      function wrapTextNode(node) {
-        const text = node.textContent;
-        if (!text || !text.trim()) return;
-        const frag = document.createDocumentFragment();
-        let match;
-        tokenRe.lastIndex = 0;
-        while ((match = tokenRe.exec(text)) !== null) {
-          if (match[1]) {
-            const span = document.createElement("span");
-            span.className = "hunt-word";
-            span.tabIndex = 0;
-            span.setAttribute("role", "button");
-            span.textContent = match[1];
-            frag.appendChild(span);
-          } else {
-            frag.appendChild(document.createTextNode(match[0]));
-          }
-        }
-        node.parentNode.replaceChild(frag, node);
-      }
-
-      function walk(parent) {
-        [...parent.childNodes].forEach(node => {
-          if (node.nodeType === Node.ELEMENT_NODE) {
-            if (node.classList && node.classList.contains("error-word")) {
-              node.classList.add("hunt-word");
-              if (!node.hasAttribute("tabindex")) node.tabIndex = 0;
-              if (!node.getAttribute("role")) node.setAttribute("role", "button");
-              return;
-            }
-            if (node.tagName === "BR") return;
-            walk(node);
-            return;
-          }
-          if (node.nodeType === Node.TEXT_NODE) wrapTextNode(node);
-        });
-      }
-
-      body.querySelectorAll("p").forEach(p => walk(p));
-      body.dataset.huntReady = "1";
-    }
-
-    function bindHuntWord(word) {
-      if (word.dataset.bound === "1") return;
-      word.dataset.bound = "1";
-      const toggle = () => {
-        if (word.classList.contains("reveal-correct")) return;
-        clearHuntCheckState();
-        word.classList.toggle("marked");
-        updateErrorCount();
-        const fb = document.getElementById("lesson4EmailFeedback");
-        if (fb) { fb.style.display = "none"; fb.textContent = ""; }
-      };
-      word.addEventListener("click", toggle);
-      word.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          toggle();
-        }
-      });
-    }
-
-    function initEmailErrors() {
-      wrapEmailHuntWords();
-      document.querySelectorAll("#lesson4EmailBody .hunt-word").forEach(bindHuntWord);
-      updateErrorCount();
-    }
-
-    function checkEmailErrors() {
-      const errors = [...document.querySelectorAll("#lesson4EmailBody .error-word")];
-      const total = errors.length;
-      const found = errors.filter(w => w.classList.contains("marked")).length;
-      const falseMarks = [...document.querySelectorAll("#lesson4EmailBody .hunt-word.marked:not(.error-word)")].length;
-      const fb = document.getElementById("lesson4EmailFeedback");
-      if (!fb) return;
-
-      document.querySelectorAll("#lesson4EmailBody .hunt-word").forEach(word => {
-        word.classList.remove("checked-hit", "checked-miss");
-        if (!word.classList.contains("marked")) return;
-        if (word.classList.contains("error-word")) word.classList.add("checked-hit");
-        else word.classList.add("checked-miss");
-      });
-
-      fb.style.display = "block";
-      if (found === total && falseMarks === 0) {
-        fb.textContent = `Excellent — you found all ${total} Simple Present errors with no false marks.`;
-        fb.style.color = "var(--teal-dark)";
-      } else {
-        const parts = [`You found ${found} of ${total} real errors.`];
-        if (falseMarks > 0) parts.push(`${falseMarks} false mark${falseMarks === 1 ? "" : "s"} (red).`);
-        if (found < total) parts.push("Keep scanning subject–verb agreement and 3rd person -s.");
-        fb.textContent = parts.join(" ");
-        fb.style.color = "var(--navy)";
-      }
-
-      const el = document.getElementById("lesson4ErrorCount");
-      if (el) el.textContent = `Score: ${found}/${total} · false: ${falseMarks}`;
-    }
-
-    function revealEmailCorrections() {
-      document.querySelectorAll("#lesson4EmailBody .hunt-word").forEach(word => {
-        word.classList.remove("marked", "checked-hit", "checked-miss");
-        if (word.classList.contains("error-word")) {
-          word.classList.add("marked", "checked-hit", "reveal-correct");
-        }
-      });
-      updateErrorCount();
-      const total = document.querySelectorAll("#lesson4EmailBody .error-word").length;
-      const el = document.getElementById("lesson4ErrorCount");
-      if (el) el.textContent = `All ${total} errors revealed`;
-      const box = document.getElementById("lesson4CorrectedEmail");
-      if (box) box.classList.add("show");
-      const fb = document.getElementById("lesson4EmailFeedback");
-      if (fb) {
-        fb.style.display = "block";
-        fb.textContent = "Corrections revealed. Teal words were the errors (with the fix after →). Compare with the clean version below.";
-        fb.style.color = "var(--teal-dark)";
-      }
-    }
-
-    function resetEmailErrors() {
-      document.querySelectorAll("#lesson4EmailBody .hunt-word").forEach(word => {
-        word.classList.remove("marked", "checked-hit", "checked-miss", "reveal-correct");
-      });
-      updateErrorCount();
-      const box = document.getElementById("lesson4CorrectedEmail");
-      if (box) box.classList.remove("show");
-      const fb = document.getElementById("lesson4EmailFeedback");
-      if (fb) { fb.style.display = "none"; fb.textContent = ""; }
-    }
-
-    // Tabs
     document.querySelectorAll(".tab").forEach(tab => {
       tab.addEventListener("click", () => {
         const card = tab.closest(".lesson-card") || document;
@@ -2385,10 +2498,8 @@
     });
 
     document.addEventListener("DOMContentLoaded", () => {
-      initEmailErrors();
-      // Show audio player only if file is available later
-      const audio = document.getElementById("lesson4ListeningAudio");
-      const soon = document.getElementById("lesson4AudioSoon");
+      const audio = document.getElementById("lesson6ListeningAudio");
+      const soon = document.getElementById("lesson6AudioSoon");
       if (audio) {
         fetch("audio/listening.mp3", { method: "HEAD" }).then(r => {
           if (r.ok) {
@@ -2398,6 +2509,7 @@
         }).catch(() => {});
       }
     });
+
   </script>
 </body>
 </html>
