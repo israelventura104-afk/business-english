@@ -29,7 +29,13 @@
 
     * { box-sizing: border-box; }
 
+    html {
+      scroll-behavior: smooth;
+      scrollbar-gutter: stable;
+    }
+
     body {
+      overflow-x: hidden;
       margin: 0;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--ink);
@@ -45,7 +51,9 @@
     .shell {
       max-width: 1120px;
       margin: 0 auto;
-      padding: 24px;
+      padding: 24px 16px 48px;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     /* Header */
@@ -255,19 +263,29 @@
 
     /* Layout */
     .layout {
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 22px;
-      align-items: start;
+      display: block;
+      width: 100%;
+      max-width: 100%;
     }
 
     .lessons-stack {
-      grid-column: 2;
-      display: grid;
-      gap: 18px;
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
     }
     .layout > .lesson-card {
-      grid-column: 2;
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+    }
+    .main-card.lesson-card {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
     }
 
     .sidebar, .main-card {
@@ -459,11 +477,14 @@
     /* Tabs */
     .tabs {
       display: flex;
+      flex-wrap: wrap;
       gap: 6px;
       padding: 12px 18px;
       border-bottom: 1px solid var(--line);
       background: #fbfdfe;
-      overflow-x: auto;
+      overflow-x: visible;
+      box-sizing: border-box;
+      width: 100%;
     }
 
     .tab {
@@ -482,9 +503,27 @@
       background: var(--navy);
     }
 
-    .content { padding: 24px; }
-    .panel { display: none; }
-    .panel.active { display: block; }
+    .content {
+      padding: 24px;
+      min-width: 0;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      display: block;
+    }
+    .panel {
+      display: none;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+    .panel.active {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+    }
 
     .grid-2 {
       display: grid;
@@ -1275,11 +1314,24 @@
     @media (max-width: 900px) {
       .layout { grid-template-columns: 1fr; }
       .lessons-stack {
-      grid-column: 1;
-      display: grid;
-      gap: 18px;
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
     }
-    .layout > .lesson-card { grid-column: 1; }
+    .layout > .lesson-card {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+    }
+    .main-card.lesson-card {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+    }
       .sidebar { position: static; }
     }
 
@@ -1843,7 +1895,7 @@
       height: 42px;
     }
     .vocab-card > strong {
-      grid-column: 2;
+      grid-column: 1;
       grid-row: 1;
       align-self: center;
       display: block;
@@ -2412,7 +2464,7 @@
               </div>
             </section>
             </div><!-- /.panel-stage -->
-          </div>
+          </div><!-- /.lesson-body -->
         </article>
       </div>
     </div>
