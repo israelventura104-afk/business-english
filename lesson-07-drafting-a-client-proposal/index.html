@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="../favicon.png">
   <link rel="apple-touch-icon" href="../favicon.png">
-  <title>Lesson 05: Project Meeting Debrief | Business English</title>
+  <title>Lesson 07: Drafting a Client Proposal | Business English</title>
   <style>
 
 
@@ -1312,11 +1312,7 @@
 
     /* Responsive */
     @media (max-width: 900px) {
-      .layout {
-      display: block;
-      width: 100%;
-      max-width: 100%;
-    }
+      .layout { grid-template-columns: 1fr; }
       .lessons-stack {
       display: block;
       width: 100%;
@@ -1329,6 +1325,13 @@
       max-width: 100%;
       min-width: 0;
     }
+    .main-card.lesson-card {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+    }
       .sidebar { position: static; }
     }
 
@@ -1337,14 +1340,7 @@
       .topbar { align-items: flex-start; }
       .mode-pill { display: none; }
       .lesson-header { padding: 18px; }
-      .content {
-      padding: 24px;
-      min-width: 0;
-      width: 100%;
-      max-width: 100%;
-      box-sizing: border-box;
-      display: block;
-    }
+      .content { padding: 18px; }
       .grid-2, .grid-3 { grid-template-columns: 1fr; }
       .stats { grid-template-columns: 1fr; }
       .hero::after {
@@ -1457,11 +1453,7 @@
     }
 
     /* Single-lesson page layout */
-    .layout {
-      display: block;
-      width: 100%;
-      max-width: 100%;
-    }
+    .layout { grid-template-columns: 1fr; }
     .sidebar { display: none; }
     .lesson-card { display: block; }
     .lesson-card .lesson-body,
@@ -1509,7 +1501,7 @@
   
 
     /* Desktop email client mock (screenshot style) */
-    .email-desktop { max-width: 100%; box-sizing: border-box;
+    .email-desktop {
       margin-top: 16px;
       border-radius: 16px;
       overflow: hidden;
@@ -1750,8 +1742,290 @@
     }
     .corrected-email.show { display: block; }
 
+
+
+
+    /* ========== L05 unified layout (same margins every tab) ========== */
+    html {
+      overflow-y: scroll; /* always reserve scrollbar — no jump between short/long tabs */
+    }
+
+    .main-card {
+      overflow-x: hidden;
+    }
+
+    /* Tabs share the SAME horizontal inset as content */
+    .lesson-header {
+      padding: 24px 24px 20px;
+    }
+    .tabs {
+      padding: 12px 24px;
+      gap: 8px;
+      box-sizing: border-box;
+    }
+
+    /* Constant stage: padding never depends on which tab is active */
+    .panel-stage {
+      padding: 24px 24px 32px;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    /* Panels only toggle visibility — NO extra side padding here */
+    .panel {
+      display: none !important;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      margin: 0;
+      padding: 0 !important;
+      box-sizing: border-box;
+    }
+    .panel.active {
+      display: flex !important;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 18px;
+      min-height: 0;
+      width: 100%;
+      max-width: 100%;
+      padding: 0 !important;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    .panel > * {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+    .panel > [style*="margin-top"] {
+      margin-top: 0 !important;
+    }
+
+    .box {
+      padding: 20px 22px;
+      box-sizing: border-box;
+    }
+    .box h4 {
+      margin: 0 0 12px;
+      line-height: 1.3;
+    }
+    .box p {
+      margin: 0 0 10px;
+      line-height: 1.65;
+    }
+    .box p:last-child { margin-bottom: 0; }
+    .box ul {
+      margin: 4px 0 0;
+      padding-left: 1.25rem;
+    }
+    .box li {
+      margin: 0 0 6px;
+      line-height: 1.55;
+    }
+    .box li:last-child { margin-bottom: 0; }
+
+    .phrase {
+      padding: 14px 16px;
+      gap: 8px;
+      min-height: 100%;
+      align-content: start;
+      box-sizing: border-box;
+    }
+    .phrase strong {
+      display: block;
+      font-size: 0.92rem;
+      line-height: 1.35;
+    }
+    .phrase span {
+      display: block;
+      line-height: 1.55;
+      font-size: 0.9rem;
+    }
+
+    .grid-2, .grid-3 {
+      gap: 14px;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+    @media (max-width: 900px) {
+      .grid-3 { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .panel-stage {
+        padding: 18px 16px 28px;
+      }
+      .tabs, .lesson-header {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+    }
+
+    .vocab-card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+    .vocab-card {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      column-gap: 12px;
+      row-gap: 10px;
+      padding: 18px;
+      min-height: 0;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+      align-items: start;
+    }
+    .vocab-card .vocab-icon {
+      grid-column: 1;
+      grid-row: 1;
+      width: 42px;
+      height: 42px;
+    }
+    .vocab-card > strong {
+      grid-column: 1;
+      grid-row: 1;
+      align-self: center;
+      display: block;
+      font-size: 1.05rem;
+      line-height: 1.3;
+      min-width: 0;
+    }
+    .vocab-card .vocab-sentence,
+    .vocab-card .vocab-meaning,
+    .vocab-card .vocab-action {
+      grid-column: 1 / -1;
+      min-width: 0;
+    }
+    .vocab-card .vocab-sentence {
+      display: block;
+      line-height: 1.55;
+      font-size: 0.94rem;
+      color: var(--ink);
+    }
+    .vocab-card .vocab-meaning {
+      line-height: 1.55;
+      font-size: 0.92rem;
+      font-weight: 650;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(91, 184, 176, 0.10);
+    }
+    @media (max-width: 720px) {
+      .vocab-card-grid { grid-template-columns: 1fr; }
+    }
+
+    .exercise {
+      padding: 18px 20px 20px;
+      margin-bottom: 0;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+    .exercise-header,
+    .exercise-header-left,
+    .exercise-body {
+      min-width: 0;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+    .exercise-body {
+      padding: 14px 0 4px;
+    }
+    .exercise h5 {
+      margin: 0 0 10px;
+      line-height: 1.35;
+    }
+    .exercise > p,
+    .exercise-body > p,
+    .ref-intro {
+      margin: 0 0 14px;
+      line-height: 1.55;
+    }
+
+    .q-block {
+      padding: 16px 18px;
+      margin-bottom: 12px;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+    .q-block strong {
+      display: block;
+      margin: 0 0 12px;
+      line-height: 1.45;
+      font-size: 0.95rem;
+      color: var(--navy);
+    }
+    .option-btn {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      padding: 12px 14px;
+      margin-bottom: 8px;
+      line-height: 1.45;
+    }
+    .option-btn:last-child { margin-bottom: 0; }
+
+    .actions {
+      margin-top: 16px;
+      gap: 10px;
+    }
+    .score-line {
+      margin: 12px 0 0;
+      line-height: 1.45;
+    }
+
+    .situation-box {
+      padding: 16px 18px;
+      line-height: 1.6;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 100%;
+    }
+    .situation-box p { margin: 0 0 10px; }
+    .situation-box p:last-child { margin-bottom: 0; }
+    .situation-box ul {
+      margin: 8px 0 0 18px;
+      padding: 0;
+      line-height: 1.65;
+    }
+
+    textarea, select, input[type="text"] {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      padding: 12px 14px;
+      line-height: 1.5;
+    }
+    textarea { min-height: 120px; }
+
+    .static-quiz {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+    .static-quiz .q-block { margin-bottom: 12px; }
+
   </style>
 </head>
+
 <body>
   <main class="shell">
     <header class="topbar">
@@ -1768,537 +2042,457 @@
         <a class="home-btn" href="../" title="Back to main menu" aria-label="Back to main menu">
           <span aria-hidden="true">⌂</span> <span class="home-btn-label">Home</span>
         </a>
-        </div>
+        <div class="mode-pill">Student View</div>
+      </div>
     </header>
 
     <a class="back-link" href="../">← Back to lesson menu</a>
-    
+
     <nav class="lesson-nav" aria-label="Lessons">
         <a class="" href="../lesson-01-negotiating-a-deadline/">01 · Negotiating a Deadline</a>
         <a class="" href="../lesson-02-handling-customer-requests/">02 · Handling Customer Requests</a>
         <a class="" href="../lesson-03-reporting-after-a-conference/">03 · Reporting After a Conference</a>
         <a class="" href="../lesson-04-updating-operations/">04 · Updating Operations</a>
-        <a class="active" href="../lesson-05-project-meeting-debrief/">05 · Project Meeting Debrief</a>
+        <a class="" href="../lesson-05-project-meeting-debrief/">05 · Project Meeting Debrief</a>
         <a class="" href="../lesson-06-invoice-dispute/">06 · Invoice Dispute</a>
-        <a class="" href="../lesson-07-drafting-a-client-proposal/">07 · Client Proposal</a>
+        <a class="active" href="../lesson-07-drafting-a-client-proposal/">07 · Client Proposal</a>
     </nav>
 
     <div class="layout">
       <div class="lessons-stack">
-        <article id="lesson5Card" class="main-card lesson-card lesson-open">
-          <div class="lesson-header" onclick="toggleLessonCard('lesson5Card')">
+        <article id="lesson7Card" class="main-card lesson-card lesson-open">
+          <div class="lesson-header" onclick="toggleLessonCard('lesson7Card')">
             <div class="lesson-toggle-row">
-              <h3>Lesson 05: Project Meeting Debrief</h3>
-              <button class="lesson-toggle-button" type="button" onclick="toggleLessonCard('lesson5Card', event)">Close lesson</button>
+              <h3>Lesson 07: Drafting a Client Proposal</h3>
+              <button class="lesson-toggle-button" type="button" onclick="toggleLessonCard('lesson7Card', event)">Close lesson</button>
             </div>
-            <p>You are the Logistics Coordinator at an automotive company. Report what went wrong in yesterday’s project meeting using the Simple Past — and pronounce regular -ed endings clearly.</p>
+            <p>You work in sales. After a discovery call, you must draft a client proposal. Use the right part of speech so the writing sounds clear, precise, and professional.</p>
             <div class="tag-row">
-              <span class="tag teal">Simple Past</span>
-              <span class="tag gold">-ed sounds</span>
-              <span class="tag">Automotive logistics</span>
-              <span class="tag">Meeting debrief</span>
+              <span class="tag teal">Parts of speech</span>
+              <span class="tag">Proposal writing</span>
+              <span class="tag gold">Word forms</span>
+              <span class="tag">TOEIC word class</span>
             </div>
           </div>
 
           <div class="lesson-body">
             <div class="tabs" role="tablist">
-              <button class="tab active" type="button" data-tab="lesson5-overview">Overview</button>
-              <button class="tab" type="button" data-tab="lesson5-vocabulary">Vocabulary</button>
-              <button class="tab" type="button" data-tab="lesson5-grammar">Grammar Reference</button>
-              <button class="tab" type="button" data-tab="lesson5-practice">Practice</button>
-              <button class="tab" type="button" data-tab="lesson5-reading">Reading · Email</button>
-              <button class="tab" type="button" data-tab="lesson5-listening">Listening</button>
+              <button class="tab active" type="button" data-tab="lesson7-overview">Overview</button>
+              <button class="tab" type="button" data-tab="lesson7-vocabulary">Vocabulary</button>
+              <button class="tab" type="button" data-tab="lesson7-grammar">Grammar Reference</button>
+              <button class="tab" type="button" data-tab="lesson7-practice">Practice</button>
+              <button class="tab" type="button" data-tab="lesson7-reading">Reading</button>
+              <button class="tab" type="button" data-tab="lesson7-listening">Listening</button>
             </div>
 
-            <div class="content">
+            <div class="panel-stage">
             <!-- OVERVIEW -->
-            <section id="lesson5-overview" class="panel active" role="tabpanel">
+            <section id="lesson7-overview" class="panel active" role="tabpanel">
               <div class="box tint">
                 <h4>Scenario</h4>
-                <p><strong>Role:</strong> Logistics Coordinator at AutoLine Components (automotive parts).</p>
-                <p><strong>Challenge:</strong> Yesterday’s seat-foam project meeting went poorly — late start, incomplete updates, no clear owner. Today you must report <em>what happened</em> with accuracy and a professional tone.</p>
-                <p><strong>Goal:</strong> Use the Simple Past for finished events and control the three pronunciations of regular <strong>-ed</strong> (/t/, /d/, /ɪd/).</p>
+                <p><strong>Role:</strong> Junior Account Executive at Helix Analytics, a B2B software company.</p>
+                <p><strong>Challenge:</strong> After a discovery call with Tomás Herrera, Supply Planning Manager at Meridian Foods, your manager Priya Shah wants a short written proposal for a 12-week demand-forecasting pilot.</p>
+                <p><strong>Goal:</strong> Choose the correct <strong>part of speech</strong> (noun, verb, adjective, adverb, and the linking words around them) so the proposal is client-ready — not “almost English.”</p>
               </div>
               <div class="grid-3" style="margin-top:16px;">
-                <div class="phrase"><strong>Language focus</strong><span>Simple Past + -ed pronunciation</span></div>
-                <div class="phrase"><strong>Recycled</strong><span>Simple Present (L04) for contrast: routines vs. what happened</span></div>
-                <div class="phrase"><strong>Output</strong><span>Manager email / oral debrief of the meeting</span></div>
+                <div class="phrase"><strong>Language focus</strong><span>Noun · verb · adjective · adverb · pronoun · preposition · conjunction · determiner</span></div>
+                <div class="phrase"><strong>Context</strong><span>Sales proposal · pilot project · client benefits</span></div>
+                <div class="phrase"><strong>Output</strong><span>A precise proposal paragraph and a follow-up email</span></div>
               </div>
               <div class="box" style="margin-top:16px;">
                 <h4>In this lesson you will</h4>
                 <ul style="margin:8px 0 0 18px; line-height:1.7; color:var(--ink);">
-                  <li>Describe a difficult project meeting in the Simple Past</li>
-                  <li>Sort and say regular past verbs with /t/, /d/, and /ɪd/</li>
-                  <li>Find and correct Simple Past errors in a summary email</li>
-                  <li>Extract facts from a debrief call and report to your manager</li>
-                </ul>
-              </div>
-              <div class="box" style="margin-top:16px;">
-                <h4>Meeting snapshot (yesterday)</h4>
-                <ul style="margin:8px 0 0 18px; line-height:1.7;">
-                  <li>Project: seat-foam supply for a production trial run</li>
-                  <li>Started almost 15 minutes late; two suppliers missed the prep call</li>
-                  <li>Only packaging shared a full update; foam delivery window stayed unclear</li>
-                  <li>Production pushed back the trial run; no clear owner assigned</li>
-                  <li>Only decision: a follow-up on Friday</li>
+                  <li>Name the eight parts of speech in real proposal language</li>
+                  <li>Choose the correct word class for TOEIC-style gaps</li>
+                  <li>Read a manager’s comments on a messy first draft</li>
+                  <li>Handle a short coaching call about wording and next steps</li>
                 </ul>
               </div>
               <div class="grid-3" style="margin-top:16px;">
-                <div class="phrase"><strong>10 min</strong><span>Warm-up: what happened yesterday?</span></div>
-                <div class="phrase"><strong>12 min</strong><span>Vocabulary cards for meeting + logistics past.</span></div>
-                <div class="phrase"><strong>12 min</strong><span>Simple Past forms + -ed sounds.</span></div>
-                <div class="phrase"><strong>18 min</strong><span>Practice: accuracy, sound sort, short writing.</span></div>
-                <div class="phrase"><strong>15 min</strong><span>Reading: meeting summary email + error hunt.</span></div>
-                <div class="phrase"><strong>12 min</strong><span>Listening: debrief call with the project manager.</span></div>
+                <div class="phrase"><strong>10 min</strong><span>Warm-up: which word class makes this line sound unprofessional?</span></div>
+                <div class="phrase"><strong>12 min</strong><span>Vocabulary: proposal words and their word class.</span></div>
+                <div class="phrase"><strong>12 min</strong><span>Parts-of-speech map + word families.</span></div>
+                <div class="phrase"><strong>18 min</strong><span>Practice: forms + decisions + short writing.</span></div>
+                <div class="phrase"><strong>15 min</strong><span>Reading: manager note with text completion.</span></div>
+                <div class="phrase"><strong>10 min</strong><span>Listening: coaching call on the draft.</span></div>
               </div>
             </section>
 
             <!-- VOCABULARY -->
-            <section id="lesson5-vocabulary" class="panel" role="tabpanel">
+            <section id="lesson7-vocabulary" class="panel" role="tabpanel">
               <div class="box tint">
-                <h4>Vocabulary for the Meeting Debrief</h4>
-                <p>Tap a card to reveal the meaning. Sentences use the <strong>Simple Past</strong> — the same forms you will need in your report.</p>
+                <h4>Vocabulary · Proposal Language by Word Class</h4>
+                <p>Tap a card to reveal the meaning. Notice the <strong>part of speech</strong> — the same idea often needs a different form in a sentence.</p>
               </div>
               <div class="vocab-card-grid" style="margin-top:16px;">
-                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">⏱️</span><strong>start late</strong><span class="vocab-sentence">The meeting started almost fifteen minutes late.</span><span class="vocab-meaning">Begin after the planned time.</span><span class="vocab-action">Reveal meaning</span></button>
-                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">📋</span><strong>share an update</strong><span class="vocab-sentence">Only the packaging team shared a full update.</span><span class="vocab-meaning">Give a status report to the group.</span><span class="vocab-action">Reveal meaning</span></button>
-                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">⚠️</span><strong>raise a concern</strong><span class="vocab-sentence">The seat-supplier lead raised a concern about foam delays.</span><span class="vocab-meaning">Mention a problem or risk formally.</span><span class="vocab-action">Reveal meaning</span></button>
-                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">📅</span><strong>push back</strong><span class="vocab-sentence">Production pushed back the trial run again.</span><span class="vocab-meaning">Delay or postpone a date / plan.</span><span class="vocab-action">Reveal meaning</span></button>
-                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">👤</span><strong>assign an owner</strong><span class="vocab-sentence">Nobody assigned a clear owner for the action.</span><span class="vocab-meaning">Name the person responsible for a task.</span><span class="vocab-action">Reveal meaning</span></button>
-                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">✅</span><strong>agree on next steps</strong><span class="vocab-sentence">We did not agree on clear next steps.</span><span class="vocab-meaning">Decide together what to do next.</span><span class="vocab-action">Reveal meaning</span></button>
-                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">📝</span><strong>note the open points</strong><span class="vocab-sentence">After the call, I noted the open points.</span><span class="vocab-meaning">Write down unresolved items.</span><span class="vocab-action">Reveal meaning</span></button>
-                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">🚩</span><strong>flag a risk</strong><span class="vocab-sentence">I flagged the risk to inbound logistics this morning.</span><span class="vocab-meaning">Report a risk so others pay attention.</span><span class="vocab-action">Reveal meaning</span></button>
-                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">📤</span><strong>follow up in writing</strong><span class="vocab-sentence">I followed up in writing with a short summary.</span><span class="vocab-meaning">Send a written message after a meeting or call.</span><span class="vocab-action">Reveal meaning</span></button>
-                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">⬆️</span><strong>support an escalation</strong><span class="vocab-sentence">I asked Marcus to support the escalation before Friday.</span><span class="vocab-meaning">Help move a problem to a higher level of authority.</span><span class="vocab-action">Reveal meaning</span></button>
+                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">📄</span><strong>proposal</strong><span class="vocab-sentence">Please send Meridian a two-page proposal by Thursday.</span><span class="vocab-meaning"><strong>Noun</strong> — a formal written offer that explains the solution, price, and next steps.</span><span class="vocab-action">Reveal meaning</span></button>
+                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">👉</span><strong>recommend</strong><span class="vocab-sentence">We recommend a 12-week pilot in two distribution centers.</span><span class="vocab-meaning"><strong>Verb</strong> — to suggest something as the best option. Noun form: <em>recommendation</em>.</span><span class="vocab-action">Reveal meaning</span></button>
+                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">🛡️</span><strong>reliable</strong><span class="vocab-sentence">Meridian needs a reliable weekly forecast, not a one-off report.</span><span class="vocab-meaning"><strong>Adjective</strong> — can be trusted to work well. Adverb: <em>reliably</em>. Noun: <em>reliability</em>.</span><span class="vocab-action">Reveal meaning</span></button>
+                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">📈</span><strong>significantly</strong><span class="vocab-sentence">A better forecast can significantly reduce leftover stock.</span><span class="vocab-meaning"><strong>Adverb</strong> — by a large amount. It describes a verb: reduce <em>significantly</em>.</span><span class="vocab-action">Reveal meaning</span></button>
+                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">🔗</span><strong>therefore</strong><span class="vocab-sentence">Waste is high; therefore we propose a short paid pilot.</span><span class="vocab-meaning"><strong>Conjunction</strong> — for that reason. It connects a cause to a business decision.</span><span class="vocab-action">Reveal meaning</span></button>
+                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">📌</span><strong>regarding</strong><span class="vocab-sentence">Regarding the go-live date, we can start in the first week of October.</span><span class="vocab-meaning"><strong>Preposition</strong> — about / concerning. Common in emails and proposals.</span><span class="vocab-action">Reveal meaning</span></button>
+                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">🛠️</span><strong>implementation</strong><span class="vocab-sentence">Implementation will take four weeks after the contract is signed.</span><span class="vocab-meaning"><strong>Noun</strong> — the process of putting a plan into action. Verb: <em>implement</em>.</span><span class="vocab-action">Reveal meaning</span></button>
+                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">📦</span><strong>deliver</strong><span class="vocab-sentence">We will deliver a weekly dashboard and a mid-pilot review.</span><span class="vocab-meaning"><strong>Verb</strong> — to provide a result, product, or service. Noun: <em>delivery</em>.</span><span class="vocab-action">Reveal meaning</span></button>
+                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">💰</span><strong>cost-effective</strong><span class="vocab-sentence">A 12-week pilot is a cost-effective way to test the model.</span><span class="vocab-meaning"><strong>Adjective</strong> — good value for the money. It describes a noun: a <em>cost-effective</em> way.</span><span class="vocab-action">Reveal meaning</span></button>
+                <button class="vocab-card" type="button" onclick="toggleVocabCard(this)"><span class="vocab-icon">⏱️</span><strong>promptly</strong><span class="vocab-sentence">We will respond promptly to any data-quality questions.</span><span class="vocab-meaning"><strong>Adverb</strong> — quickly and without delay. Adjective: <em>prompt</em>.</span><span class="vocab-action">Reveal meaning</span></button>
               </div>
 
               <div class="exercise static-quiz" style="margin-top:18px;">
                 <h5><span class="ex-badge">Practice</span> Vocabulary in Context</h5>
-                <p>Choose the best expression for each situation.</p>
-                <div id="lesson5VocabQuiz">
+                <p>Choose the best word for each proposal situation. Watch the part of speech the sentence needs.</p>
+                <div id="lesson7VocabQuiz">
                   <div class="q-block" data-answer="1">
-                    <strong>1. The trial run will not happen on the original date. Production decided to ______.</strong>
-                    <label class="option-btn"><input type="radio" name="l5v1" value="0"> share an update</label>
-                    <label class="option-btn"><input type="radio" name="l5v1" value="1"> push back the date</label>
-                    <label class="option-btn"><input type="radio" name="l5v1" value="2"> start late</label>
+                    <strong>1. Priya asked you to send Meridian a two-page ______ by Thursday.</strong>
+                    <label class="option-btn"><input type="radio" name="l7v1" value="0"> propose</label>
+                    <label class="option-btn"><input type="radio" name="l7v1" value="1"> proposal</label>
+                    <label class="option-btn"><input type="radio" name="l7v1" value="2"> proposed</label>
                   </div>
                   <div class="q-block" data-answer="0">
-                    <strong>2. Someone must be responsible for the foam delivery dates. You need to ______.</strong>
-                    <label class="option-btn"><input type="radio" name="l5v2" value="0"> assign an owner</label>
-                    <label class="option-btn"><input type="radio" name="l5v2" value="1"> start late</label>
-                    <label class="option-btn"><input type="radio" name="l5v2" value="2"> raise a concern only</label>
+                    <strong>2. In the call we said: “We ______ a 12-week pilot in two sites.”</strong>
+                    <label class="option-btn"><input type="radio" name="l7v2" value="0"> recommend</label>
+                    <label class="option-btn"><input type="radio" name="l7v2" value="1"> recommendation</label>
+                    <label class="option-btn"><input type="radio" name="l7v2" value="2"> recommendedly</label>
                   </div>
                   <div class="q-block" data-answer="2">
-                    <strong>3. After the meeting you send a short summary email. You ______.</strong>
-                    <label class="option-btn"><input type="radio" name="l5v3" value="0"> push back the trial</label>
-                    <label class="option-btn"><input type="radio" name="l5v3" value="1"> assign an owner in the room</label>
-                    <label class="option-btn"><input type="radio" name="l5v3" value="2"> follow up in writing</label>
+                    <strong>3. The client needs a ______ weekly forecast, not a one-off report.</strong>
+                    <label class="option-btn"><input type="radio" name="l7v3" value="0"> reliably</label>
+                    <label class="option-btn"><input type="radio" name="l7v3" value="1"> reliability</label>
+                    <label class="option-btn"><input type="radio" name="l7v3" value="2"> reliable</label>
                   </div>
                   <div class="q-block" data-answer="1">
-                    <strong>4. The supplier mentions foam delays as a problem. He ______.</strong>
-                    <label class="option-btn"><input type="radio" name="l5v4" value="0"> agrees on next steps</label>
-                    <label class="option-btn"><input type="radio" name="l5v4" value="1"> raises a concern</label>
-                    <label class="option-btn"><input type="radio" name="l5v4" value="2"> starts late on purpose</label>
+                    <strong>4. A better model can ______ reduce leftover stock.</strong>
+                    <label class="option-btn"><input type="radio" name="l7v4" value="0"> significant</label>
+                    <label class="option-btn"><input type="radio" name="l7v4" value="1"> significantly</label>
+                    <label class="option-btn"><input type="radio" name="l7v4" value="2"> significance</label>
                   </div>
                   <div class="q-block" data-answer="0">
-                    <strong>5. Dock capacity may be affected this week. You ______ to your manager.</strong>
-                    <label class="option-btn"><input type="radio" name="l5v5" value="0"> flag the risk</label>
-                    <label class="option-btn"><input type="radio" name="l5v5" value="1"> push back the concern</label>
-                    <label class="option-btn"><input type="radio" name="l5v5" value="2"> assign the risk</label>
+                    <strong>5. ______ the start date, we can begin in the first week of October.</strong>
+                    <label class="option-btn"><input type="radio" name="l7v5" value="0"> Regarding</label>
+                    <label class="option-btn"><input type="radio" name="l7v5" value="1"> Regard</label>
+                    <label class="option-btn"><input type="radio" name="l7v5" value="2"> Regarded</label>
                   </div>
                 </div>
                 <div class="actions">
-                  <button class="btn primary" type="button" onclick="checkStaticQuiz('lesson5VocabQuiz','lesson5VocabFeedback')">Check vocabulary</button>
-                  <button class="btn ghost" type="button" onclick="resetStaticQuiz('lesson5VocabQuiz','lesson5VocabFeedback')">Reset</button>
+                  <button class="btn primary" type="button" onclick="checkStaticQuiz('lesson7VocabQuiz','lesson7VocabFeedback')">Check vocabulary</button>
+                  <button class="btn ghost" type="button" onclick="resetStaticQuiz('lesson7VocabQuiz','lesson7VocabFeedback')">Reset</button>
                 </div>
-                <p class="score-line" id="lesson5VocabFeedback" style="display:none;"></p>
+                <p class="score-line" id="lesson7VocabFeedback" style="display:none;"></p>
               </div>
             </section>
 
             <!-- GRAMMAR -->
-            <section id="lesson5-grammar" class="panel" role="tabpanel">
+            <section id="lesson7-grammar" class="panel" role="tabpanel">
               <div class="box tint">
-                <h4>Grammar Reference · Simple Past</h4>
-                <p>Use the Simple Past for finished actions and situations in the past — perfect for meeting debriefs and incident reports.</p>
+                <h4>Grammar Reference · Parts of Speech</h4>
+                <p>A part of speech is the <strong>job</strong> a word does in the sentence. In proposals and TOEIC, the gap often needs the same idea in a <strong>different word class</strong>.</p>
               </div>
               <div class="grid-3" style="margin-top:16px;">
-                <div class="phrase"><strong>Affirmative</strong><span>Subject + past form<br>The meeting <em>started</em> late.<br>We <em>discussed</em> the bottleneck.</span></div>
-                <div class="phrase"><strong>Negative</strong><span>didn’t + base form<br>They <em>didn’t assign</em> an owner.<br>We <em>didn’t agree</em> on next steps.</span></div>
-                <div class="phrase"><strong>Questions</strong><span>Did + subject + base form<br><em>Did</em> packaging <em>share</em> an update?<br>When <em>did</em> the meeting <em>start</em>?</span></div>
+                <div class="phrase"><strong>Content words</strong><span><strong>Noun</strong> names a thing: proposal, client, implementation<br><strong>Verb</strong> shows action: recommend, deliver, reduce<br><strong>Adjective</strong> describes a noun: reliable, cost-effective<br><strong>Adverb</strong> describes a verb or adjective: significantly, promptly</span></div>
+                <div class="phrase"><strong>Linking words</strong><span><strong>Pronoun</strong> replaces a noun: we, they, this<br><strong>Preposition</strong> shows relation: regarding, during, within<br><strong>Conjunction</strong> connects ideas: and, but, therefore, because<br><strong>Determiner</strong> points to a noun: a, the, our, each, this</span></div>
+                <div class="phrase"><strong>Quick test</strong><span>Ask: Does this slot need a <em>thing</em>, an <em>action</em>, a <em>description</em>, or a <em>link</em>? Then pick that class.</span></div>
               </div>
               <div class="box" style="margin-top:16px;">
-                <h4>Time markers</h4>
-                <p>yesterday · last week · after the call · in the end · at the start · during the meeting · an hour ago · on Monday</p>
+                <h4>Same family, different job</h4>
+                <p><strong>propose</strong> (verb) · <strong>proposal</strong> (noun) · <strong>proposed</strong> (adjective)</p>
+                <p><strong>recommend</strong> (verb) · <strong>recommendation</strong> (noun)</p>
+                <p><strong>reliable</strong> (adjective) · <strong>reliably</strong> (adverb) · <strong>reliability</strong> (noun)</p>
+                <p><strong>implement</strong> (verb) · <strong>implementation</strong> (noun)</p>
+                <p><strong>decide</strong> (verb) · <strong>decision</strong> (noun)</p>
+                <p><strong>professional</strong> (adjective) · <strong>professionally</strong> (adverb)</p>
+                <p><strong>significant</strong> (adjective) · <strong>significantly</strong> (adverb) · <strong>significance</strong> (noun)</p>
+                <p><strong>prompt</strong> (adjective) · <strong>promptly</strong> (adverb)</p>
               </div>
               <div class="box" style="margin-top:16px;">
-                <h4>-ed pronunciation (regular verbs)</h4>
-                <div class="grid-3" style="margin-top:10px;">
-                  <div class="phrase"><strong>/t/</strong><span>After unvoiced sounds (p, k, f, s, sh, ch…)<br><em>missed · pushed · asked</em></span></div>
-                  <div class="phrase"><strong>/d/</strong><span>After voiced sounds / vowels<br><em>shared · raised · assigned · confirmed · emailed · flagged · arrived</em></span></div>
-                  <div class="phrase"><strong>/ɪd/</strong><span>After final <strong>t</strong> or <strong>d</strong><br><em>started · noted · needed · interrupted · decided</em></span></div>
-                </div>
-                <p style="margin-top:12px;"><strong>Tip:</strong> Do not add an extra syllable on /t/ and /d/. <em>finished</em> is not “finish-ed-ed”.</p>
-              </div>
-              <div class="box" style="margin-top:16px;">
-                <h4>Useful irregulars (mini set)</h4>
-                <p>was / were · had · went · said · left · took · told · made</p>
-                <p style="margin-top:8px;"><strong>Example:</strong> The trial run <em>was</em> delayed. We <em>had</em> incomplete numbers on the dashboard.</p>
-              </div>
-              <div class="box" style="margin-top:16px;">
-                <h4>Connection with Lesson 04</h4>
-                <p><strong>Simple Present:</strong> routines and facts now — <em>We open the dock at 7:30 every day.</em></p>
-                <p><strong>Simple Past:</strong> what happened once — <em>Yesterday the meeting started late.</em></p>
+                <h4>How the slot tells you the class</h4>
+                <p><strong>a / the / our + ______</strong> → usually a <em>noun</em>: a proposal · the implementation · our recommendation</p>
+                <p><strong>We / They + ______</strong> → usually a <em>verb</em>: We recommend · They deliver · We propose</p>
+                <p><strong>a ______ + noun</strong> → usually an <em>adjective</em>: a reliable forecast · a cost-effective pilot</p>
+                <p><strong>verb + ______</strong> → often an <em>adverb</em>: reduce significantly · respond promptly</p>
               </div>
               <div class="box" style="margin-top:16px;">
                 <h4>Common mistakes</h4>
-                <p><strong>Not:</strong> Yesterday we start late. → <strong>Correct:</strong> Yesterday we <em>started</em> late.</p>
-                <p><strong>Not:</strong> Did they finished the update? → <strong>Correct:</strong> Did they <em>finish</em> the update?</p>
-                <p><strong>Not:</strong> We didn’t assigned an owner. → <strong>Correct:</strong> We didn’t <em>assign</em> an owner.</p>
+                <p><strong>Not:</strong> Please send a propose. → <strong>Correct:</strong> Please send a <em>proposal</em>.</p>
+                <p><strong>Not:</strong> We recommendation a pilot. → <strong>Correct:</strong> We <em>recommend</em> a pilot.</p>
+                <p><strong>Not:</strong> The system works reliable. → <strong>Correct:</strong> The system works <em>reliably</em>.</p>
+                <p><strong>Not:</strong> We need a implement in October. → <strong>Correct:</strong> We need <em>implementation</em> in October. / We will <em>implement</em> it in October.</p>
+                <p><strong>Not:</strong> This will significant reduce waste. → <strong>Correct:</strong> This will <em>significantly</em> reduce waste.</p>
               </div>
             </section>
 
             <!-- PRACTICE -->
-            <section id="lesson5-practice" class="panel" role="tabpanel">
+            <section id="lesson7-practice" class="panel" role="tabpanel">
               <div class="box tint">
-                <h4>Practice · Simple Past + -ed sounds</h4>
-                <p>Check accuracy first, then sort pronunciation, then write to your manager.</p>
+                <h4>Practice · Choose the Right Word Class</h4>
+                <p>Pick the form that fits the grammar slot. Then write a short professional proposal line.</p>
               </div>
 
-              <div class="exercise open" id="lesson5-card-1">
-                <button type="button" class="exercise-header" onclick="togglePracticeCard('lesson5-card-1')">
-                  <div class="exercise-header-left"><span class="exercise-number">1</span><div><h5>Choose the Correct Form</h5><p>Simple Past form and structure.</p></div></div>
+              <div class="exercise open" id="lesson7-card-1">
+                <button type="button" class="exercise-header" onclick="togglePracticeCard('lesson7-card-1')">
+                  <div class="exercise-header-left"><span class="exercise-number">1</span><div><h5>Choose the Correct Form</h5><p>Part-of-speech accuracy (TOEIC style).</p></div></div>
                   <span class="chevron-icon">v</span>
                 </button>
                 <div class="exercise-body">
-                  <div class="static-quiz" id="lesson5GrammarQuiz">
-                    <div class="q-block" data-answer="1">
-                      <strong>1. The meeting ______ almost fifteen minutes late.</strong>
-                      <label class="option-btn"><input type="radio" name="l5g1" value="0"> start</label>
-                      <label class="option-btn"><input type="radio" name="l5g1" value="1"> started</label>
-                      <label class="option-btn"><input type="radio" name="l5g1" value="2"> starting</label>
+                  <div class="static-quiz" id="lesson7GrammarQuiz">
+                    <div class="q-block" data-answer="2">
+                      <strong>1. Thank you for the meeting. Please find our ______ attached.</strong>
+                      <label class="option-btn"><input type="radio" name="l7g1" value="0"> propose</label>
+                      <label class="option-btn"><input type="radio" name="l7g1" value="1"> proposing</label>
+                      <label class="option-btn"><input type="radio" name="l7g1" value="2"> proposal</label>
+                      <label class="option-btn"><input type="radio" name="l7g1" value="3"> proposed</label>
                     </div>
                     <div class="q-block" data-answer="0">
-                      <strong>2. Two suppliers ______ the prep call, so the numbers were incomplete.</strong>
-                      <label class="option-btn"><input type="radio" name="l5g2" value="0"> missed</label>
-                      <label class="option-btn"><input type="radio" name="l5g2" value="1"> miss</label>
-                      <label class="option-btn"><input type="radio" name="l5g2" value="2"> missing</label>
-                    </div>
-                    <div class="q-block" data-answer="2">
-                      <strong>3. We ______ a clear owner for the action item.</strong>
-                      <label class="option-btn"><input type="radio" name="l5g3" value="0"> didn’t assigned</label>
-                      <label class="option-btn"><input type="radio" name="l5g3" value="1"> don’t assign</label>
-                      <label class="option-btn"><input type="radio" name="l5g3" value="2"> didn’t assign</label>
+                      <strong>2. We ______ starting the pilot in two distribution centers.</strong>
+                      <label class="option-btn"><input type="radio" name="l7g2" value="0"> recommend</label>
+                      <label class="option-btn"><input type="radio" name="l7g2" value="1"> recommendation</label>
+                      <label class="option-btn"><input type="radio" name="l7g2" value="2"> recommendedly</label>
+                      <label class="option-btn"><input type="radio" name="l7g2" value="3"> recommending of</label>
                     </div>
                     <div class="q-block" data-answer="1">
-                      <strong>4. ______ packaging share a full update?</strong>
-                      <label class="option-btn"><input type="radio" name="l5g4" value="0"> Do</label>
-                      <label class="option-btn"><input type="radio" name="l5g4" value="1"> Did</label>
-                      <label class="option-btn"><input type="radio" name="l5g4" value="2"> Does</label>
-                    </div>
-                    <div class="q-block" data-answer="0">
-                      <strong>5. After the call, Elena ______ the open points and emailed a summary.</strong>
-                      <label class="option-btn"><input type="radio" name="l5g5" value="0"> noted</label>
-                      <label class="option-btn"><input type="radio" name="l5g5" value="1"> note</label>
-                      <label class="option-btn"><input type="radio" name="l5g5" value="2"> notes</label>
+                      <strong>3. The current process does not work ______ during peak weeks.</strong>
+                      <label class="option-btn"><input type="radio" name="l7g3" value="0"> reliable</label>
+                      <label class="option-btn"><input type="radio" name="l7g3" value="1"> reliably</label>
+                      <label class="option-btn"><input type="radio" name="l7g3" value="2"> reliability</label>
+                      <label class="option-btn"><input type="radio" name="l7g3" value="3"> rely</label>
                     </div>
                     <div class="q-block" data-answer="2">
-                      <strong>6. Production ______ the trial run again.</strong>
-                      <label class="option-btn"><input type="radio" name="l5g6" value="0"> push</label>
-                      <label class="option-btn"><input type="radio" name="l5g6" value="1"> pushes</label>
-                      <label class="option-btn"><input type="radio" name="l5g6" value="2"> pushed</label>
+                      <strong>4. ______ will begin four weeks after the contract is signed.</strong>
+                      <label class="option-btn"><input type="radio" name="l7g4" value="0"> Implement</label>
+                      <label class="option-btn"><input type="radio" name="l7g4" value="1"> Implemented</label>
+                      <label class="option-btn"><input type="radio" name="l7g4" value="2"> Implementation</label>
+                      <label class="option-btn"><input type="radio" name="l7g4" value="3"> Implementingly</label>
+                    </div>
+                    <div class="q-block" data-answer="1">
+                      <strong>5. This change can ______ reduce leftover stock in the first quarter.</strong>
+                      <label class="option-btn"><input type="radio" name="l7g5" value="0"> significant</label>
+                      <label class="option-btn"><input type="radio" name="l7g5" value="1"> significantly</label>
+                      <label class="option-btn"><input type="radio" name="l7g5" value="2"> significance</label>
+                      <label class="option-btn"><input type="radio" name="l7g5" value="3"> more significant reduce</label>
+                    </div>
+                    <div class="q-block" data-answer="0">
+                      <strong>6. A 12-week pilot is a ______ way to test the model before a full rollout.</strong>
+                      <label class="option-btn"><input type="radio" name="l7g6" value="0"> cost-effective</label>
+                      <label class="option-btn"><input type="radio" name="l7g6" value="1"> cost-effectively</label>
+                      <label class="option-btn"><input type="radio" name="l7g6" value="2"> cost-effectiveness</label>
+                      <label class="option-btn"><input type="radio" name="l7g6" value="3"> costing-effective</label>
                     </div>
                   </div>
                   <div class="actions">
-                    <button class="btn primary" type="button" onclick="checkStaticQuiz('lesson5GrammarQuiz','lesson5GrammarFeedback')">Check answers</button>
-                    <button class="btn ghost" type="button" onclick="resetStaticQuiz('lesson5GrammarQuiz','lesson5GrammarFeedback')">Reset</button>
+                    <button class="btn primary" type="button" onclick="checkStaticQuiz('lesson7GrammarQuiz','lesson7GrammarFeedback')">Check answers</button>
+                    <button class="btn ghost" type="button" onclick="resetStaticQuiz('lesson7GrammarQuiz','lesson7GrammarFeedback')">Reset</button>
                   </div>
-                  <p class="score-line" id="lesson5GrammarFeedback" style="display:none;"></p>
+                  <p class="score-line" id="lesson7GrammarFeedback" style="display:none;"></p>
                 </div>
               </div>
 
-              <div class="exercise" id="lesson5-card-2">
-                <button type="button" class="exercise-header" onclick="togglePracticeCard('lesson5-card-2')">
-                  <div class="exercise-header-left"><span class="exercise-number">2</span><div><h5>Sort the -ed Sound</h5><p>Choose /t/, /d/, or /ɪd/ for each past form.</p></div></div>
+              <div class="exercise" id="lesson7-card-2">
+                <button type="button" class="exercise-header" onclick="togglePracticeCard('lesson7-card-2')">
+                  <div class="exercise-header-left"><span class="exercise-number">2</span><div><h5>Professional Decision</h5><p>Choose the most precise proposal wording.</p></div></div>
                   <span class="chevron-icon">v</span>
                 </button>
                 <div class="exercise-body">
-                  <div class="static-quiz" id="lesson5SoundQuiz">
+                  <div class="static-quiz" id="lesson7DecisionQuiz">
+                    <div class="q-block" data-answer="1">
+                      <strong>1. You want to suggest a 12-week paid pilot.</strong>
+                      <label class="option-btn"><input type="radio" name="l7d1" value="0"> We recommendation a 12-week pilot.</label>
+                      <label class="option-btn"><input type="radio" name="l7d1" value="1"> We recommend a 12-week paid pilot in two distribution centers.</label>
+                      <label class="option-btn"><input type="radio" name="l7d1" value="2"> We are recommend of a pilot 12 weeks.</label>
+                    </div>
                     <div class="q-block" data-answer="2">
-                      <strong>1. started</strong>
-                      <label class="option-btn"><input type="radio" name="l5s1" value="0"> /t/</label>
-                      <label class="option-btn"><input type="radio" name="l5s1" value="1"> /d/</label>
-                      <label class="option-btn"><input type="radio" name="l5s1" value="2"> /ɪd/</label>
+                      <strong>2. You need to describe how the forecast will perform week after week.</strong>
+                      <label class="option-btn"><input type="radio" name="l7d2" value="0"> The forecast will work reliable every week.</label>
+                      <label class="option-btn"><input type="radio" name="l7d2" value="1"> The forecast will reliability every week.</label>
+                      <label class="option-btn"><input type="radio" name="l7d2" value="2"> The forecast will work reliably every week.</label>
                     </div>
                     <div class="q-block" data-answer="0">
-                      <strong>2. missed</strong>
-                      <label class="option-btn"><input type="radio" name="l5s2" value="0"> /t/</label>
-                      <label class="option-btn"><input type="radio" name="l5s2" value="1"> /d/</label>
-                      <label class="option-btn"><input type="radio" name="l5s2" value="2"> /ɪd/</label>
+                      <strong>3. You need a polite line about the start date.</strong>
+                      <label class="option-btn"><input type="radio" name="l7d3" value="0"> Regarding the start date, we can begin in the first week of October.</label>
+                      <label class="option-btn"><input type="radio" name="l7d3" value="1"> Regard the start date, we begin October first week.</label>
+                      <label class="option-btn"><input type="radio" name="l7d3" value="2"> Regarding to start, we can October.</label>
                     </div>
                     <div class="q-block" data-answer="1">
-                      <strong>3. shared</strong>
-                      <label class="option-btn"><input type="radio" name="l5s3" value="0"> /t/</label>
-                      <label class="option-btn"><input type="radio" name="l5s3" value="1"> /d/</label>
-                      <label class="option-btn"><input type="radio" name="l5s3" value="2"> /ɪd/</label>
-                    </div>
-                    <div class="q-block" data-answer="0">
-                      <strong>4. pushed</strong>
-                      <label class="option-btn"><input type="radio" name="l5s4" value="0"> /t/</label>
-                      <label class="option-btn"><input type="radio" name="l5s4" value="1"> /d/</label>
-                      <label class="option-btn"><input type="radio" name="l5s4" value="2"> /ɪd/</label>
-                    </div>
-                    <div class="q-block" data-answer="1">
-                      <strong>5. raised</strong>
-                      <label class="option-btn"><input type="radio" name="l5s5" value="0"> /t/</label>
-                      <label class="option-btn"><input type="radio" name="l5s5" value="1"> /d/</label>
-                      <label class="option-btn"><input type="radio" name="l5s5" value="2"> /ɪd/</label>
-                    </div>
-                    <div class="q-block" data-answer="2">
-                      <strong>6. noted</strong>
-                      <label class="option-btn"><input type="radio" name="l5s6" value="0"> /t/</label>
-                      <label class="option-btn"><input type="radio" name="l5s6" value="1"> /d/</label>
-                      <label class="option-btn"><input type="radio" name="l5s6" value="2"> /ɪd/</label>
-                    </div>
-                    <div class="q-block" data-answer="0">
-                      <strong>7. asked</strong>
-                      <label class="option-btn"><input type="radio" name="l5s7" value="0"> /t/</label>
-                      <label class="option-btn"><input type="radio" name="l5s7" value="1"> /d/</label>
-                      <label class="option-btn"><input type="radio" name="l5s7" value="2"> /ɪd/</label>
-                    </div>
-                    <div class="q-block" data-answer="2">
-                      <strong>8. needed</strong>
-                      <label class="option-btn"><input type="radio" name="l5s8" value="0"> /t/</label>
-                      <label class="option-btn"><input type="radio" name="l5s8" value="1"> /d/</label>
-                      <label class="option-btn"><input type="radio" name="l5s8" value="2"> /ɪd/</label>
+                      <strong>4. You want to connect the waste problem to your offer.</strong>
+                      <label class="option-btn"><input type="radio" name="l7d4" value="0"> Waste is high, significant we propose a pilot.</label>
+                      <label class="option-btn"><input type="radio" name="l7d4" value="1"> Waste is high; therefore we propose a short paid pilot.</label>
+                      <label class="option-btn"><input type="radio" name="l7d4" value="2"> Waste is high therefore of we proposal a pilot.</label>
                     </div>
                   </div>
                   <div class="actions">
-                    <button class="btn primary" type="button" onclick="checkStaticQuiz('lesson5SoundQuiz','lesson5SoundFeedback')">Check sounds</button>
-                    <button class="btn ghost" type="button" onclick="resetStaticQuiz('lesson5SoundQuiz','lesson5SoundFeedback')">Reset</button>
+                    <button class="btn primary" type="button" onclick="checkStaticQuiz('lesson7DecisionQuiz','lesson7DecisionFeedback')">Check decisions</button>
+                    <button class="btn ghost" type="button" onclick="resetStaticQuiz('lesson7DecisionQuiz','lesson7DecisionFeedback')">Reset</button>
                   </div>
-                  <p class="score-line" id="lesson5SoundFeedback" style="display:none;"></p>
+                  <p class="score-line" id="lesson7DecisionFeedback" style="display:none;"></p>
                 </div>
               </div>
 
-              <div class="exercise" id="lesson5-card-3">
-                <button type="button" class="exercise-header" onclick="togglePracticeCard('lesson5-card-3')">
-                  <div class="exercise-header-left"><span class="exercise-number">3</span><div><h5>Write to Your Manager</h5><p>Report yesterday’s meeting in the Simple Past.</p></div></div>
+              <div class="exercise" id="lesson7-card-3">
+                <button type="button" class="exercise-header" onclick="togglePracticeCard('lesson7-card-3')">
+                  <div class="exercise-header-left"><span class="exercise-number">3</span><div><h5>Write the Proposal Lines</h5><p>Use at least two word families from this lesson.</p></div></div>
                   <span class="chevron-icon">v</span>
                 </button>
                 <div class="exercise-body write-box">
-                  <p class="ref-intro">Write a short email to your manager (Tom). Explain what happened yesterday. Use at least <strong>six Simple Past verbs</strong>, including <strong>two</strong> from the /ɪd/ group (e.g. started, noted, needed).</p>
-                  <textarea id="lesson5WriteManager" rows="8" placeholder="Hi Tom,&#10;&#10;I am writing to report what happened in yesterday’s seat-foam project meeting.&#10;&#10;The meeting started…&#10;&#10;Best regards,&#10;Elena"></textarea>
-                  <p class="score-line" style="display:block;margin-top:10px;color:var(--muted);">Self-check: finished actions in Simple Past · didn’t + base form · professional, tense-but-calm tone.</p>
+                  <p class="ref-intro">Write 3–4 sentences to Tomás Herrera. Mention a <strong>proposal</strong> or what you <strong>recommend</strong>, one client benefit (<strong>reliable / significantly</strong>), and the <strong>implementation</strong> window.</p>
+                  <textarea id="lesson7WriteOps" rows="5" placeholder="Example: Thank you for the discovery call last Tuesday. Please find our proposal for a 12-week pilot attached. We recommend starting in two distribution centers so the forecast can work reliably during peak weeks. Implementation can begin in the first week of October."></textarea>
+                  <p class="score-line" style="display:block;margin-top:10px;color:var(--muted);">Teacher check: correct word class · polite sales tone · clear next step (pilot / implementation / reply).</p>
                 </div>
               </div>
             </section>
 
-            <!-- READING / EMAIL -->
-            <section id="lesson5-reading" class="panel" role="tabpanel">
+            <!-- READING -->
+            <section id="lesson7-reading" class="panel" role="tabpanel">
               <div class="box tint">
-                <h4>Reading · Meeting Summary Email</h4>
-                <p>Diego Morales (Junior Project Assistant) summarized yesterday’s seat-foam meeting. The email looks almost right, but it contains <strong>Simple Past errors</strong>. Click any word you think is wrong, then press <strong>Check error hunt</strong>.</p>
+                <h4>Reading · Manager Note on Your First Draft</h4>
+                <p>Read Priya’s internal note about your draft proposal. Then complete the text-completion items (same skill family as TOEIC Part 6).</p>
               </div>
 
-              <div class="email-desktop" aria-label="Email on a desktop computer screen">
-                <div class="os-bar">
-                  <div class="os-dots" aria-hidden="true"><span class="r"></span><span class="y"></span><span class="g"></span></div>
-                  <div class="os-title">Mail · AutoLine Components — Operations Inbox</div>
-                </div>
-                <div class="mail-chrome">
-                  <aside class="mail-sidebar" aria-hidden="true">
-                    <button class="compose" type="button" tabindex="-1">＋ Compose</button>
-                    <div class="folder active">Inbox <span>2</span></div>
-                    <div class="folder">Starred</div>
-                    <div class="folder">Sent</div>
-                    <div class="folder">Project foam</div>
-                  </aside>
-                  <div class="mail-main">
-                    <div class="mail-toolbar" aria-hidden="true">
-                      <span class="tool-chip">⬅ Archive</span>
-                      <span class="tool-chip">🗑 Delete</span>
-                      <span class="tool-chip">↩ Reply</span>
-                      <span class="tool-chip">→ Forward</span>
-                    </div>
-                    <div class="mail-header">
-                      <h3 class="mail-subject">Yesterday’s seat-foam project meeting — summary</h3>
-                      <div class="mail-meta-row">
-                        <div class="avatar" aria-hidden="true">DM</div>
-                        <div>
-                          <p class="from-line">Diego Morales <span>&lt;d.morales@autoline-parts.com&gt;</span></p>
-                          <p class="to-line">to Operations Team · cc Elena Ruiz; Marcus Chen</p>
-                        </div>
-                        <div class="mail-time">Wed 08:42</div>
-                      </div>
-                    </div>
-                    <div class="mail-body" id="lesson5EmailBody">
-                      <p>Dear team,</p>
-                      <p>I am writing to summarize yesterday’s project meeting about the seat-foam supply for the trial run.</p>
-                      <p>The meeting <span class="error-word" data-fix="started" tabindex="0" role="button">start</span> almost fifteen minutes late. Two suppliers <span class="error-word" data-fix="missed" tabindex="0" role="button">miss</span> the prep call, so we did not <span class="error-word" data-fix="have" tabindex="0" role="button">had</span> clean numbers on the dashboard. Only the packaging team <span class="error-word" data-fix="shared" tabindex="0" role="button">share</span> a full update. The seat-supplier lead <span class="error-word" data-fix="raised" tabindex="0" role="button">raise</span> a concern about foam delays, but he did not <span class="error-word" data-fix="clarify" tabindex="0" role="button">clarified</span> the new delivery window.</p>
-                      <p>The discussion about the launch timeline was tense. Production <span class="error-word" data-fix="pushed" tabindex="0" role="button">push</span> back the trial run again. Elena <span class="error-word" data-fix="asked" tabindex="0" role="button">ask</span> for a clear owner, but nobody <span class="error-word" data-fix="assigned" tabindex="0" role="button">assign</span> one. We <span class="error-word" data-fix="discussed" tabindex="0" role="button">discuss</span> the bottleneck for ten minutes and we did not <span class="error-word" data-fix="agree" tabindex="0" role="button">agreed</span> on next steps.</p>
-                      <p>In the end, we only <span class="error-word" data-fix="confirmed" tabindex="0" role="button">confirm</span> a follow-up for Friday. After the call, Elena <span class="error-word" data-fix="noted" tabindex="0" role="button">note</span> the open points and <span class="error-word" data-fix="emailed" tabindex="0" role="button">email</span> a short summary to the group. She also <span class="error-word" data-fix="flagged" tabindex="0" role="button">flag</span> the risk to inbound logistics this morning.</p>
-                      <p>Please review and reply if I missed anything.</p>
-                      <p>Best regards,<br>Diego Morales<br>Junior Project Assistant<br>AutoLine Components</p>
-                    </div>
-                    <div class="mail-footer-bar">Secure message · AutoLine Mail · Internal use only</div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="error-legend">
-                <span><strong>How to play:</strong> mark suspect words (gold). Correct hits turn teal; false marks turn red after Check.</span>
-                <span id="lesson5ErrorCount">Marked: 0</span>
-              </div>
-
-              <div class="actions" style="margin-top:12px;">
-                <button class="btn primary" type="button" onclick="checkEmailErrors()">Check error hunt</button>
-                <button class="btn gold" type="button" onclick="revealEmailCorrections()">Show corrections</button>
-                <button class="btn ghost" type="button" onclick="resetEmailErrors()">Reset</button>
-              </div>
-              <p class="score-line" id="lesson5EmailFeedback" style="display:none;"></p>
-
-              <div class="corrected-email" id="lesson5CorrectedEmail">
-                <div class="box" style="margin-top:8px;">
-                  <h4>Corrected version</h4>
-                  <p><strong>Subject:</strong> Yesterday’s seat-foam project meeting — summary</p>
-                  <p>Dear team,</p>
-                  <p>I am writing to summarize yesterday’s project meeting about the seat-foam supply for the trial run.</p>
-                  <p>The meeting <strong>started</strong> almost fifteen minutes late. Two suppliers <strong>missed</strong> the prep call, so we did not <strong>have</strong> clean numbers on the dashboard. Only the packaging team <strong>shared</strong> a full update. The seat-supplier lead <strong>raised</strong> a concern about foam delays, but he did not <strong>clarify</strong> the new delivery window.</p>
-                  <p>The discussion about the launch timeline was tense. Production <strong>pushed</strong> back the trial run again. Elena <strong>asked</strong> for a clear owner, but nobody <strong>assigned</strong> one. We <strong>discussed</strong> the bottleneck for ten minutes and we did not <strong>agree</strong> on next steps.</p>
-                  <p>In the end, we only <strong>confirmed</strong> a follow-up for Friday. After the call, Elena <strong>noted</strong> the open points and <strong>emailed</strong> a short summary to the group. She also <strong>flagged</strong> the risk to inbound logistics this morning.</p>
-                  <p>Please review and reply if I missed anything.</p>
-                  <p>Best regards,<br>Diego Morales<br>Junior Project Assistant<br>AutoLine Components</p>
-                </div>
+              <div class="box" style="margin-top:8px;">
+                <p style="color:var(--muted);font-size:0.85rem;font-weight:800;margin-bottom:8px;">HELIX ANALYTICS · Internal · Priya Shah, Sales Manager</p>
+                <p><strong>Subject:</strong> Re: Meridian Foods — draft proposal (need a rewrite before we send)</p>
+                <p style="margin-top:12px;line-height:1.7;">Hi,</p>
+                <p style="line-height:1.7;">Thanks for turning the discovery notes into a first draft so quickly. The commercial idea is right: a 12-week paid pilot in two distribution centers, with a weekly dashboard and a mid-pilot review. Do not send this version to Tomás yet.</p>
+                <p style="line-height:1.7;">The problem is word class, not the offer. “Please find our propose attached” needs the noun <strong>proposal</strong>. “We recommendation a pilot” needs the verb <strong>recommend</strong>. “The forecast will work reliable” needs the adverb <strong>reliably</strong>. “This will significant reduce waste” needs <strong>significantly</strong>. Tomás will read the first page in three minutes; sloppy forms make the whole offer look weak.</p>
+                <p style="line-height:1.7;">Keep the numbers we discussed: leftover stock is currently high, so a better forecast should <strong>significantly</strong> reduce waste. <strong>Implementation</strong> can start in the first week of October if they sign this month. Promise a <strong>prompt</strong> response to data questions — or say we will respond <strong>promptly</strong>. Those are two different jobs in the sentence.</p>
+                <p style="line-height:1.7;"><strong>Regarding</strong> price, keep the pilot fee on page two. End with a clear next step: a 20-minute call on Friday to confirm sites. Rewrite the opening and send it back to me this afternoon.</p>
+                <p style="line-height:1.7;">Thanks,<br>Priya</p>
               </div>
 
               <div class="exercise static-quiz" style="margin-top:18px;">
-                <h5><span class="ex-badge">Comprehension</span> After you read</h5>
-                <p>Answer based on the corrected meaning of the email.</p>
-                <div id="lesson5ReadingQuiz">
+                <h5><span class="ex-badge">Comprehension</span> Text completion</h5>
+                <p>Choose the form that best fits each idea from Priya’s note.</p>
+                <div id="lesson7ReadingQuiz">
                   <div class="q-block" data-answer="1">
-                    <strong>1. Why were the dashboard numbers incomplete?</strong>
-                    <label class="option-btn"><input type="radio" name="l5r1" value="0"> Elena forgot the report</label>
-                    <label class="option-btn"><input type="radio" name="l5r1" value="1"> Two suppliers missed the prep call</label>
-                    <label class="option-btn"><input type="radio" name="l5r1" value="2"> The trial run was cancelled forever</label>
+                    <strong>1. Priya says “our propose” is wrong. The attachment should be called a ______.</strong>
+                    <label class="option-btn"><input type="radio" name="l7r1" value="0"> propose</label>
+                    <label class="option-btn"><input type="radio" name="l7r1" value="1"> proposal</label>
+                    <label class="option-btn"><input type="radio" name="l7r1" value="2"> proposing</label>
                   </div>
                   <div class="q-block" data-answer="0">
-                    <strong>2. Who shared a full update?</strong>
-                    <label class="option-btn"><input type="radio" name="l5r2" value="0"> The packaging team</label>
-                    <label class="option-btn"><input type="radio" name="l5r2" value="1"> Both suppliers on the prep call</label>
-                    <label class="option-btn"><input type="radio" name="l5r2" value="2"> Only Marcus Chen</label>
+                    <strong>2. “We recommendation a pilot” is wrong because the slot needs a ______.</strong>
+                    <label class="option-btn"><input type="radio" name="l7r2" value="0"> verb (recommend)</label>
+                    <label class="option-btn"><input type="radio" name="l7r2" value="1"> adjective (recommended)</label>
+                    <label class="option-btn"><input type="radio" name="l7r2" value="2"> adverb (recommendedly)</label>
                   </div>
                   <div class="q-block" data-answer="2">
-                    <strong>3. What did production do about the trial run?</strong>
-                    <label class="option-btn"><input type="radio" name="l5r3" value="0"> Confirmed the original date</label>
-                    <label class="option-btn"><input type="radio" name="l5r3" value="1"> Assigned Elena as owner</label>
-                    <label class="option-btn"><input type="radio" name="l5r3" value="2"> Pushed back the trial run again</label>
+                    <strong>3. After <em>work</em>, Priya wants the adverb ______.</strong>
+                    <label class="option-btn"><input type="radio" name="l7r3" value="0"> reliable</label>
+                    <label class="option-btn"><input type="radio" name="l7r3" value="1"> reliability</label>
+                    <label class="option-btn"><input type="radio" name="l7r3" value="2"> reliably</label>
                   </div>
                   <div class="q-block" data-answer="1">
-                    <strong>4. What was decided at the end of the meeting?</strong>
-                    <label class="option-btn"><input type="radio" name="l5r4" value="0"> A new supplier contract</label>
-                    <label class="option-btn"><input type="radio" name="l5r4" value="1"> A follow-up for Friday</label>
-                    <label class="option-btn"><input type="radio" name="l5r4" value="2"> Immediate plant shutdown</label>
+                    <strong>4. The process of putting the plan into action is ______.</strong>
+                    <label class="option-btn"><input type="radio" name="l7r4" value="0"> implement</label>
+                    <label class="option-btn"><input type="radio" name="l7r4" value="1"> implementation</label>
+                    <label class="option-btn"><input type="radio" name="l7r4" value="2"> implemented</label>
                   </div>
                   <div class="q-block" data-answer="0">
-                    <strong>5. What did Elena do after the call?</strong>
-                    <label class="option-btn"><input type="radio" name="l5r5" value="0"> Noted open points, emailed a summary, and flagged inbound risk</label>
-                    <label class="option-btn"><input type="radio" name="l5r5" value="1"> Cancelled Friday’s follow-up</label>
-                    <label class="option-btn"><input type="radio" name="l5r5" value="2"> Left the company</label>
+                    <strong>5. What next step should the rewrite include?</strong>
+                    <label class="option-btn"><input type="radio" name="l7r5" value="0"> A 20-minute call on Friday to confirm sites</label>
+                    <label class="option-btn"><input type="radio" name="l7r5" value="1"> An invoice dispute with Accounts Payable</label>
+                    <label class="option-btn"><input type="radio" name="l7r5" value="2"> A booth at an international trade fair</label>
                   </div>
                 </div>
                 <div class="actions">
-                  <button class="btn primary" type="button" onclick="checkStaticQuiz('lesson5ReadingQuiz','lesson5ReadingFeedback')">Check reading</button>
-                  <button class="btn ghost" type="button" onclick="resetStaticQuiz('lesson5ReadingQuiz','lesson5ReadingFeedback')">Reset</button>
+                  <button class="btn primary" type="button" onclick="checkStaticQuiz('lesson7ReadingQuiz','lesson7ReadingFeedback')">Check reading</button>
+                  <button class="btn ghost" type="button" onclick="resetStaticQuiz('lesson7ReadingQuiz','lesson7ReadingFeedback')">Reset</button>
                 </div>
-                <p class="score-line" id="lesson5ReadingFeedback" style="display:none;"></p>
+                <p class="score-line" id="lesson7ReadingFeedback" style="display:none;"></p>
+              </div>
+
+              <div class="exercise write-box" style="margin-top:16px;">
+                <h5><span class="ex-badge">Writing</span> Your rewrite to Priya</h5>
+                <p>Write the opening of the client proposal (6–8 lines). Use at least three correct word forms from this lesson. This version is what Priya will send to Tomás.</p>
+                <textarea id="lesson7RewriteEmail" rows="8" placeholder="Dear Mr. Herrera,&#10;Thank you for the discovery call last Tuesday. Please find our proposal for a 12-week demand-forecasting pilot attached.&#10;We recommend…&#10;Implementation can begin…&#10;Regarding next steps…&#10;Kind regards,"></textarea>
               </div>
             </section>
 
             <!-- LISTENING -->
-            <section id="lesson5-listening" class="panel" role="tabpanel">
+            <section id="lesson7-listening" class="panel" role="tabpanel">
               <div class="box tint">
-                <h4>Listening · Debrief with the Project Manager</h4>
-                <p>Listen to the call between <strong>Elena</strong> (Logistics Coordinator) and <strong>Marcus</strong> (Project Manager) the morning after the difficult meeting. Extract what happened in the Simple Past.</p>
-                <div class="audio-soon" id="lesson5AudioSoon">
-                  🎧 Audio coming next — record the script (Elena / Marcus) and save as <code>audio/listening.mp3</code>.
+                <h4>Listening · Coaching Call on the Draft</h4>
+                <p>Listen to a short call between you (Helix sales) and <strong>Priya Shah (Sales Manager)</strong> about the Meridian Foods proposal.</p>
+                <div class="audio-soon" id="lesson7AudioSoon">
+                  🎧 Audio coming next — record the coaching script below and save as <code>audio/listening.mp3</code>.
                 </div>
-                <audio id="lesson5ListeningAudio" controls preload="metadata" style="width:100%; margin-top:12px; display:none;">
-                  <source id="lesson5AudioSource" src="audio/listening.mp3" type="audio/mpeg">
+                <audio id="lesson7ListeningAudio" controls preload="metadata" style="width:100%; margin-top:12px; display:none;">
+                  <source id="lesson7AudioSource" src="audio/listening.mp3" type="audio/mpeg">
                   Your browser does not support the audio element.
                 </audio>
+                <div class="box" style="margin-top:14px;">
+                  <h4>Script (teacher / self-study)</h4>
+                  <p style="line-height:1.65;color:var(--ink);">“Hi, it’s Priya. I read the Meridian draft. The offer is fine: a twelve-week paid pilot in two distribution centers, starting the first week of October. But do not send this version. You wrote ‘our propose’ — that has to be the noun, proposal. You also wrote ‘we recommendation a pilot.’ Recommendation is a noun. The verb you need is recommend. And ‘the forecast will work reliable’ is wrong. Reliable is an adjective. After work, use the adverb reliably. One more: leftover stock is high, so say the model can significantly reduce waste — significantly, not significant. Keep implementation on page one and the fee on page two. Regarding next steps, ask Tomás for a twenty-minute call on Friday to confirm the two sites. Rewrite the opening and send it back to me this afternoon. Thanks.”</p>
+                </div>
               </div>
 
-              <div class="exercise write-box" style="margin-top:16px;">
+              <div class="exercise static-quiz" style="margin-top:16px;">
                 <h5><span class="ex-badge">Comprehension</span> Listening Questions</h5>
-                <p>Answer after you listen (or after you study the script when audio is not ready yet).</p>
-                <div class="q-block"><strong>1. When did the meeting start?</strong><textarea rows="2" placeholder="Write your answer..."></textarea></div>
-                <div class="q-block"><strong>2. Who shared a full status update?</strong><textarea rows="2" placeholder="Write your answer..."></textarea></div>
-                <div class="q-block"><strong>3. What concern did the seat-supplier lead raise?</strong><textarea rows="2" placeholder="Write your answer..."></textarea></div>
-                <div class="q-block"><strong>4. Did the group assign a clear owner?</strong><textarea rows="2" placeholder="Write your answer..."></textarea></div>
-                <div class="q-block"><strong>5. What did Elena do after the call?</strong><textarea rows="2" placeholder="Write your answer..."></textarea></div>
-              </div>
-
-              <div class="box" style="margin-top:16px;">
-                <h5><span class="ex-badge">Key</span> Suggested answers</h5>
-                <ol style="margin:8px 0 0 18px; line-height:1.7;">
-                  <li>Almost fifteen minutes late.</li>
-                  <li>The packaging team.</li>
-                  <li>Foam delays / unclear new delivery window.</li>
-                  <li>No.</li>
-                  <li>Noted open points, emailed a summary, and flagged inbound risk.</li>
-                </ol>
+                <p>Focus on the word-class corrections and the commercial details from the call.</p>
+                <div id="lesson7ListeningQuiz">
+                  <div class="q-block" data-answer="1">
+                    <strong>1. What does Priya say is already fine?</strong>
+                    <label class="option-btn"><input type="radio" name="l7l1" value="0"> The word class in every sentence</label>
+                    <label class="option-btn"><input type="radio" name="l7l1" value="1"> The offer: a 12-week paid pilot in two sites</label>
+                    <label class="option-btn"><input type="radio" name="l7l1" value="2"> The idea of booking a trade-fair booth</label>
+                  </div>
+                  <div class="q-block" data-answer="0">
+                    <strong>2. Why is “our propose” wrong?</strong>
+                    <label class="option-btn"><input type="radio" name="l7l2" value="0"> The slot needs the noun <em>proposal</em></label>
+                    <label class="option-btn"><input type="radio" name="l7l2" value="1"> The slot needs the adverb <em>proposedly</em></label>
+                    <label class="option-btn"><input type="radio" name="l7l2" value="2"> The client asked for no documents</label>
+                  </div>
+                  <div class="q-block" data-answer="2">
+                    <strong>3. After the verb <em>work</em>, which form does Priya want?</strong>
+                    <label class="option-btn"><input type="radio" name="l7l3" value="0"> reliable</label>
+                    <label class="option-btn"><input type="radio" name="l7l3" value="1"> reliability</label>
+                    <label class="option-btn"><input type="radio" name="l7l3" value="2"> reliably</label>
+                  </div>
+                  <div class="q-block" data-answer="1">
+                    <strong>4. What next step should the rewrite ask for?</strong>
+                    <label class="option-btn"><input type="radio" name="l7l4" value="0"> Immediate full rollout in every plant</label>
+                    <label class="option-btn"><input type="radio" name="l7l4" value="1"> A 20-minute Friday call to confirm the two sites</label>
+                    <label class="option-btn"><input type="radio" name="l7l4" value="2"> A refund of the prepayment</label>
+                  </div>
+                </div>
+                <div class="actions">
+                  <button class="btn primary" type="button" onclick="checkStaticQuiz('lesson7ListeningQuiz','lesson7ListeningFeedback')">Check listening</button>
+                  <button class="btn ghost" type="button" onclick="resetStaticQuiz('lesson7ListeningQuiz','lesson7ListeningFeedback')">Reset</button>
+                </div>
+                <p class="score-line" id="lesson7ListeningFeedback" style="display:none;"></p>
               </div>
 
               <div class="exercise write-box" style="margin-top:16px;">
-                <h5><span class="ex-badge">Pronunciation</span> -ed from the call</h5>
-                <p>List five regular past verbs from the call and mark the sound: /t/, /d/, or /ɪd/.</p>
-                <textarea id="lesson5ListeningSounds" rows="5" placeholder="1. started — /ɪd/&#10;2. missed — /t/&#10;3. shared — /d/&#10;4. …&#10;5. …"></textarea>
+                <h5><span class="ex-badge">Extra</span> Word class from the audio</h5>
+                <p>Write three pairs you heard (wrong form → correct form + part of speech), e.g. propose → proposal (noun).</p>
+                <textarea id="lesson7ListeningSentences" rows="4" placeholder="1. propose → proposal (noun)&#10;2. recommendation → recommend (verb)&#10;3. reliable → reliably (adverb)"></textarea>
               </div>
 
               <div class="exercise" style="margin-top:16px;">
                 <h5><span class="ex-badge">Speaking</span> Role Play Frame</h5>
                 <div class="situation-box">
-                  <p><strong>You are Elena.</strong> Call your manager (Tom) and report yesterday’s meeting in 60–90 seconds.</p>
-                  <p><strong>Goals:</strong></p>
+                  <p><strong>You call Priya back</strong> after rewriting the opening.</p>
+                  <p><strong>Student goals:</strong></p>
                   <ul style="margin:8px 0 0 18px;line-height:1.65;">
-                    <li>Use Simple Past for the timeline</li>
-                    <li>Include at least two /ɪd/ verbs (started, noted, needed…)</li>
-                    <li>Stay tense but professional</li>
-                    <li>End with a clear request (support the escalation before Friday)</li>
+                    <li>Use at least two correct forms: <em>proposal / recommend / reliably / significantly / implementation / regarding</em></li>
+                    <li>Confirm the 12-week pilot and the October start</li>
+                    <li>Ask one clear follow-up (fee on page two, Friday call, or sites)</li>
                   </ul>
+                  <p style="margin-top:10px;"><strong>Useful frame:</strong> I rewrote the opening. We recommend a 12-week pilot so the forecast can work reliably. Implementation can start in October. Regarding next steps, shall I ask Tomás for a Friday call?</p>
                 </div>
               </div>
-
-              <div class="box" style="margin-top:16px;">
-                <h5><span class="ex-badge">Script</span> For recording / self-study</h5>
-                <p style="color:var(--muted);font-size:0.92rem;">Use this script to produce <code>audio/listening.mp3</code>. Two voices: Marcus and Elena.</p>
-                <div class="situation-box" style="margin-top:10px; white-space:pre-wrap; font-size:0.95rem; line-height:1.55;">Marcus: Elena, thanks for calling. I heard yesterday’s project meeting was rough. What happened?
-Elena: It was. The meeting started almost fifteen minutes late. Two suppliers missed the prep call, so we didn’t have clean numbers for the dashboard.
-Marcus: Did anyone share a proper status update?
-Elena: Only the packaging team shared a full update. The seat-supplier lead raised a concern about foam delays, but he didn’t clarify the new delivery window.
-Marcus: And the launch timeline?
-Elena: That’s where it got tense. Production pushed back the trial run again. I asked for a clear owner, but nobody assigned one. We discussed the bottleneck for ten minutes and still didn’t agree on next steps.
-Marcus: So nothing was decided?
-Elena: Almost nothing. In the end, we only confirmed a follow-up for Friday. After the call, I noted the open points and emailed a short summary to the group. I also flagged the risk to inbound logistics this morning.
-Marcus: Good. What do you need from me?
-Elena: I need you to support the escalation. If the foam parts arrived late last week—and they did—we can’t keep guessing. We needed firm dates yesterday, and we still don’t have them.
-Marcus: Understood. I’ll join Friday’s follow-up. Thanks for the clear report, Elena.
-Elena: Thank you, Marcus. I’ll send you the notes in five minutes.</div>
-              </div>
             </section>
-            </div><!-- /.content -->
-          </div>
+            </div><!-- /.panel-stage -->
+          </div><!-- /.lesson-body -->
         </article>
       </div>
     </div>
 
     <p style="text-align:center;color:var(--muted);font-size:0.9rem;margin:28px 0 8px;">
-      This page saves answers in this browser only. If you open it on another device, download your work first.
+      Interactive checks stay in this browser session. Writing boxes are not auto-synced across devices.
       · Israel Ventura · Business English Course Portal
     </p>
   </main>
 
   <script>
+
+
     function toggleVocabCard(card) {
       card.classList.toggle("revealed");
       const action = card.querySelector(".vocab-action");
@@ -2354,157 +2548,6 @@ Elena: Thank you, Marcus. I’ll send you the notes in five minutes.</div>
       if (feedback) { feedback.style.display = "none"; feedback.textContent = ""; }
     }
 
-    function clearHuntCheckState() {
-      document.querySelectorAll("#lesson5EmailBody .hunt-word").forEach(word => {
-        word.classList.remove("checked-hit", "checked-miss", "reveal-correct");
-      });
-    }
-
-    function updateErrorCount() {
-      const marked = document.querySelectorAll("#lesson5EmailBody .hunt-word.marked").length;
-      const el = document.getElementById("lesson5ErrorCount");
-      if (el) el.textContent = `Marked: ${marked}`;
-    }
-
-    /** Wrap every word so cursor/interaction is identical; real errors keep .error-word + data-fix. */
-    function wrapEmailHuntWords() {
-      const body = document.getElementById("lesson5EmailBody");
-      if (!body || body.dataset.huntReady === "1") return;
-
-      const tokenRe = /([A-Za-z0-9'’%.:/-]+)|(\s+)|([^\sA-Za-z0-9'’%.:/-]+)/g;
-
-      function wrapTextNode(node) {
-        const text = node.textContent;
-        if (!text || !text.trim()) return;
-        const frag = document.createDocumentFragment();
-        let match;
-        tokenRe.lastIndex = 0;
-        while ((match = tokenRe.exec(text)) !== null) {
-          if (match[1]) {
-            const span = document.createElement("span");
-            span.className = "hunt-word";
-            span.tabIndex = 0;
-            span.setAttribute("role", "button");
-            span.textContent = match[1];
-            frag.appendChild(span);
-          } else {
-            frag.appendChild(document.createTextNode(match[0]));
-          }
-        }
-        node.parentNode.replaceChild(frag, node);
-      }
-
-      function walk(parent) {
-        [...parent.childNodes].forEach(node => {
-          if (node.nodeType === Node.ELEMENT_NODE) {
-            if (node.classList && node.classList.contains("error-word")) {
-              node.classList.add("hunt-word");
-              if (!node.hasAttribute("tabindex")) node.tabIndex = 0;
-              if (!node.getAttribute("role")) node.setAttribute("role", "button");
-              return;
-            }
-            if (node.tagName === "BR") return;
-            walk(node);
-            return;
-          }
-          if (node.nodeType === Node.TEXT_NODE) wrapTextNode(node);
-        });
-      }
-
-      body.querySelectorAll("p").forEach(p => walk(p));
-      body.dataset.huntReady = "1";
-    }
-
-    function bindHuntWord(word) {
-      if (word.dataset.bound === "1") return;
-      word.dataset.bound = "1";
-      const toggle = () => {
-        if (word.classList.contains("reveal-correct")) return;
-        clearHuntCheckState();
-        word.classList.toggle("marked");
-        updateErrorCount();
-        const fb = document.getElementById("lesson5EmailFeedback");
-        if (fb) { fb.style.display = "none"; fb.textContent = ""; }
-      };
-      word.addEventListener("click", toggle);
-      word.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          toggle();
-        }
-      });
-    }
-
-    function initEmailErrors() {
-      wrapEmailHuntWords();
-      document.querySelectorAll("#lesson5EmailBody .hunt-word").forEach(bindHuntWord);
-      updateErrorCount();
-    }
-
-    function checkEmailErrors() {
-      const errors = [...document.querySelectorAll("#lesson5EmailBody .error-word")];
-      const total = errors.length;
-      const found = errors.filter(w => w.classList.contains("marked")).length;
-      const falseMarks = [...document.querySelectorAll("#lesson5EmailBody .hunt-word.marked:not(.error-word)")].length;
-      const fb = document.getElementById("lesson5EmailFeedback");
-      if (!fb) return;
-
-      document.querySelectorAll("#lesson5EmailBody .hunt-word").forEach(word => {
-        word.classList.remove("checked-hit", "checked-miss");
-        if (!word.classList.contains("marked")) return;
-        if (word.classList.contains("error-word")) word.classList.add("checked-hit");
-        else word.classList.add("checked-miss");
-      });
-
-      fb.style.display = "block";
-      if (found === total && falseMarks === 0) {
-        fb.textContent = `Excellent — you found all ${total} Simple Past errors with no false marks.`;
-        fb.style.color = "var(--teal-dark)";
-      } else {
-        const parts = [`You found ${found} of ${total} real errors.`];
-        if (falseMarks > 0) parts.push(`${falseMarks} false mark${falseMarks === 1 ? "" : "s"} (red).`);
-        if (found < total) parts.push("Check base form after did/didn’t and regular -ed endings.");
-        fb.textContent = parts.join(" ");
-        fb.style.color = "var(--navy)";
-      }
-
-      const el = document.getElementById("lesson5ErrorCount");
-      if (el) el.textContent = `Score: ${found}/${total} · false: ${falseMarks}`;
-    }
-
-    function revealEmailCorrections() {
-      document.querySelectorAll("#lesson5EmailBody .hunt-word").forEach(word => {
-        word.classList.remove("marked", "checked-hit", "checked-miss");
-        if (word.classList.contains("error-word")) {
-          word.classList.add("marked", "checked-hit", "reveal-correct");
-        }
-      });
-      updateErrorCount();
-      const total = document.querySelectorAll("#lesson5EmailBody .error-word").length;
-      const el = document.getElementById("lesson5ErrorCount");
-      if (el) el.textContent = `All ${total} errors revealed`;
-      const box = document.getElementById("lesson5CorrectedEmail");
-      if (box) box.classList.add("show");
-      const fb = document.getElementById("lesson5EmailFeedback");
-      if (fb) {
-        fb.style.display = "block";
-        fb.textContent = "Corrections revealed. Teal words were the errors (with the fix after →). Compare with the clean version below.";
-        fb.style.color = "var(--teal-dark)";
-      }
-    }
-
-    function resetEmailErrors() {
-      document.querySelectorAll("#lesson5EmailBody .hunt-word").forEach(word => {
-        word.classList.remove("marked", "checked-hit", "checked-miss", "reveal-correct");
-      });
-      updateErrorCount();
-      const box = document.getElementById("lesson5CorrectedEmail");
-      if (box) box.classList.remove("show");
-      const fb = document.getElementById("lesson5EmailFeedback");
-      if (fb) { fb.style.display = "none"; fb.textContent = ""; }
-    }
-
-    // Tabs
     document.querySelectorAll(".tab").forEach(tab => {
       tab.addEventListener("click", () => {
         const card = tab.closest(".lesson-card") || document;
@@ -2522,10 +2565,8 @@ Elena: Thank you, Marcus. I’ll send you the notes in five minutes.</div>
     });
 
     document.addEventListener("DOMContentLoaded", () => {
-      initEmailErrors();
-      // Show audio player only if file is available later
-      const audio = document.getElementById("lesson5ListeningAudio");
-      const soon = document.getElementById("lesson5AudioSoon");
+      const audio = document.getElementById("lesson7ListeningAudio");
+      const soon = document.getElementById("lesson7AudioSoon");
       if (audio) {
         fetch("audio/listening.mp3", { method: "HEAD" }).then(r => {
           if (r.ok) {
@@ -2535,6 +2576,7 @@ Elena: Thank you, Marcus. I’ll send you the notes in five minutes.</div>
         }).catch(() => {});
       }
     });
+
   </script>
 </body>
 </html>

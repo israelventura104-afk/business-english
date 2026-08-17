@@ -21,6 +21,9 @@ business-english/
   lesson-06-invoice-dispute/          # Prefixes & suffixes
     index.html
     audio/listening.mp3               # add when ready
+  lesson-07-drafting-a-client-proposal/  # Parts of speech
+    index.html
+    audio/listening.mp3               # add when recorded
   versions/                           # Archived monofile snapshots
 ```
 
@@ -34,6 +37,7 @@ business-english/
 | 04 | Updating Operations | Simple Present |
 | 05 | Project Meeting Debrief | Simple Past + -ed pronunciation |
 | 06 | Invoice Dispute | Prefixes & suffixes |
+| 07 | Drafting a Client Proposal | Parts of speech |
 
 ## Lesson tabs (same on every unit)
 
@@ -45,4 +49,5 @@ Overview · Vocabulary · Grammar Reference · Practice · Reading · Listening
 - Logo and listening audio are external files (not embedded base64).
 - When a lesson’s `audio/listening.mp3` is present, the player shows automatically; otherwise the “audio coming soon” note appears.
 - Lesson 05 is written for an automotive logistics coordinator (seat-foam project meeting debrief).
+- Lesson 07 is a B2B sales proposal (Helix Analytics → Meridian Foods). Focus: parts of speech / word class. Not a trade fair or expo.
 - Older single-file builds are kept under `versions/`.
