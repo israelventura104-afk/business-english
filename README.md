@@ -24,6 +24,9 @@ business-english/
   lesson-07-drafting-a-client-proposal/  # Parts of speech
     index.html
     audio/listening.mp3               # add when recorded
+  lesson-08-service-recovery-email/      # Parts of speech (client success)
+    index.html
+    audio/listening.mp3               # add when recorded
   versions/                           # Archived monofile snapshots
 ```
 
@@ -38,6 +41,7 @@ business-english/
 | 05 | Project Meeting Debrief | Simple Past + -ed pronunciation |
 | 06 | Invoice Dispute | Prefixes & suffixes |
 | 07 | Drafting a Client Proposal | Parts of speech |
+| 08 | Writing a Service Recovery Email | Parts of speech |
 
 ## Lesson tabs (same on every unit)
 
@@ -50,4 +54,5 @@ Overview · Vocabulary · Grammar Reference · Practice · Reading · Listening
 - When a lesson’s `audio/listening.mp3` is present, the player shows automatically; otherwise the “audio coming soon” note appears.
 - Lesson 05 is written for an automotive logistics coordinator (seat-foam project meeting debrief).
 - Lesson 07 is a B2B sales proposal (Helix Analytics → Meridian Foods). Focus: parts of speech / word class. Not a trade fair or expo.
+- Lesson 08 is a client-success recovery email (OrbitPay → Greenfield Clinics payroll incident). Focus: parts of speech / word class. Not a trade fair or expo.
 - Older single-file builds are kept under `versions/`.
